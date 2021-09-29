@@ -15,21 +15,23 @@ class CreateHasilTable extends Migration
     {
         Schema::create('hasil', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('kriteria_id')->index()->nullable();
-            $table->unsignedBigInteger('barang_id')->index()->nullable();
+            $table->bigInteger('kriteria_id')->unsigned()->index();
+            $table->bigInteger('barang_id')->unsigned()->index();
+            // $table->foreignId('kriteria_id')->constrained('criterias');
+            // $table->foreignId('barang_id')->constrained('barang');
             $table->float('nilai')->unsigned()->nullable();
             $table->timestamps();
 
-            $table->foreign('kriteria_id')
-                ->references('id')
-                ->on('criterias')
-                ->onUpdate('cascade');
+            // $table->foreign('kriteria_id')
+            //     ->references('id')
+            //     ->on('criterias')
+            //     ->onUpdate('cascade');
 
-            $table->foreign('barang_id')
-                ->references('id')
-                ->on('barang')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            // $table->foreign('barang_id')
+            //     ->references('id')
+            //     ->on('barang')
+            //     ->onUpdate('cascade')
+            //     ->onDelete('cascade');
         });
     }
 
