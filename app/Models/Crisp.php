@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Criteria extends Model
+class Crisp extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama_kriteria', 'kode_kriteria', 'attribute', 'bobot'];
+    protected $table = 'crisp';
+    protected $guarded = 'id';
 }

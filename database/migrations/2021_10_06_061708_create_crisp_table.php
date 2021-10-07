@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNormalisasiTable extends Migration
+class CreateCrispTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateNormalisasiTable extends Migration
      */
     public function up()
     {
-        Schema::create('normalisasi', function (Blueprint $table) {
+        Schema::create('crisp', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_crisp');
+            $table->integer('nilai_crisp');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateNormalisasiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('normalisasi');
+        Schema::dropIfExists('crisp');
     }
 }

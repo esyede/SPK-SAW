@@ -10,7 +10,7 @@ class KriteriaController extends Controller
 {
     public function index()
     {
-        $kriteria = Criteria::latest()->get();
+        $kriteria = Criteria::oldest()->get();
 
         return response()->json([
             'success' => true,
@@ -39,10 +39,10 @@ class KriteriaController extends Controller
         }
 
         $kriteria = Criteria::create([
-            'nama' => $request->nama,
+            'nama_kriteria' => $request->nama_kriteria,
+            'kode_kriteria' => strtoupper($request->kode_kriteria),
             'attribute' => $request->attribute,
             'bobot' => $request->bobot,
-            'kode' => $request->kode,
         ]);
 
         if ($kriteria) {
@@ -71,10 +71,10 @@ class KriteriaController extends Controller
 
         if ($kriteria) {
             $kriteria->update([
-                'nama' => $request->nama,
+                'nama_kriteria' => $request->nama_kriteria,
+                'kode_kriteria' => $request->kode_kriteria,
                 'attribute' => $request->attribute,
                 'bobot' => $request->bobot,
-                'kode' => $request->kode,
             ]);
 
             return response()->json([
@@ -112,10 +112,10 @@ class KriteriaController extends Controller
     public function validatorForm($form)
     {
         $validator = Validator::make($form->all(), [
-            'nama' => 'required',
-            'attribute' => 'required',
+            'nama_kriteria' => 'required',
+            // 'attribute' => 'required',
             'bobot' => 'required',
-            'kode' => 'required'
+            'kode_kriteria' => 'required'
         ]);
 
         return $validator;

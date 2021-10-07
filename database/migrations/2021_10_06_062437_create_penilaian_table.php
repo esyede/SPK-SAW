@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCriteriasTable extends Migration
+class CreatePenilaianTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateCriteriasTable extends Migration
      */
     public function up()
     {
-        Schema::create('criterias', function (Blueprint $table) {
+        Schema::create('penilaian', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kriteria');
-            $table->string('kode_kriteria')->nullable()->unique();
-            $table->enum('attribute', ['Benefit', 'Cost'])->nullable();
-            $table->double('bobot');
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class CreateCriteriasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('criterias');
+        Schema::dropIfExists('penilaian');
     }
 }

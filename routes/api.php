@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('/kriteria', KriteriaController::class);
+Route::resource('/siswa', SiswaController::class);
