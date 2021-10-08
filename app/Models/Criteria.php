@@ -9,5 +9,7 @@ class Criteria extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama_kriteria', 'kode_kriteria', 'attribute', 'bobot'];
+    protected $guarded = ['id'];
+    protected $primaryKey = 'kode_kriteria';
+    public $incrementing = false;
 }

@@ -67,7 +67,7 @@ class KriteriaController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $kriteria = Criteria::findOrFail($kriteria->id);
+        $kriteria = Criteria::findOrFail($kriteria->kode_kriteria);
 
         if ($kriteria) {
             $kriteria->update([
@@ -113,7 +113,7 @@ class KriteriaController extends Controller
     {
         $validator = Validator::make($form->all(), [
             'nama_kriteria' => 'required',
-            // 'attribute' => 'required',
+            'attribute' => 'nullable',
             'bobot' => 'required',
             'kode_kriteria' => 'required'
         ]);

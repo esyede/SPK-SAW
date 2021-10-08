@@ -15,7 +15,7 @@ class CreateSiswaTable extends Migration
     {
         Schema::create('siswa', function (Blueprint $table) {
             $table->id();
-            $table->string('nis');
+            $table->string('nis')->unique();
             $table->string('nama_siswa');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->date('tgl_lahir');
