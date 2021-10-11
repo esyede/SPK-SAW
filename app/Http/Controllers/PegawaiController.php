@@ -2,32 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Siswa;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class SiswaController extends Controller
+class PegawaiController extends Controller
 {
     public function index()
     {
-        $siswa = Siswa::oldest()->get();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'List data siswa',
-            'data' => $siswa
-        ], 200);
+        return view('pegawai.index', [
+            'title' => 'Pegawai',
+            'data' => Pegawai::all()
+        ]);
     }
 
-    public function show($nis)
+    public function show($no_pegawai)
     {
-        $siswa = Siswa::findOrFail($nis);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Detail siswa',
-            'data' => $siswa
-        ], 200);
+        return view('pegawai', [
+            'title' => 'Detail Pegawai',
+            'data' => Pegawai::find($no_pegawai)
+        ]);
     }
 
     public function store(Request $request)
@@ -38,30 +32,30 @@ class SiswaController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $siswa = Siswa::create([
-            'nis' => $request->nis,
-            'nama_siswa' => $request->nama_siswa,
+        $pegawai = Pegawai::create([
+            'no_pegawai' => $request->no_pegawai,
+            'nama_Pegawai' => $request->nama_Pegawai,
             'jenis_kelamin' => $request->jenis_kelamin,
             'tgl_lahir' => $request->tgl_lahir,
             'alamat' => $request->alamat,
             'no_telp' => $request->no_telp,
         ]);
 
-        if ($siswa) {
+        if ($pegawai) {
             return response()->json([
                 'success' => true,
-                'message' => 'Student created',
-                'data' => $siswa
+                'message' => 'Pegawai created',
+                'data' => $pegawai
             ], 201);
         }
 
         return response()->json([
             'success' => false,
-            'message' => 'Student failed to save',
+            'message' => 'Pegawai failed to save',
         ], 409);
     }
 
-    public function update(Request $request, Siswa $siswa)
+    public function update(Request $request, Pegawai $pegawai)
     {
         $validator = $this->validatorForm($request);
 
@@ -69,12 +63,12 @@ class SiswaController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $siswa = Siswa::findOrFail($siswa->nis);
+        $pegawai = Pegawai::findOrFail($pegawai->nis);
 
-        if ($siswa) {
-            $siswa->update([
+        if ($pegawai) {
+            $pegawai->update([
                 'nis' => $request->nis,
-                'nama_siswa' => $request->nama_siswa,
+                'nama_Pegawai' => $request->nama_Pegawai,
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'tgl_lahir' => $request->tgl_lahir,
                 'alamat' => $request->alamat,
@@ -84,7 +78,7 @@ class SiswaController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Student updated',
-                'data' => $siswa
+                'data' => $pegawai
             ], 200);
         }
 
@@ -96,10 +90,10 @@ class SiswaController extends Controller
 
     public function destroy($id)
     {
-        $siswa = Siswa::findOrFail($id);
+        $pegawai = Pegawai::findOrFail($id);
 
-        if ($siswa) {
-            $siswa->delete();
+        if ($pegawai) {
+            $pegawai->delete();
 
             return response()->json([
                 'success' => true,
@@ -116,8 +110,8 @@ class SiswaController extends Controller
     public function validatorForm($form)
     {
         $validator = Validator::make($form->all(), [
-            'nis' => 'required|unique:siswa',
-            'nama_siswa' => 'required',
+            'nis' => 'required|unique:Pegawai',
+            'nama_Pegawai' => 'required',
             'jenis_kelamin' => 'required',
             'tgl_lahir' => 'required',
             'alamat' => 'required',
