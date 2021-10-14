@@ -15,12 +15,8 @@ class CreatePegawaiTable extends Migration
     {
         Schema::create('pegawai', function (Blueprint $table) {
             $table->id();
-            $table->string('no_pegawai')->unique();
-            $table->string('nama_pegawai');
-            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
-            $table->date('tgl_lahir');
-            $table->text('alamat');
-            $table->char('no_telp');
+            $table->foreignId('user_id');
+            $table->foreignId('role_id');
             $table->timestamps();
         });
     }
