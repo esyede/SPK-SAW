@@ -24,7 +24,8 @@ class SettingController extends Controller
     public function update(UpdateGeneralSettingsRequest $request)
     {
         Setting::updateSettings($request->validated());
-        Artisan::call("env:set APP_NAME='". $request->site_title ."'");
+
+        Artisan::call("env:set APP_NAME=". $request->site_title);
 
         notify()->success('Settings Successfully Updated.','Success');
 
