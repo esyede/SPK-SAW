@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Criteria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Criteria\StoreCriteriaRequest;
 use Illuminate\Support\Facades\Validator;
 
 class KriteriaController extends Controller
@@ -20,20 +21,16 @@ class KriteriaController extends Controller
     {
         $criterias = Criteria::findOrFail($id);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Detail data Criteria',
-            'data' => $criterias
-        ], 200);
+        return view('backend.kriteria.show', compact($criterias));
     }
 
-    public function store(Request $request)
+    public function store(StoreCriteriaRequest $request)
     {
-        $validator = $this->validatorForm($request);
+        // $validator = $this->validatorForm($request);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json($validator->errors(), 400);
+        // }
 
         $criterias = Criteria::create([
             'nama_kriteria' => $request->nama_kriteria,
