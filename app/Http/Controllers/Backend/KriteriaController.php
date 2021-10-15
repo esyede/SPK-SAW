@@ -24,13 +24,14 @@ class KriteriaController extends Controller
         return view('backend.kriteria.show', compact($criterias));
     }
 
+    public function create()
+    {
+        return view('backend.kriteria.form');
+    }
+
     public function store(StoreCriteriaRequest $request)
     {
         // $validator = $this->validatorForm($request);
-
-        // if ($validator->fails()) {
-        //     return response()->json($validator->errors(), 400);
-        // }
 
         $criterias = Criteria::create([
             'nama_kriteria' => $request->nama_kriteria,
@@ -40,17 +41,10 @@ class KriteriaController extends Controller
         ]);
 
         if ($criterias) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Criteria created',
-                'data' => $criterias
-            ], 201);
-        }
+            notify()->success('Criteria sucessfully added', 'Added');
 
-        return response()->json([
-            'success' => false,
-            'message' => 'Criteria failed to save',
-        ], 409);
+            return redirect()->route('app.kriteria.index');
+        }
     }
 
     public function update(Request $request, Criteria $criterias)

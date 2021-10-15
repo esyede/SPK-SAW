@@ -20,6 +20,7 @@
         "laravel/socialite": "^5.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
+        "livewire/livewire": "^2.6",
         "spatie/laravel-backup": "^6.9",
         "spatie/laravel-medialibrary": "^8.0.0"
     },

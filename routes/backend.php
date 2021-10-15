@@ -47,6 +47,7 @@ Route::group(['as' => 'kriteria.', 'prefix' => 'kriteria'], function () {
     Route::get('/', [KriteriaController::class, 'index'])->name('index');
     Route::get('/show', [KriteriaController::class, 'show'])->name('show');
     Route::get('/create', [KriteriaController::class, 'create'])->name('create');
+    Route::get('/store', [KriteriaController::class, 'store'])->name('store');
     Route::get('/update', [KriteriaController::class, 'update'])->name('update');
 });
 
