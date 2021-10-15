@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\Backend\BackupController;
-use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\MenuBuilderController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\PageController;
-use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\RoleController;
-use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\BackupController;
+use App\Http\Controllers\Backend\PegawaiController;
+use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Backend\KriteriaController;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\MenuBuilderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +40,15 @@ Route::get('profile/', [ProfileController::class, 'index'])->name('profile.index
 Route::post('profile/', [ProfileController::class, 'update'])->name('profile.update');
 
 // Pegawai
-Route::get('pegawai', [PegawaiController::class, 'index']);
+Route::get('pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
+
+// Kriteria
+Route::group(['as' => 'kriteria.', 'prefix' => 'kriteria'], function () {
+    Route::get('/', [KriteriaController::class, 'index'])->name('index');
+    Route::get('/show', [KriteriaController::class, 'show'])->name('show');
+    Route::get('/create', [KriteriaController::class, 'create'])->name('create');
+    Route::get('/update', [KriteriaController::class, 'update'])->name('update');
+});
 
 // Security
 Route::get('profile/security', [ProfileController::class, 'changePassword'])->name('profile.password.change');

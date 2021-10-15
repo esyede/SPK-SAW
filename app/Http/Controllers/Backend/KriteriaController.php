@@ -4,29 +4,26 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Criteria;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class KriteriaController extends Controller
 {
     public function index()
     {
-        $kriteria = Criteria::oldest()->get();
+        $criterias = Criteria::latest()->get();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'List data kriteria',
-            'data' => $kriteria
-        ], 200);
+        return view('backend.kriteria.index', compact('criterias'));
     }
 
     public function show($id)
     {
-        $kriteria = Criteria::findOrFail($id);
+        $criterias = Criteria::findOrFail($id);
 
         return response()->json([
             'success' => true,
-            'message' => 'Detail data kriteria',
-            'data' => $kriteria
+            'message' => 'Detail data Criteria',
+            'data' => $criterias
         ], 200);
     }
 
@@ -38,18 +35,18 @@ class KriteriaController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $kriteria = Criteria::create([
+        $criterias = Criteria::create([
             'nama_kriteria' => $request->nama_kriteria,
             'kode_kriteria' => strtoupper($request->kode_kriteria),
             'attribute' => $request->attribute,
             'bobot' => $request->bobot,
         ]);
 
-        if ($kriteria) {
+        if ($criterias) {
             return response()->json([
                 'success' => true,
-                'message' => 'Kriteria created',
-                'data' => $kriteria
+                'message' => 'Criteria created',
+                'data' => $criterias
             ], 201);
         }
 
@@ -59,7 +56,7 @@ class KriteriaController extends Controller
         ], 409);
     }
 
-    public function update(Request $request, Criteria $kriteria)
+    public function update(Request $request, Criteria $criterias)
     {
         $validator = $this->validatorForm($request);
 
@@ -67,10 +64,10 @@ class KriteriaController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $kriteria = Criteria::findOrFail($kriteria->kode_kriteria);
+        $criterias = Criteria::findOrFail($criterias->kode_kriteria);
 
-        if ($kriteria) {
-            $kriteria->update([
+        if ($criterias) {
+            $criterias->update([
                 'nama_kriteria' => $request->nama_kriteria,
                 'kode_kriteria' => $request->kode_kriteria,
                 'attribute' => $request->attribute,
@@ -80,7 +77,7 @@ class KriteriaController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Criteria updated',
-                'data' => $kriteria
+                'data' => $criterias
             ], 200);
         }
 
@@ -92,10 +89,10 @@ class KriteriaController extends Controller
 
     public function destroy($id)
     {
-        $kriteria = Criteria::findOrFail($id);
+        $criterias = Criteria::findOrFail($id);
 
-        if ($kriteria) {
-            $kriteria->delete();
+        if ($criterias) {
+            $criterias->delete();
 
             return response()->json([
                 'success' => true,
