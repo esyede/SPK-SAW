@@ -17,8 +17,7 @@ class UserController extends Controller
         Gate::authorize('app.users.index');
 
         $users = User::getAllUsers();
-
-        return view('backend.users.index',compact('users'));
+        return view('backend.users.index', compact('users'));
     }
 
     public function create()
@@ -26,7 +25,6 @@ class UserController extends Controller
         Gate::authorize('app.users.create');
 
         $roles = Role::getForSelect();
-
         return view('backend.users.form', compact('roles'));
     }
 
@@ -44,8 +42,7 @@ class UserController extends Controller
             $user->addMedia($request->avatar)->toMediaCollection('avatar');
         }
 
-        notify()->success('User Successfully Added.', 'Added');
-
+        notify()->success('User berhasil ditambahkan');
         return redirect()->route('app.users.index');
     }
 
@@ -59,8 +56,7 @@ class UserController extends Controller
         Gate::authorize('app.users.edit');
 
         $roles = Role::all();
-
-        return view('backend.users.form', compact('roles','user'));
+        return view('backend.users.form', compact('roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -77,8 +73,7 @@ class UserController extends Controller
             $user->addMedia($request->avatar)->toMediaCollection('avatar');
         }
 
-        notify()->success('User Successfully Updated.', 'Updated');
-
+        notify()->success('User berhasil diperbarui');
         return redirect()->route('app.users.index');
     }
 
@@ -88,8 +83,7 @@ class UserController extends Controller
 
         $user->delete();
 
-        notify()->success("User Successfully Deleted", "Deleted");
-
+        notify()->success('User berhasil dihapus');
         return back();
     }
 }

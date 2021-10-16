@@ -35,23 +35,6 @@
                 </span>
     </div>
     <div class="app-header__content">
-        <div class="app-header-left">
-            <div class="search-wrapper">
-                <div class="input-holder">
-                    <input type="text" class="search-input" placeholder="Type to search">
-                    <button class="search-icon"><span></span></button>
-                </div>
-                <button class="close"></button>
-            </div>
-            <ul class="header-menu nav">
-                <li class="dropdown nav-item">
-                    <a href="{{ route('welcome') }}" class="nav-link">
-                        <i class="nav-link-icon pe-7s-shuffle"></i>
-                        Visit Site
-                    </a>
-                </li>
-            </ul>
-        </div>
         <div class="app-header-right">
             <div class="header-btn-lg pr-0">
                 <div class="widget-content p-0">

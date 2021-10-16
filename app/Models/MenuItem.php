@@ -17,7 +17,8 @@ class MenuItem extends Model
     public function childs()
     {
         return $this->hasMany(MenuItem::class, 'parent_id', 'id')
-            ->orderBy('order', 'asc');;
+            ->orderBy('order', 'asc');
+        ;
     }
 
     public function parent()
@@ -38,11 +39,11 @@ class MenuItem extends Model
             self::flushCache();
         });
 
-        static::created(function() {
+        static::created(function () {
             self::flushCache();
         });
 
-        static::deleted(function() {
+        static::deleted(function () {
             self::flushCache();
         });
     }

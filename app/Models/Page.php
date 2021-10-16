@@ -22,7 +22,7 @@ class Page extends Model implements HasMedia
 
     public static function findBySlug($slug)
     {
-        return self::where('slug',$slug)->firstOrFail();
+        return self::where('slug', $slug)->firstOrFail();
     }
 
     public function scopeActive($query)

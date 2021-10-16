@@ -20,8 +20,7 @@ class MenuController extends Controller
         Gate::authorize('app.menus.index');
 
         $menus = Menu::latest('id')->get();
-
-        return  view('backend.menus.index',compact('menus'));
+        return  view('backend.menus.index', compact('menus'));
     }
 
     public function create()
@@ -39,8 +38,7 @@ class MenuController extends Controller
             'deletable' => true
         ]);
 
-        notify()->success('Menu Successfully Added.', 'Added');
-
+        notify()->success('Menu berhasil ditambahkan');
         return redirect()->route('app.menus.index');
     }
 
@@ -58,8 +56,7 @@ class MenuController extends Controller
             'description' => $request->description,
         ]);
 
-        notify()->success('Menu Successfully Updated.', 'Updated');
-
+        notify()->success('Menu berhasil ditambahkan');
         return redirect()->route('app.menus.index');
     }
 
@@ -67,13 +64,17 @@ class MenuController extends Controller
     {
         Gate::authorize('app.menus.destroy');
 
-        if ($menu->deletable) {
-            $menu->delete();
-            notify()->success('Menu Successfully Deleted.', 'Deleted');
-        } else {
-            notify()->error('Sorry you can\'t delete system menu.', 'Error');
+        if (! $menu->deletable) {
+            notify()->error('Menu sistem tidak boleh dihapus');
+            return back();
         }
 
+        if (! $menu->delete()) {
+            notify()->error('Menu gagal dihapus');
+            return back();
+        }
+
+        notify()->success('Menu berhasil dihapus');
         return back();
     }
 
@@ -90,10 +91,15 @@ class MenuController extends Controller
         Gate::authorize('app.menus.index');
 
         foreach ($menuItems as $index => $menuItem) {
-            $item = MenuItem::findOrFail($menuItem->id);
+            $item = MenuItem::find($menuItem->id);
+
+            if (! $item) {
+                notify()->error(sprintf("Submenu '%s' tidak ditemukan", $menuItem->id));
+                return back();
+            }
+
             $item->order = $index + 1;
             $item->parent_id = $parentId;
-
             $item->save();
 
             if (isset($menuItem->children)) {

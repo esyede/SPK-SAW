@@ -11,14 +11,14 @@ class Role extends Model
 
     public static function getAllRoles()
     {
-        return Cache::rememberForever('roles.all', function() {
+        return Cache::rememberForever('roles.all', function () {
             return self::withCount('permissions')->latest('id')->get();
         });
     }
 
     public static function getForSelect()
     {
-        return Cache::rememberForever('roles.getForSelect', function() {
+        return Cache::rememberForever('roles.getForSelect', function () {
             return self::select('id', 'name')->get();
         });
     }
@@ -37,11 +37,11 @@ class Role extends Model
             self::flushCache();
         });
 
-        static::created(function() {
+        static::created(function () {
             self::flushCache();
         });
 
-        static::deleted(function() {
+        static::deleted(function () {
             self::flushCache();
         });
     }

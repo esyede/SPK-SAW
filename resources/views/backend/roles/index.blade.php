@@ -51,7 +51,7 @@
                                     @if ($role->permissions_count > 0)
                                         <span class="badge badge-info">{{ $role->permissions_count }}</span>
                                     @else
-                                        <span class="badge badge-danger">No permission found :(</span>
+                                        <span class="badge badge-danger">0</span>
                                     @endif
                                 </td>
                                 <td class="text-center">{{ $role->created_at->diffForHumans() }}</td>

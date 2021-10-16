@@ -16,17 +16,9 @@ class UpdateRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
-                'required',
-                'unique:roles,name,'.request()->route('role')->id
-            ],
-            'permissions.*' => [
-                'integer',
-            ],
-            'permissions' => [
-                'required',
-                'array',
-            ],
+            'name' => 'required|unique:roles,name,' . request()->route('role')->id,
+            'permissions.*' => 'integer',
+            'permissions' => 'required|array',
         ];
     }
 }

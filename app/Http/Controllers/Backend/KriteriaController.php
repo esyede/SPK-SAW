@@ -15,14 +15,12 @@ class KriteriaController extends Controller
     public function index()
     {
         $criterias = Criteria::latest()->get();
-
         return view('backend.kriteria.index', compact('criterias'));
     }
 
     public function show($id)
     {
         $criterias = Criteria::findOrFail($id);
-
         return view('backend.kriteria.show', compact($criterias));
     }
 
@@ -41,9 +39,9 @@ class KriteriaController extends Controller
         ]);
 
         if ($criterias) {
-            notify()->success('Criteria sucessfully added', 'Added');
+            notify()->success('Kriteria berhasil ditambahkan');
         } else {
-            notify()->failed('Failed to add criteria', 'Failed');
+            notify()->error('Gagal menambahkan kriteria');
         }
 
         return redirect()->route('app.criterias.index');
@@ -56,60 +54,48 @@ class KriteriaController extends Controller
 
     public function update(Request $request, Criteria $criteria)
     {
-        $validator = $this->validatorForm($request);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-
-        $criterias = Criteria::findOrFail($criteria->criteria_code);
-
-        if ($criterias) {
-            $criterias->update([
-                'criteria_name' => $request->criteria_name,
-                'criteria_code' => $request->criteria_code,
-            ]);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Criteria updated',
-                'data' => $criterias
-            ], 200);
-        }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Criteria not found'
-        ], 404);
-    }
-
-    public function destroy($id)
-    {
-        $criterias = Criteria::findOrFail($id);
-
-        if ($criterias) {
-            $criterias->delete();
-
-            notify()->success('Criteria deleted', 'Added');
-
-            return back();
-        }
-
-        return response()->json([
-            'success' => false,
-            'message' => 'Criteria not found'
-        ], 404);
-    }
-
-    public function validatorForm($form)
-    {
-        $validator = Validator::make($form->all(), [
+        $validator = Validator::make($request->all(), [
             'criteria_name' => 'required',
             'attribute' => 'nullable',
             'bobot' => 'required',
             'criteria_code' => 'required'
         ]);
 
-        return $validator;
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        $criterias = Criteria::find($criteria->criteria_code);
+
+        if (! $criterias) {
+            notify()->error('Kriteria tidak ditemukan');
+            return back();
+        }
+
+        $criterias->update([
+            'criteria_name' => $request->criteria_name,
+            'criteria_code' => $request->criteria_code,
+        ]);
+
+        notify()->success('Kriteria berhasil ditambahkan');
+        return back();
+    }
+
+    public function destroy($id)
+    {
+        $criteria = Criteria::find($id);
+
+        if (! $criteria) {
+            notify()->error('Kriteria tidak ditemukan');
+            return back();
+        }
+
+        if (! $criterias->delete()) {
+            notify()->error('Kriteria gagal dihapus');
+            return back();
+        }
+
+        notify()->success('Kriteria berhasil dihapus');
+        return back();
     }
 }

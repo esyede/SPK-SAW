@@ -16,8 +16,8 @@ class UpdateMenuItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|unique:menu_items,title,'.request('itemId'),
-            'url' => 'required|string|unique:menu_items,url,'.request('itemId'),
+            'title' => 'required|string|unique:menu_items,title,' . request('itemId'),
+            'url' => 'required|string|unique:menu_items,url,' . request('itemId'),
             'target' => 'required|string',
             'icon_class' => 'nullable|string',
         ];
