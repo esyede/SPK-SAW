@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Criteria;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCriteriaRequest extends FormRequest
@@ -13,6 +14,7 @@ class StoreCriteriaRequest extends FormRequest
      */
     public function authorize()
     {
+        Gate::authorize('app.kriteria.create');
         return false;
     }
 

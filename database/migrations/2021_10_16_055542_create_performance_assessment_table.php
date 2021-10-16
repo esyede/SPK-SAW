@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePenilaianTable extends Migration
+class CreatePerformanceAssessmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreatePenilaianTable extends Migration
      */
     public function up()
     {
-        Schema::create('penilaian', function (Blueprint $table) {
+        Schema::create('performance_assessment', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreatePenilaianTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penilaian');
+        Schema::dropIfExists('performance_assessment');
     }
 }

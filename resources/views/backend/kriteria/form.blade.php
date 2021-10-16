@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-md-12">
             <!-- Form Start -->
-            <form id="criteriaForm" action="{{ isset($criteria) ? route('app.kriteria.update', $criteria->id) : route('app.kriteria.store') }}">
+            <form role="form" id="criteriaForm" action="{{ isset($criteria) ? route('app.kriteria.update', $criteria->id) : route('app.kriteria.store') }}">
                 @csrf
                 @if (isset($criteria))
                     @method('PUT')
@@ -36,9 +36,18 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <h5 class="card-title">Form Data Kriteria</h5>
-                        <x-forms.textbox label="Kode Kriteria" name="kode_kriteria" value="{{ $criteria->kode_kriteria ?? '' }}" field-attributes="required"></x-forms.textbox>
+                        <x-forms.textbox label="Kode Kriteria" name="criteria_code" value="{{ $criteria->criteria_code ?? '' }}" field-attributes="required"></x-forms.textbox>
+                        <x-forms.textbox label="Nama Kriteria" name="criteria_name" value="{{ $criteria->criteria_name ?? '' }}" field-attributes="required"></x-forms.textbox>
                     </div>
                 </div>
+
+                <x-forms.button label="Reset" class="btn-danger" icon-class="fas fa-redo" on-click="resetForm('criteriaForm')"/>
+
+                @isset($criteria)
+                    <x-forms.button type="submit" label="Update" icon-class="fas fa-arrow-circle-up"/>
+                @else
+                    <x-forms.button type="submit" label="Submit" icon-class="fas fa-plus-circle"/>
+                @endisset
             </form>
         </div>
     </div>

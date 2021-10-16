@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Role;
 use App\Models\Criteria;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Criteria\StoreCriteriaRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Criteria\StoreCriteriaRequest;
 
 class KriteriaController extends Controller
 {
@@ -34,10 +36,8 @@ class KriteriaController extends Controller
         // $validator = $this->validatorForm($request);
 
         $criterias = Criteria::create([
-            'nama_kriteria' => $request->nama_kriteria,
-            'kode_kriteria' => strtoupper($request->kode_kriteria),
-            'attribute' => $request->attribute,
-            'bobot' => $request->bobot,
+            'criteria_name' => $request->criteria_name,
+            'criteria_code' => strtoupper($request->criteria_code),
         ]);
 
         if ($criterias) {
@@ -55,14 +55,12 @@ class KriteriaController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $criterias = Criteria::findOrFail($criterias->kode_kriteria);
+        $criterias = Criteria::findOrFail($criterias->criteria_code);
 
         if ($criterias) {
             $criterias->update([
-                'nama_kriteria' => $request->nama_kriteria,
-                'kode_kriteria' => $request->kode_kriteria,
-                'attribute' => $request->attribute,
-                'bobot' => $request->bobot,
+                'criteria_name' => $request->criteria_name,
+                'criteria_code' => $request->criteria_code,
             ]);
 
             return response()->json([
@@ -100,10 +98,10 @@ class KriteriaController extends Controller
     public function validatorForm($form)
     {
         $validator = Validator::make($form->all(), [
-            'nama_kriteria' => 'required',
+            'criteria_name' => 'required',
             'attribute' => 'nullable',
             'bobot' => 'required',
-            'kode_kriteria' => 'required'
+            'criteria_code' => 'required'
         ]);
 
         return $validator;
