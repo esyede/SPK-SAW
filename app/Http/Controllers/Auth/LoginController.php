@@ -56,7 +56,7 @@ class LoginController extends Controller
             'last_login_at' => now()
         ]);
         // Show greetings.
-        notify()->success("Hey $user->name, Welcome Back!",'Success');
+        notify()->success("Hey $user->name, Welcome Back!", 'Success');
     }
 
     /**
@@ -81,13 +81,12 @@ class LoginController extends Controller
         $user = Socialite::driver($provider)->user();
         // Find existing user.
         $existingUser = User::whereEmail($user->getEmail())->first();
-        if ($existingUser)
-        {
+        if ($existingUser) {
             Auth::login($existingUser);
         } else {
             // Create new user.
             $newUser = User::create([
-                'role_id' => Role::where('slug','user')->first()->id,
+                'role_id' => Role::where('slug', 'user')->first()->id,
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
                 'status' => true
@@ -98,7 +97,7 @@ class LoginController extends Controller
             }
             Auth::login($newUser);
         }
-        notify()->success('You have successfully logged in with '.ucfirst($provider).'!','Success');
+        notify()->success('You have successfully logged in with '.ucfirst($provider).'!', 'Success');
         return redirect($this->redirectPath());
     }
 
@@ -111,7 +110,6 @@ class LoginController extends Controller
     protected function loggedOut(Request $request)
     {
         // Show success msg.
-        notify()->success('You have successfully logged out!','Success');
+        notify()->success('You have successfully logged out!', 'Success');
     }
-
 }

@@ -16,8 +16,8 @@ class UpdateAppearanceRequest extends FormRequest
     public function rules()
     {
         return [
-            'site_logo' => ['nullable', 'image'],
-            'site_favicon' => ['nullable', 'image']
+            'site_logo' => 'nullable|image',
+            'site_favicon' => 'nullable|image',
         ];
     }
 }

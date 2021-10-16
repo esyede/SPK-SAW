@@ -37,7 +37,7 @@ class User extends Authenticatable implements HasMedia
 
     public static function getAllUsers()
     {
-        return Cache::rememberForever('users.all', function() {
+        return Cache::rememberForever('users.all', function () {
             return self::with('role')->latest('id')->get();
         });
     }
@@ -55,11 +55,11 @@ class User extends Authenticatable implements HasMedia
             self::flushCache();
         });
 
-        static::created(function() {
+        static::created(function () {
             self::flushCache();
         });
 
-        static::deleted(function() {
+        static::deleted(function () {
             self::flushCache();
         });
     }

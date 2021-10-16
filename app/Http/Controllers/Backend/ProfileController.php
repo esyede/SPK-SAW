@@ -31,8 +31,7 @@ class ProfileController extends Controller
             $user->addMedia($request->avatar)->toMediaCollection('avatar');
         }
 
-        notify()->success('Profile Successfully Updated.', 'Updated');
-
+        notify()->success('Profil berhasil disimpan');
         return back();
     }
 
@@ -47,24 +46,20 @@ class ProfileController extends Controller
     {
         $hashedPassword = Auth::user()->password;
 
-        if (Hash::check($request->current_password, $hashedPassword)) {
-            if (! Hash::check($request->password, $hashedPassword)) {
-                Auth::user()->update([
-                    'password' => Hash::make($request->password)
-                ]);
-
-                Auth::logout();
-
-                notify()->success('Password Successfully Changed.', 'Success');
-
-                return redirect()->route('login');
-            } else {
-                notify()->warning('New password cannot be the same as old password.', 'Warning');
-            }
-        } else {
-            notify()->error('Current password not match.', 'Error');
+        if (! Hash::check($request->current_password, Auth::user()->password)) {
+            notify()->error('Password lama salah');
+            return back();
         }
 
-        return back();
+        if (Hash::check($request->password, $hashedPassword)) {
+            notify()->error('Password baru harus berbeda dengan password lama');
+            return back();
+        }
+
+        Auth::user()->update(['password' => Hash::make($request->password)]);
+        Auth::logout();
+
+        notify()->success('Password berhasil diubah');
+        return redirect()->route('login');
     }
 }
