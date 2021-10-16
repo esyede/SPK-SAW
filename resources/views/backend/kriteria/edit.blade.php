@@ -1,7 +1,7 @@
 @extends('layouts.backend.app')
 
-@section('title', 'criteria')
-
+@section('title', 'Criteria')
+    
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -10,11 +10,11 @@
                     <i class="pe-7s-users icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>{{ __('Create Criteria') }}</div>
+                <div>{{ __('Edit Criteria') }}</div>
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
-                    <a href="{{ route('app.criterias.index') }}" class="btn-shadow btn btn-danger">
+                    <a href="{{ route('app.criteria.index') }}" class="btn-shadow btn btn-danger">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-arrow-circle-left fa-w-20"></i>
                         </span>

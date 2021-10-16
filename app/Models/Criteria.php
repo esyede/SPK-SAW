@@ -10,6 +10,4 @@ class Criteria extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $primaryKey = 'kode_kriteria';
-    public $incrementing = false;
 }

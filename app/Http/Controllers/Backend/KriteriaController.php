@@ -43,13 +43,18 @@ class KriteriaController extends Controller
         if ($criterias) {
             notify()->success('Criteria sucessfully added', 'Added');
         } else {
-            notify()->success('Failed to add criteria', 'Failed');
+            notify()->failed('Failed to add criteria', 'Failed');
         }
 
-        return redirect()->route('app.kriteria.index');
+        return redirect()->route('app.criterias.index');
     }
 
-    public function update(Request $request, Criteria $criterias)
+    public function edit(Criteria $criteria)
+    {
+        return view('backend.kriteria.edit', compact('criteria'));
+    }
+
+    public function update(Request $request, Criteria $criteria)
     {
         $validator = $this->validatorForm($request);
 
@@ -57,7 +62,7 @@ class KriteriaController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $criterias = Criteria::findOrFail($criterias->criteria_code);
+        $criterias = Criteria::findOrFail($criteria->criteria_code);
 
         if ($criterias) {
             $criterias->update([
@@ -85,10 +90,9 @@ class KriteriaController extends Controller
         if ($criterias) {
             $criterias->delete();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Criteria deleted'
-            ], 200);
+            notify()->success('Criteria deleted', 'Added');
+
+            return back();
         }
 
         return response()->json([

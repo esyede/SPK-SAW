@@ -43,13 +43,7 @@ Route::post('profile/', [ProfileController::class, 'update'])->name('profile.upd
 Route::get('pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
 
 // Kriteria
-Route::group(['as' => 'kriteria.', 'prefix' => 'kriteria'], function () {
-    Route::get('/', [KriteriaController::class, 'index'])->name('index');
-    Route::get('/show', [KriteriaController::class, 'show'])->name('show');
-    Route::get('/create', [KriteriaController::class, 'create'])->name('create');
-    Route::post('/store', [KriteriaController::class, 'store'])->name('store');
-    Route::get('/update', [KriteriaController::class, 'update'])->name('edit');
-});
+Route::resource('criterias', KriteriaController::class);
 
 // Security
 Route::get('profile/security', [ProfileController::class, 'changePassword'])->name('profile.password.change');
