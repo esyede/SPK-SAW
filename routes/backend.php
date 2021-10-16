@@ -12,6 +12,8 @@ use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\KriteriaController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MenuBuilderController;
+use App\Http\Controllers\Backend\SubCriteriaController;
+use App\Http\Controllers\Backend\GapScoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +42,7 @@ Route::get('profile/', [ProfileController::class, 'index'])->name('profile.index
 Route::post('profile/', [ProfileController::class, 'update'])->name('profile.update');
 
 // Pegawai
-Route::get('pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
+Route::get('employee', [PegawaiController::class, 'index'])->name('pegawai.index');
 
 // Kriteria
 Route::group(['as' => 'kriteria.', 'prefix' => 'kriteria'], function () {
@@ -48,6 +50,21 @@ Route::group(['as' => 'kriteria.', 'prefix' => 'kriteria'], function () {
     Route::get('/show', [KriteriaController::class, 'show'])->name('show');
     Route::get('/create', [KriteriaController::class, 'create'])->name('create');
     Route::get('/update', [KriteriaController::class, 'update'])->name('update');
+});
+
+//Sub Kriterial
+Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function(){
+    Route::get('/', [SubCriteriaController::class, 'index'])->name('index');
+});
+
+//Penilaian GAP
+Route::group(['as' => 'gap-score.', 'prefix' => 'gap-score'], function(){
+    Route::get('/', [GapScoreController::class, 'index'])->name('index');
+});
+
+//Penilaian 
+Route::group(['as' => 'rating.', 'prefix' => 'rating'], function(){
+    Route::get('/', [RatingController::class, 'index'])->name('index');
 });
 
 // Security

@@ -11,7 +11,7 @@ class PegawaiController extends Controller
 {
     public function index()
     {
-        return view('pegawai.index', [
+        return view('backend.employee.index', [
             'title' => 'Pegawai',
             'data' => User::all()
         ]);
