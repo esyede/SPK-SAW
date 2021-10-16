@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-md-12">
             <!-- Form Start -->
-            <form role="form" id="criteriaForm" action="{{ isset($criteria) ? route('app.kriteria.update', $criteria->id) : route('app.kriteria.store') }}">
+            <form role="form" id="criteriaForm" action="{{ isset($criteria) ? route('app.kriteria.update', $criteria->id) : route('app.kriteria.store') }}" method="POST">
                 @csrf
                 @if (isset($criteria))
                     @method('PUT')

@@ -51,12 +51,12 @@
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
                                                 <div class="widget-content-left flex2">
-                                                    <div class="widget-heading">{{ $criteria->nama_kriteria }}</div>
+                                                    <div class="widget-heading">{{ $criteria->criteria_name }}</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-center">{{ $criteria->kode_kriteria }}</td>
+                                    <td class="text-center">{{ $criteria->criteria_code }}</td>
                                     <td class="text-center">
                                         @if ($criteria->status)
                                             <div class="badge badge-success">Active</div>

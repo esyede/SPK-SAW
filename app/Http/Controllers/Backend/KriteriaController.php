@@ -31,9 +31,9 @@ class KriteriaController extends Controller
         return view('backend.kriteria.form');
     }
 
-    public function store(StoreCriteriaRequest $request)
+    public function store(Request $request)
     {
-        // $validator = $this->validatorForm($request);
+        Gate::authorize('app.criteria.create');
 
         $criterias = Criteria::create([
             'criteria_name' => $request->criteria_name,
@@ -42,9 +42,11 @@ class KriteriaController extends Controller
 
         if ($criterias) {
             notify()->success('Criteria sucessfully added', 'Added');
-
-            return redirect()->route('app.kriteria.index');
+        } else {
+            notify()->success('Failed to add criteria', 'Failed');
         }
+
+        return redirect()->route('app.kriteria.index');
     }
 
     public function update(Request $request, Criteria $criterias)

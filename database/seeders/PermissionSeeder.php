@@ -36,6 +36,29 @@ class PermissionSeeder extends Seeder
             'slug' => 'app.settings.update',
         ]);
 
+        // Criteria management
+        $moduleAppCriteria = Module::updateOrCreate(['name' => 'Criteria Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppCriteria->id,
+            'name' => 'Access Criteria',
+            'slug' => 'app.criteria.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppCriteria->id,
+            'name' => 'Create Criteria',
+            'slug' => 'app.criteria.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppCriteria->id,
+            'name' => 'Edit Criteria',
+            'slug' => 'app.criteria.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppCriteria->id,
+            'name' => 'Delete Criteria',
+            'slug' => 'app.criteria.destroy',
+        ]);
+
         // Profile
         $moduleAppProfile = Module::updateOrCreate(['name' => 'Profile']);
         Permission::updateOrCreate([
