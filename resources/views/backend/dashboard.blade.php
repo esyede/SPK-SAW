@@ -20,7 +20,7 @@
                 <div class="widget-content-outer">
                     <div class="widget-content-wrapper">
                         <div class="widget-content-left">
-                            <div class="widget-heading">Total Users</div>
+                            <div class="widget-heading">Total Pegawai</div>
                         </div>
                         <div class="widget-content-right">
                             <div class="widget-numbers text-success">{{ $usersCount }}</div>
@@ -75,7 +75,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-                <div class="card-header">Last Logged In Users</div>
+                <div class="card-header">Terkahir Pegawai Login</div>
                 <div class="table-responsive">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
@@ -116,7 +116,7 @@
                                 <td class="text-center">{{ $user->email }}</td>
                                 <td class="text-center">{{ $user->last_login_at }}</td>
                                 <td class="text-center">
-                                    <a class="btn btn-info btn-sm" href="{{ route('app.users.show',$user->id) }}"><i
+                                    <a class="btn btn-info btn-sm" href="{{ route('app.employess.show',$user->id) }}"><i
                                             class="fas fa-eye"></i>
                                         <span>Details</span>
                                     </a>
