@@ -16,7 +16,7 @@ class PegawaiController extends Controller
             $q->where('slug', '<>', 'admin');
         });
 
-        return view('pegawai.index', compact('title', 'data'));
+        return view('backend.employee.index', compact('title', 'data'));
     }
 
     public function show($pegawaiId)
