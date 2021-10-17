@@ -42,8 +42,6 @@ Route::get('backups/{file_name}', [BackupController::class, 'download'])->name('
 Route::get('profile/', [ProfileController::class, 'index'])->name('profile.index');
 Route::post('profile/', [ProfileController::class, 'update'])->name('profile.update');
 
-// Pegawai
-Route::get('employees', [PegawaiController::class, 'index'])->name('pegawai.index');
 
 // Kriteria
 Route::resource('criterias', KriteriaController::class);

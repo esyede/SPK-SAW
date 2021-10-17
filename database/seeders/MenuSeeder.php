@@ -18,21 +18,18 @@ class MenuSeeder extends Seeder
         $menu = Menu::updateOrCreate(['name' => 'backend-sidebar', 'description' => 'This is backend sidebar', 'deletable' => false]);
 
         MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 1, 'title' => 'Dashboard', 'url' => "/app/dashboard", 'icon_class' => 'pe-7s-rocket']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 2, 'title' => 'Roles', 'url' => "/app/roles", 'icon_class' => 'pe-7s-check']);
 
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'divider', 'parent_id' => null, 'order' => 2, 'divider_title' => 'SPK']);
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 3, 'title' => 'Criterias', 'url' => "/app/criterias", 'icon_class' => 'pe-7s-news-paper']);
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 4, 'title' => 'Sub Criteria', 'url' => "/app/sub-criteria", 'icon_class' => 'pe-7s-note2']);
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 5, 'title' => 'Nilai GAP', 'url' => "/app/gap-score", 'icon_class' => 'pe-7s-graph3']);
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 6, 'title' => 'Employees', 'url' => "/app/employees", 'icon_class' => 'pe-7s-id']);
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 7, 'title' => 'Penilaian', 'url' => "/app/rating", 'icon_class' => 'pe-7s-note']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'divider', 'parent_id' => null, 'order' => 3, 'divider_title' => 'SPK']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 4, 'title' => 'Criterias', 'url' => "/app/criterias", 'icon_class' => 'pe-7s-news-paper']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 5, 'title' => 'Sub Criteria', 'url' => "/app/sub-criteria", 'icon_class' => 'pe-7s-note2']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 6, 'title' => 'Nilai GAP', 'url' => "/app/gap-score", 'icon_class' => 'pe-7s-graph3']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 7, 'title' => 'Employees', 'url' => "/app/users", 'icon_class' => 'pe-7s-id']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 8, 'title' => 'Penilaian', 'url' => "/app/rating", 'icon_class' => 'pe-7s-note']);
 
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'divider', 'parent_id' => null, 'order' => 8, 'divider_title' => 'Access Control']);
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 9, 'title' => 'Roles', 'url' => "/app/roles", 'icon_class' => 'pe-7s-check']);
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 10, 'title' => 'Users', 'url' => "/app/users", 'icon_class' => 'pe-7s-users']);
-
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'divider', 'parent_id' => null, 'order' => 11, 'divider_title' => 'System']);
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 12, 'title' => 'Menus', 'url' => "/app/menus", 'icon_class' => 'pe-7s-menu']);
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 13, 'title' => 'Backups', 'url' => "/app/backups", 'icon_class' => 'pe-7s-cloud']);
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 14, 'title' => 'Settings', 'url' => "/app/settings/general", 'icon_class' => 'pe-7s-settings']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'divider', 'parent_id' => null, 'order' => 9, 'divider_title' => 'System']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 10, 'title' => 'Menus', 'url' => "/app/menus", 'icon_class' => 'pe-7s-menu']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 11, 'title' => 'Backups', 'url' => "/app/backups", 'icon_class' => 'pe-7s-cloud']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 12, 'title' => 'Settings', 'url' => "/app/settings/general", 'icon_class' => 'pe-7s-settings']);
     }
 }
