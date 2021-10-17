@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MenuBuilderController;
 use App\Http\Controllers\Backend\SubCriteriaController;
 use App\Http\Controllers\Backend\GapScoreController;
+use App\Http\Controllers\Backend\RatingController;
 
 /*
 |--------------------------------------------------------------------------
