@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 })->name('welcome');
 
 Auth::routes();
@@ -32,3 +32,4 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Pages route e.g. [about,contact,etc]
 Route::get('/{slug}', PageController::class)->name('page');
+
