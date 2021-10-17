@@ -13,7 +13,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        Gate::authorize('app.pages.index');
+        Gate::authorize('pages.index');
 
         $pages = Page::latest('id')->get();
         return view('backend.pages.index', compact('pages'));
@@ -21,7 +21,7 @@ class PageController extends Controller
 
     public function create()
     {
-        Gate::authorize('app.pages.create');
+        Gate::authorize('pages.create');
 
         return view('backend.pages.form');
     }
@@ -43,7 +43,7 @@ class PageController extends Controller
         }
 
         notify()->success('Halaman berhasil ditambahkan');
-        return redirect()->route('app.pages.index');
+        return redirect()->route('pages.index');
     }
 
     public function show(Page $page)
@@ -53,7 +53,7 @@ class PageController extends Controller
 
     public function edit(Page $page)
     {
-        Gate::authorize('app.pages.edit');
+        Gate::authorize('pages.edit');
 
         return view('backend.pages.form', compact('page'));
     }
@@ -75,7 +75,7 @@ class PageController extends Controller
         }
 
         notify()->success('Halaman berhasil disimpan');
-        return redirect()->route('app.pages.index');
+        return redirect()->route('pages.index');
     }
 
     public function destroy(Page $page)

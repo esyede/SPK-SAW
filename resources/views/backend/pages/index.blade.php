@@ -18,7 +18,7 @@
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
-                    <a href="{{ route('app.pages.create') }}" class="btn-shadow btn btn-info">
+                    <a href="{{ route('pages.create') }}" class="btn-shadow btn btn-info">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-plus-circle fa-w-20"></i>
                         </span>
@@ -65,7 +65,7 @@
                                 </td>
                                 <td class="text-center">{{ $page->updated_at->diffForHumans() }}</td>
                                 <td class="text-center">
-                                    <a class="btn btn-info btn-sm" href="{{ route('app.pages.edit',$page->id) }}"><i
+                                    <a class="btn btn-info btn-sm" href="{{ route('pages.edit',$page->id) }}"><i
                                             class="fas fa-edit"></i>
                                         <span>Edit</span>
                                     </a>
@@ -75,7 +75,7 @@
                                         <span>Delete</span>
                                     </button>
                                     <form id="delete-form-{{ $page->id }}"
-                                          action="{{ route('app.pages.destroy',$page->id) }}" method="POST"
+                                          action="{{ route('pages.destroy',$page->id) }}" method="POST"
                                           style="display: none;">
                                         @csrf()
                                         @method('DELETE')

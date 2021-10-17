@@ -6,12 +6,12 @@
                     <i class="fas fa-trash-alt"></i>
                     <span>Delete</span>
                 </button>
-                <form id="delete-form-{{ $item->id }}" action="{{ route('app.menus.item.destroy',['id'=>$item->menu->id,'itemId'=>$item->id]) }}"
+                <form id="delete-form-{{ $item->id }}" action="{{ route('menus.item.destroy',['id'=>$item->menu->id,'itemId'=>$item->id]) }}"
                       method="POST" style="display: none;">
                     @csrf()
                     @method('DELETE')
                 </form>
-                <a class="btn btn-sm btn-primary float-right edit" href="{{ route('app.menus.item.edit',['id'=>$item->menu->id,'itemId'=>$item->id]) }}">
+                <a class="btn btn-sm btn-primary float-right edit" href="{{ route('menus.item.edit',['id'=>$item->menu->id,'itemId'=>$item->id]) }}">
                     <i class="fas fa-edit"></i>
                     <span>Edit</span>
                 </a>

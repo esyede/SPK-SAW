@@ -9,7 +9,7 @@ class UpdateMenuItemRequest extends FormRequest
 {
     public function authorize()
     {
-        Gate::authorize('app.menus.edit');
+        Gate::authorize('menus.edit');
         return true;
     }
 

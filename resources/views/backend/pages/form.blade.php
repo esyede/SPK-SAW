@@ -18,7 +18,7 @@
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
-                    <a href="{{ route('app.pages.index') }}" class="btn-shadow btn btn-danger">
+                    <a href="{{ route('pages.index') }}" class="btn-shadow btn btn-danger">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-arrow-circle-left fa-w-20"></i>
                         </span>
@@ -33,7 +33,7 @@
         <div class="col-12">
             <!-- form start -->
             <form role="form" id="pageFrom" method="POST"
-                  action="{{ isset($page) ? route('app.pages.update',$page->id) : route('app.pages.store') }}"
+                  action="{{ isset($page) ? route('pages.update',$page->id) : route('pages.store') }}"
                   enctype="multipart/form-data">
                 @csrf
                 @isset($page)

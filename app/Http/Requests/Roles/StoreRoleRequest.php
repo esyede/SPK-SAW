@@ -9,7 +9,7 @@ class StoreRoleRequest extends FormRequest
 {
     public function authorize()
     {
-        Gate::authorize('app.roles.create');
+        Gate::authorize('roles.create');
         return true;
     }
 

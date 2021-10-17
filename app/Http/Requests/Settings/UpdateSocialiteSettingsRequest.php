@@ -9,7 +9,7 @@ class UpdateSocialiteSettingsRequest extends FormRequest
 {
     public function authorize()
     {
-        Gate::authorize('app.settings.update');
+        Gate::authorize('settings.update');
         return true;
     }
 

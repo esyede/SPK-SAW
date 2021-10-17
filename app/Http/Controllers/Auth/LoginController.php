@@ -44,6 +44,16 @@ class LoginController extends Controller
     }
 
     /**
+     * Redirect user after login.
+     *
+     * @return string
+     */
+    public function redirectTo()
+    {
+        return 'dashboard';
+    }
+
+    /**
      * The user has been authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -55,8 +65,8 @@ class LoginController extends Controller
         $user->update([
             'last_login_at' => now()
         ]);
-        // Show greetings.
-        notify()->success("Hey $user->name, Welcome Back!", 'Success');
+
+        notify()->success('Selamat datang ' . $user->name . '!');
     }
 
     /**
@@ -86,7 +96,7 @@ class LoginController extends Controller
         } else {
             // Create new user.
             $newUser = User::create([
-                'role_id' => Role::where('slug', 'user')->first()->id,
+                'role_id' => Role::where('slug', 'employee')->first()->id,
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
                 'status' => true

@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','Profile Security')
+@section('title','Ganti Password')
 
 @section('content')
     <div class="app-page-title">
@@ -10,7 +10,7 @@
                     <i class="pe-7s-lock icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>Profile Security</div>
+                <div>Ganti Password</div>
             </div>
         </div>
     </div>
@@ -18,14 +18,16 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="main-card mb-3 card">
-                <div class="card-header">UPDATE PASSWORD</div>
+                <div class="card-header">Ganti Password</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('app.profile.password.update') }}" >
+                    <form method="POST" action="{{ route('profile.password.update') }}" >
                         @csrf
 
                         <div class="form-group row">
-                            <label for="current_password" class="col-md-4 col-form-label text-md-right">{{ __('Current Password') }}</label>
+                            <label for="current_password" class="col-md-4 col-form-label text-md-right">
+                                Password saat ini
+                            </label>
 
                             <div class="col-md-6">
                                 <input id="current_password" type="password" class="form-control @error('current_password') is-invalid @enderror" name="current_password" required>
@@ -39,7 +41,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Password baru</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -53,7 +55,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Ulangi password baru</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -64,7 +66,7 @@
                         <div class="col-md-6 offset-md-4">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-arrow-circle-up"></i>
-                                <span>Update</span>
+                                <span>Simpan</span>
                             </button>
                         </div>
                     </div>

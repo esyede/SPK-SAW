@@ -31,5 +31,5 @@ Route::group(['as' => 'login.', 'prefix' => 'login', 'namespace' => 'Auth'], fun
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Pages route e.g. [about,contact,etc]
-Route::get('/{slug}', PageController::class)->name('page');
+Route::get('/pages/{slug}', PageController::class)->name('page');
 

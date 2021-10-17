@@ -9,16 +9,16 @@
 return [
     'titleColor' => '',
     'messageColor' => '',
-    'titleSize' => '14',
-    'messageSize' => '16',
-    'titleLineHeight' => '38',
-    'messageLineHeight' => '38',
+    'titleSize' => '12',
+    'messageSize' => '14',
+    'titleLineHeight' => '30',
+    'messageLineHeight' => '30',
     'transitionIn' => 'flipInX',
     'transitionOut' => 'flipOutX',
     'zindex' => null,
     'closeOnClick' => true,
     'timeout' => 5000,
     'drag' => true,
-    'position' => "bottomRight", //bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter or center.
-    'progressBar' => true,
+    'position' => 'topLeft', //bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter or center.
+    'progressBar' => false,
 ];

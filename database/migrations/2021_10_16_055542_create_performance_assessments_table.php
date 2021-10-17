@@ -4,19 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModulesTable extends Migration
+class CreatePerformanceAssessmentsTable extends Migration
 {
     public function up()
     {
-        Schema::create('modules', function (Blueprint $table) {
+        Schema::create('performance_assessments', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('modules');
+        Schema::dropIfExists('performance_assessments');
     }
 }

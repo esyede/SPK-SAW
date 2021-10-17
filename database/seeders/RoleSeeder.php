@@ -8,18 +8,25 @@ use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        $admin_permissions = Permission::all();
-        Role::updateOrCreate(['name' => 'Admin', 'slug' => 'admin', 'deletable' => false])
-            ->permissions()
-            ->sync($admin_permissions->pluck('id'));
+        // Director permissions
+        $permissions = Permission::all();
 
-        Role::updateOrCreate(['name' => 'User', 'slug' => 'user', 'deletable' => false]);
+        Role::updateOrCreate(['name' => 'Director', 'slug' => 'director', 'deletable' => false])
+            ->permissions()
+            ->sync($permissions->pluck('id'));
+
+        // Employee permissions
+        $permissions = Permission::where('slug', 'like', '%dashboard%')
+            ->orWhere('slug', 'like', '%criteria%')
+            ->orWhere('slug', 'like', '%profile%')
+            ->orWhere('slug', 'like', '%pages%')
+            ->where('name', 'Lihat')
+            ->get();
+
+        Role::updateOrCreate(['name' => 'Employee', 'slug' => 'employee', 'deletable' => true])
+            ->permissions()
+            ->sync($permissions->pluck('id'));
     }
 }

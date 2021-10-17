@@ -17,7 +17,7 @@ class MenuController extends Controller
 {
     public function index()
     {
-        Gate::authorize('app.menus.index');
+        Gate::authorize('menus.index');
 
         $menus = Menu::latest('id')->get();
         return  view('backend.menus.index', compact('menus'));
@@ -25,7 +25,7 @@ class MenuController extends Controller
 
     public function create()
     {
-        Gate::authorize('app.menus.create');
+        Gate::authorize('menus.create');
 
         return view('backend.menus.form');
     }
@@ -39,12 +39,12 @@ class MenuController extends Controller
         ]);
 
         notify()->success('Menu berhasil ditambahkan');
-        return redirect()->route('app.menus.index');
+        return redirect()->route('menus.index');
     }
 
     public function edit(Menu $menu)
     {
-        Gate::authorize('app.menus.edit');
+        Gate::authorize('menus.edit');
 
         return view('backend.menus.form', compact('menu'));
     }
@@ -57,12 +57,12 @@ class MenuController extends Controller
         ]);
 
         notify()->success('Menu berhasil ditambahkan');
-        return redirect()->route('app.menus.index');
+        return redirect()->route('menus.index');
     }
 
     public function destroy(Menu $menu)
     {
-        Gate::authorize('app.menus.destroy');
+        Gate::authorize('menus.destroy');
 
         if (! $menu->deletable) {
             notify()->error('Menu sistem tidak boleh dihapus');
@@ -80,7 +80,7 @@ class MenuController extends Controller
 
     public function orderItem(Request $request)
     {
-        Gate::authorize('app.menus.index');
+        Gate::authorize('menus.index');
 
         $menuItemOrder = json_decode($request->input('order'));
         $this->orderMenu($menuItemOrder, null);
@@ -88,7 +88,7 @@ class MenuController extends Controller
 
     private function orderMenu(array $menuItems, $parentId)
     {
-        Gate::authorize('app.menus.index');
+        Gate::authorize('menus.index');
 
         foreach ($menuItems as $index => $menuItem) {
             $item = MenuItem::find($menuItem->id);

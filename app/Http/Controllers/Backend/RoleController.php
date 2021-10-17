@@ -17,15 +17,16 @@ class RoleController extends Controller
 {
     public function index()
     {
-        Gate::authorize('app.roles.index');
+        Gate::authorize('roles.index');
 
         $roles = Role::getAllRoles();
+
         return view('backend.roles.index', compact('roles'));
     }
 
     public function create()
     {
-        Gate::authorize('app.roles.create');
+        Gate::authorize('roles.create');
 
         $modules = Module::getWithPermissions();
         return view('backend.roles.form', compact('modules'));
@@ -41,7 +42,7 @@ class RoleController extends Controller
         ->sync($request->input('permissions', []));
 
         notify()->success('Role berhasil ditambahkan');
-        return redirect()->route('app.roles.index');
+        return redirect()->route('roles.index');
     }
 
     public function show(Role $role)
@@ -51,7 +52,7 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-        Gate::authorize('app.roles.edit');
+        Gate::authorize('roles.edit');
 
         $modules = Module::all();
         return view('backend.roles.form', compact('role', 'modules'));
@@ -67,12 +68,12 @@ class RoleController extends Controller
         $role->permissions()->sync($request->input('permissions', []));
 
         notify()->success('Role berhasil disimpan');
-        return redirect()->route('app.roles.index');
+        return redirect()->route('roles.index');
     }
 
     public function destroy(Role $role)
     {
-        Gate::authorize('app.roles.destroy');
+        Gate::authorize('roles.destroy');
 
         if (! $role->deletable) {
             notify()->error('Role bawaan sistem tidak boleh dihapus');

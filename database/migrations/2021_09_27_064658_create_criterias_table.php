@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCriteriasTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('criterias', function (Blueprint $table) {
@@ -21,11 +16,6 @@ class CreateCriteriasTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('criterias');

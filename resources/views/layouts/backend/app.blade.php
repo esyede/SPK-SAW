@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | {{ setting('site_title', 'LaraStarter') }}</title>
+    <title>@yield('title') | {{ setting('site_title', 'App Name') }}</title>
 
     <link rel="icon"  href="{{ setting('site_favicon') != null ? Storage::disk('public')->url(setting('site_favicon')) : '' }}"/>
     <!-- Styles -->

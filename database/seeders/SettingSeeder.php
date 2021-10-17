@@ -7,16 +7,11 @@ use Illuminate\Database\Seeder;
 
 class SettingSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         // General Settings
-        Setting::updateOrCreate(['name' => 'site_title','value' => 'LaraStarter']);
-        Setting::updateOrCreate(['name' => 'site_description','value' => 'A laravel starter kit for web artisans.']);
+        Setting::updateOrCreate(['name' => 'site_title','value' => 'SPK Karyawan']);
+        Setting::updateOrCreate(['name' => 'site_description','value' => 'Sistem pendukung keputusan dengan metode profile matching']);
         Setting::updateOrCreate(['name' => 'site_address','value' => 'Ngawi, Indonesia']);
         // Logo Settings
         Setting::updateOrCreate(['name' => 'site_logo','value' => null]);
@@ -29,7 +24,7 @@ class SettingSeeder extends Seeder
         Setting::updateOrCreate(['name' => 'mail_password','value' => '']);
         Setting::updateOrCreate(['name' => 'mail_encryption','value' => 'TLS']);
         Setting::updateOrCreate(['name' => 'mail_from_address','value' => '']);
-        Setting::updateOrCreate(['name' => 'mail_from_name','value' => 'LaraStarter']);
+        Setting::updateOrCreate(['name' => 'mail_from_name','value' => 'SPK Karyawan']);
 
         // Socialite Settings
         Setting::updateOrCreate(['name' => 'facebook_client_id','value' => null]);

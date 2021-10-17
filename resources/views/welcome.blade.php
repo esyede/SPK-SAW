@@ -5,10 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Welcome to {{ config('settings.app_name') }}</div>
+                    <div class="card-header">Selamat datang di {{ setting('site_title') }}</div>
 
                     <div class="card-body">
-                        Build something awesome :)
+                        Buat sesuatu yang luar biasa :)
                     </div>
                 </div>
             </div>

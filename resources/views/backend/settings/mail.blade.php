@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','Mail Settings')
+@section('title','Pengaturan Email')
 
 @section('content')
     <div class="app-page-title">
@@ -10,7 +10,7 @@
                     <i class="pe-7s-settings icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>Mail Settings</div>
+                <div>Pengaturan Email</div>
             </div>
         </div>
     </div>
@@ -24,12 +24,12 @@
             {{-- how to use callout --}}
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <h5 class="card-title">How To Use:</h5>
-                    <p>You can get the value of each setting anywhere on your site by calling <code>setting('key')</code></p>
+                    <h5 class="card-title">Panduan:</h5>
+                    <p>Anda bisa mendapatkan value dari setiap pengaturan dari mana saja dengan memanggil <code>setting('key')</code></p>
                 </div>
             </div>
             <!-- form start -->
-            <form id="settingsFrom" autocomplete="off" role="form" method="POST" action="{{ route('app.settings.mail.update') }}">
+            <form id="settingsFrom" autocomplete="off" role="form" method="POST" action="{{ route('settings.mail.update') }}">
                 @csrf
                 @method('PATCH')
                 <!-- general form elements -->
@@ -52,7 +52,7 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="mail_encryption">Mail Encryption <code>{ key: mail_encryption }</code></label>
+                                    <label for="mail_encryption">Enkripsi <code>{ key: mail_encryption }</code></label>
                                     <input type="text" name="mail_encryption" id="mail_encryption"
                                            class="form-control @error('mail_encryption') is-invalid @enderror"
                                            value="{{ setting('mail_encryption') ?? old('mail_encryption') }}"
@@ -70,7 +70,7 @@
                         <div class="form-row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="mail_host">Mail Host <code>{ key: mail_host }</code></label>
+                                    <label for="mail_host">Host <code>{ key: mail_host }</code></label>
                                     <input type="text" name="mail_host" id="mail_host"
                                            class="form-control @error('mail_host') is-invalid @enderror"
                                            value="{{ setting('mail_host') ?? old('mail_host') }}"
@@ -84,7 +84,7 @@
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="mail_port">Mail Port <code>{ key: mail_port }</code></label>
+                                    <label for="mail_port">Port <code>{ key: mail_port }</code></label>
                                     <input type="text" name="mail_port" id="mail_port"
                                            class="form-control @error('mail_port') is-invalid @enderror"
                                            value="{{ setting('mail_port') ?? old('mail_port') }}"
@@ -99,7 +99,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="mail_username">Mail Username <code>{ key: mail_username }</code></label>
+                            <label for="mail_username">Username <code>{ key: mail_username }</code></label>
                             <input type="text" name="mail_username" id="mail_username"
                                    class="form-control @error('mail_username') is-invalid @enderror"
                                    value="{{ setting('mail_username') ?? old('mail_username') }}"
@@ -112,7 +112,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="mail_password">Mail Password <code>{ key: mail_password }</code></label>
+                            <label for="mail_password">Password <code>{ key: mail_password }</code></label>
                             <input type="password" name="mail_password" id="mail_password"
                                    class="form-control @error('mail_password') is-invalid @enderror"
                                    value="{{ setting('mail_password') ?? old('mail_password') }}"
@@ -125,7 +125,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="mail_from_address">Mail From Address <code>{ key: mail_from_address }</code></label>
+                            <label for="mail_from_address">Alamat pengirim <code>{ key: mail_from_address }</code></label>
                             <input type="email" name="mail_from_address" id="mail_from_address"
                                    class="form-control @error('mail_from_address') is-invalid @enderror"
                                    value="{{ setting('mail_from_address') ?? old('mail_from_address') }}"
@@ -138,7 +138,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="mail_from_name">Mail From Name <code>{ key: mail_from_name }</code></label>
+                            <label for="mail_from_name">Nama pengirim <code>{ key: mail_from_name }</code></label>
                             <input type="text" name="mail_from_name" id="mail_from_name"
                                    class="form-control @error('mail_from_name') is-invalid @enderror"
                                    value="{{ setting('mail_from_name') ?? old('mail_from_name') }}"
@@ -158,7 +158,7 @@
 
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-arrow-circle-up"></i>
-                            <span>Update</span>
+                            <span>Simpan</span>
                         </button>
 
                     </div>

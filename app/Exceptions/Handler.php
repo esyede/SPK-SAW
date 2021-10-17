@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\Access\AuthorizationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -50,6 +51,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof AuthorizationException) {
+            notify()->error('Anda tidak memiliki akses ke halaman tersebut');
+            return redirect()->route('dashboard');
+        }
+
         return parent::render($request, $exception);
     }
 }

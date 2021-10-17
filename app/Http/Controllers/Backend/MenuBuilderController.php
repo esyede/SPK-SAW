@@ -16,7 +16,7 @@ class MenuBuilderController extends Controller
 {
     public function index($id)
     {
-        Gate::authorize('app.menus.index');
+        Gate::authorize('menus.index');
 
         $menu = Menu::findOrFail($id);
         return view('backend.menus.builder', compact('menu'));
@@ -24,7 +24,7 @@ class MenuBuilderController extends Controller
 
     public function itemCreate($id)
     {
-        Gate::authorize('app.menus.create');
+        Gate::authorize('menus.create');
 
         $menu = Menu::findOrFail($id);
         return view('backend.menus.item.form', compact('menu'));
@@ -45,12 +45,12 @@ class MenuBuilderController extends Controller
         ]);
 
         notify()->success('Menu berhasil ditambahkan');
-        return redirect()->route('app.menus.builder', $menu->id);
+        return redirect()->route('menus.builder', $menu->id);
     }
 
     public function itemEdit($menuId, $itemId)
     {
-        Gate::authorize('app.menus.edit');
+        Gate::authorize('menus.edit');
 
         $menu = Menu::findOrFail($menuId);
         $menuItem = $menu->menuItems()->findOrFail($itemId);
@@ -71,12 +71,12 @@ class MenuBuilderController extends Controller
         ]);
 
         notify()->success('Menu berhasil disimpan');
-        return redirect()->route('app.menus.builder', $menu->id);
+        return redirect()->route('menus.builder', $menu->id);
     }
 
     public function itemDestroy($menuId, $itemId)
     {
-        Gate::authorize('app.menus.destroy');
+        Gate::authorize('menus.destroy');
 
         if (! $menu) {
             notify()->error('Menu tidak ditemukan');
