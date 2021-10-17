@@ -19,7 +19,6 @@ class MenuBuilderController extends Controller
         Gate::authorize('app.menus.index');
 
         $menu = Menu::findOrFail($id);
-
         return view('backend.menus.builder', compact('menu'));
     }
 
@@ -28,13 +27,13 @@ class MenuBuilderController extends Controller
         Gate::authorize('app.menus.create');
 
         $menu = Menu::findOrFail($id);
-
         return view('backend.menus.item.form', compact('menu'));
     }
 
     public function itemStore(StoreMenuItemRequest $request, $id)
     {
         $menu = Menu::findOrFail($id);
+
         MenuItem::create([
             'menu_id' => $menu->id,
             'type' => $request->type,
@@ -45,8 +44,7 @@ class MenuBuilderController extends Controller
             'icon_class' => $request->icon_class
         ]);
 
-        notify()->success('Menu Item Successfully Added.', 'Added');
-
+        notify()->success('Menu berhasil ditambahkan');
         return redirect()->route('app.menus.builder', $menu->id);
     }
 
@@ -57,7 +55,7 @@ class MenuBuilderController extends Controller
         $menu = Menu::findOrFail($menuId);
         $menuItem = $menu->menuItems()->findOrFail($itemId);
 
-        return view('backend.menus.item.form',compact('menu', 'menuItem'));
+        return view('backend.menus.item.form', compact('menu', 'menuItem'));
     }
 
     public function itemUpdate(UpdateMenuItemRequest $request, $menuId, $itemId)
@@ -72,8 +70,7 @@ class MenuBuilderController extends Controller
             'icon_class' => $request->icon_class
         ]);
 
-        notify()->success('Menu Item Successfully Updated.', 'Updated');
-
+        notify()->success('Menu berhasil disimpan');
         return redirect()->route('app.menus.builder', $menu->id);
     }
 
@@ -81,13 +78,24 @@ class MenuBuilderController extends Controller
     {
         Gate::authorize('app.menus.destroy');
 
-        Menu::findOrFail($menuId)
-            ->menuItems()
-            ->findOrFail($itemId)
-            ->delete();
+        if (! $menu) {
+            notify()->error('Menu tidak ditemukan');
+            return back();
+        }
 
-        notify()->success('Menu Item Successfully Deleted.', 'Deleted');
+        $submenu = $menu->menuItems()->find($itemId);
 
-        return redirect()->back();
+        if (! $submenu) {
+            notify()->error('Submenu tidak ditemukan');
+            return back();
+        }
+
+        if (! $submenu->delete()) {
+            notify()->error('Gagal menghapus submenu');
+            return back();
+        }
+
+        notify()->success('Menu berhasil dihapus');
+        return back();
     }
 }

@@ -20,21 +20,20 @@ class BackupController extends Controller
 
         $backups = [];
 
-        foreach ($files as $k => $f) {
-            if (substr($f, -4) === '.zip' && $disk->exists($f)) {
-                $file_name = str_replace(config('backup.backup.name') . '/', '', $f);
+        foreach ($files as $key => $file) {
+            if (substr($file, -4) === '.zip' && $disk->exists($file)) {
+                $file_name = str_replace(config('backup.backup.name') . '/', '', $file);
                 $backups[] = [
-                    'file_path' => $f,
+                    'file_path' => $file,
                     'file_name' => $file_name,
-                    'file_size' => $this->bytesToHuman($disk->size($f)),
-                    'created_at' => Carbon::parse($disk->lastModified($f))->diffForHumans(),
+                    'file_size' => $this->bytesToHuman($disk->size($file)),
+                    'created_at' => Carbon::parse($disk->lastModified($file))->diffForHumans(),
                     'download_link' => route('app.backups.download', [$file_name]),
                 ];
             }
         }
 
         $backups = array_reverse($backups);
-
         return view('backend.backups', compact('backups'));
     }
 
@@ -60,10 +59,8 @@ class BackupController extends Controller
 
         Artisan::call('backup:run');
 
-        notify()->success('Backup Created Successfully.', 'Added');
-
+        notify()->success('Backup berhasil dibuat');
         return back();
-
     }
 
     public function download(Request $request, $file_name)
@@ -76,14 +73,15 @@ class BackupController extends Controller
         if ($disk->exists($file)) {
             $fs = $disk->getDriver();
             $stream = $fs->readStream($file);
-
-            return response()->stream(function () use ($stream) {
-                fpassthru($stream);
-            }, 200, [
+            $headers = [
                 'Content-Type' => $fs->getMimetype($file),
                 'Content-Length' => $fs->getSize($file),
                 'Content-disposition' => 'attachment; filename="' . basename($file) . '"',
-            ]);
+            ];
+
+            return response()->stream(function () use ($stream) {
+                fpassthru($stream);
+            }, 200, $headers);
         }
 
         return abort(404);
@@ -109,13 +107,13 @@ class BackupController extends Controller
         Gate::authorize('app.backups.destroy');
 
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
+        $folder = config('backup.backup.name');
 
-        if ($disk->exists(config('backup.backup.name') . '/' . $file_name)) {
-            $disk->delete(config('backup.backup.name') . '/' . $file_name);
+        if ($disk->exists($folder . '/' . $file_name)) {
+            $disk->delete($folder . '/' . $file_name);
         }
 
-        notify()->success('Backup Successfully Deleted.', 'Deleted');
-
+        notify()->success('Backup berhasil dihapus');
         return back();
     }
 
@@ -125,8 +123,7 @@ class BackupController extends Controller
 
         Artisan::call('backup:clean');
 
-        notify()->success('All Old Backups Successfully Deleted.', 'Added');
-
+        notify()->success('Seluruh backup lama berhasil dihapus');
         return back();
     }
 }

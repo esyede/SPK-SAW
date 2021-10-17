@@ -11,7 +11,7 @@ class Permission extends Model
 
     public static function getAllPermissions()
     {
-        return Cache::rememberForever('permissions.all', function() {
+        return Cache::rememberForever('permissions.all', function () {
             return self::all();
         });
     }
@@ -29,11 +29,11 @@ class Permission extends Model
             self::flushCache();
         });
 
-        static::created(function() {
+        static::created(function () {
             self::flushCache();
         });
 
-        static::deleted(function() {
+        static::deleted(function () {
             self::flushCache();
         });
     }

@@ -20,11 +20,11 @@ class SelectItem extends Component
      */
     public $label;
 
-     /**
-     * The selected option.
-     *
-     * @var string
-     */
+    /**
+    * The selected option.
+    *
+    * @var string
+    */
     public $selected;
 
 

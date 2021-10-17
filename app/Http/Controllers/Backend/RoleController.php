@@ -20,8 +20,7 @@ class RoleController extends Controller
         Gate::authorize('app.roles.index');
 
         $roles = Role::getAllRoles();
-
-        return view('backend.roles.index',compact('roles'));
+        return view('backend.roles.index', compact('roles'));
     }
 
     public function create()
@@ -29,8 +28,7 @@ class RoleController extends Controller
         Gate::authorize('app.roles.create');
 
         $modules = Module::getWithPermissions();
-
-        return view('backend.roles.form',compact('modules'));
+        return view('backend.roles.form', compact('modules'));
     }
 
     public function store(StoreRoleRequest $request)
@@ -42,8 +40,7 @@ class RoleController extends Controller
         ->permissions()
         ->sync($request->input('permissions', []));
 
-        notify()->success('Role Successfully Added.', 'Added');
-
+        notify()->success('Role berhasil ditambahkan');
         return redirect()->route('app.roles.index');
     }
 
@@ -57,8 +54,7 @@ class RoleController extends Controller
         Gate::authorize('app.roles.edit');
 
         $modules = Module::all();
-
-        return view('backend.roles.form', compact('role','modules'));
+        return view('backend.roles.form', compact('role', 'modules'));
     }
 
     public function update(UpdateRoleRequest $request, Role $role)
@@ -70,8 +66,7 @@ class RoleController extends Controller
 
         $role->permissions()->sync($request->input('permissions', []));
 
-        notify()->success('Role Successfully Updated.', 'Updated');
-
+        notify()->success('Role berhasil disimpan');
         return redirect()->route('app.roles.index');
     }
 
@@ -79,13 +74,17 @@ class RoleController extends Controller
     {
         Gate::authorize('app.roles.destroy');
 
-        if ($role->deletable) {
-            $role->delete();
-            notify()->success("Role Successfully Deleted", "Deleted");
-        } else {
-            notify()->error("You can\'t delete system role.", "Error");
+        if (! $role->deletable) {
+            notify()->error('Role bawaan sistem tidak boleh dihapus');
+            return back();
         }
 
+        if (! $role->delete()) {
+            notify()->error('Role gagal dihapus');
+            return back();
+        }
+
+        notify()->success('Role berhasil dihapus');
         return back();
     }
 }

@@ -14,7 +14,7 @@ class BackendSideMenu extends Component
 
     public function render()
     {
-        $items = Cache::rememberForever('backend.sidebar.menu', function() {
+        $items = Cache::rememberForever('backend.sidebar.menu', function () {
             return menu('backend-sidebar');
         });
 

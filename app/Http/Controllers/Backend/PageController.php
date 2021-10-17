@@ -16,7 +16,6 @@ class PageController extends Controller
         Gate::authorize('app.pages.index');
 
         $pages = Page::latest('id')->get();
-
         return view('backend.pages.index', compact('pages'));
     }
 
@@ -43,8 +42,7 @@ class PageController extends Controller
             $page->addMedia($request->image)->toMediaCollection('image');
         }
 
-        notify()->success('Page Successfully Added.', 'Added');
-
+        notify()->success('Halaman berhasil ditambahkan');
         return redirect()->route('app.pages.index');
     }
 
@@ -76,8 +74,7 @@ class PageController extends Controller
             $page->addMedia($request->image)->toMediaCollection('image');
         }
 
-        notify()->success('Page Successfully Update.', 'Updated');
-
+        notify()->success('Halaman berhasil disimpan');
         return redirect()->route('app.pages.index');
     }
 
@@ -85,8 +82,7 @@ class PageController extends Controller
     {
         $page->delete();
 
-        notify()->success('Page Successfully Deleted.', 'Deleted');
-
+        notify()->success('Halaman berhasil dihapus');
         return back();
     }
 }

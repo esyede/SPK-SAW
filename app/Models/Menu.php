@@ -13,7 +13,7 @@ class Menu extends Model
     {
         return $this->hasMany(MenuItem::class)
             ->doesntHave('parent')
-            ->orderBy('order','asc');
+            ->orderBy('order', 'asc');
     }
 
     public static function flushCache()
@@ -29,11 +29,11 @@ class Menu extends Model
             self::flushCache();
         });
 
-        static::created(function() {
+        static::created(function () {
             self::flushCache();
         });
 
-        static::deleted(function() {
+        static::deleted(function () {
             self::flushCache();
         });
     }
