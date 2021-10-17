@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePegawaiTable extends Migration
+class CreateSubCriteriaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePegawaiTable extends Migration
      */
     public function up()
     {
-        Schema::create('pegawai', function (Blueprint $table) {
+        Schema::create('sub_criteria', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('role_id');
+            $table->foreignId('criteria_id');
+            $table->string('sub_criteria_name');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreatePegawaiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pegawai');
+        Schema::dropIfExists('sub_kriteria');
     }
 }

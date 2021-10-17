@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBobotNilaiTable extends Migration
+class CreateIntegrityDeviationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class CreateBobotNilaiTable extends Migration
      */
     public function up()
     {
-        Schema::create('bobot_nilai', function (Blueprint $table) {
+        Schema::create('integrity_deviations', function (Blueprint $table) {
             $table->id();
+            $table->integer('deviation');
+            $table->float('integrity');
+            $table->text('description');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreateBobotNilaiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bobot_nilai');
+        Schema::dropIfExists('integrity_deviations');
     }
 }

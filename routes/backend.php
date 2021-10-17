@@ -45,12 +45,7 @@ Route::post('profile/', [ProfileController::class, 'update'])->name('profile.upd
 Route::get('employee', [PegawaiController::class, 'index'])->name('pegawai.index');
 
 // Kriteria
-Route::group(['as' => 'kriteria.', 'prefix' => 'kriteria'], function () {
-    Route::get('/', [KriteriaController::class, 'index'])->name('index');
-    Route::get('/show', [KriteriaController::class, 'show'])->name('show');
-    Route::get('/create', [KriteriaController::class, 'create'])->name('create');
-    Route::get('/update', [KriteriaController::class, 'update'])->name('update');
-});
+Route::resource('criterias', KriteriaController::class);
 
 //Sub Kriterial
 Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function(){

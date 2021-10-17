@@ -14,15 +14,15 @@
                     <i class="pe-7s-users icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>{{ __('Daftar Kriteria') }}</div>
+                <div>{{ __('List Criteria') }}</div>
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
-                    <a href="{{ route('app.kriteria.create') }}" class="btn-shadow btn btn-info">
+                    <a href="{{ route('app.criterias.create') }}" class="btn-shadow btn btn-info">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-plus-circle fa-w-20"></i>
                         </span>
-                        {{ __('Tambah Kriteria') }}
+                        {{ __('Create Criteria') }}
                     </a>
                 </div>
             </div>
@@ -36,8 +36,8 @@
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th>Nama Kriteria</th>
-                            <th class="text-center">Kode Kriteria</th>
+                            <th>Criteria Name</th>
+                            <th class="text-center">Criteria Code</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">Joined At</th>
                             <th class="text-center">Actions</th>
@@ -51,12 +51,12 @@
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
                                                 <div class="widget-content-left flex2">
-                                                    <div class="widget-heading">{{ $criteria->nama_kriteria }}</div>
+                                                    <div class="widget-heading">{{ $criteria->criteria_name }}</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-center">{{ $criteria->kode_kriteria }}</td>
+                                    <td class="text-center">{{ $criteria->criteria_code }}</td>
                                     <td class="text-center">
                                         @if ($criteria->status)
                                             <div class="badge badge-success">Active</div>
@@ -66,11 +66,11 @@
                                     </td>
                                     <td class="text-center">{{ $criteria->created_at->diffForHumans() }}</td>
                                     <td class="text-center">
-                                        <a class="btn btn-secondary btn-sm" href="{{ route('app.kriteria.show', $criteria->id) }}"><i
+                                        <a class="btn btn-secondary btn-sm" href="{{ route('app.criterias.show', $criteria->id) }}"><i
                                                 class="fas fa-eye"></i>
                                             <span>Show</span>
                                         </a>
-                                        <a class="btn btn-info btn-sm" href="{{ route('app.kriteria.edit', $criteria->id) }}"><i
+                                        <a class="btn btn-info btn-sm" href="{{ route('app.criterias.edit', $criteria->id) }}"><i
                                                 class="fas fa-edit"></i>
                                             <span>Edit</span>
                                         </a>
@@ -80,7 +80,7 @@
                                             <span>Delete</span>
                                         </button>
                                         <form id="delete-form-{{ $criteria->id }}"
-                                              action="{{ route('app.users.destroy',$criteria->id) }}" method="POST"
+                                              action="{{ route('app.criterias.destroy',$criteria->id) }}" method="POST"
                                               style="display: none;">
                                             @csrf()
                                             @method('DELETE')

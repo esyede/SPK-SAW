@@ -27,7 +27,7 @@ class MenuSeeder extends Seeder
         MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 7, 'title' => 'Penilaian', 'url' => "/app/rating", 'icon_class' => 'pe-7s-note']);
 
         MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'divider', 'parent_id' => null, 'order' => 8, 'divider_title' => 'Access Control']);
-        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item','parent_id' => null, 'order' => 9, 'title' => 'Roles', 'url' => "/app/roles", 'icon_class' => 'pe-7s-check']);
+        MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 9, 'title' => 'Roles', 'url' => "/app/roles", 'icon_class' => 'pe-7s-check']);
         MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'item', 'parent_id' => null, 'order' => 10, 'title' => 'Users', 'url' => "/app/users", 'icon_class' => 'pe-7s-users']);
 
         MenuItem::updateOrCreate(['menu_id' => $menu->id, 'type' => 'divider', 'parent_id' => null, 'order' => 11, 'divider_title' => 'System']);
