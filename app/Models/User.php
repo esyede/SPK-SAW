@@ -42,6 +42,24 @@ class User extends Authenticatable implements HasMedia
         });
     }
 
+    public static function getAllEmployees()
+    {
+        return Cache::rememberForever('employee.all', function () {
+            return self::with('role')->whereHas('role', function ($q) {
+                $q->where('slug', 'employee');
+            })->latest('id')->get();
+        });
+    }
+
+    public static function getAllDirectors()
+    {
+        return Cache::rememberForever('director.all', function () {
+            return self::with('role')->whereHas('role', function ($q) {
+                $q->where('slug', 'director');
+            })->latest('id')->get();
+        });
+    }
+
     public static function flushCache()
     {
         Cache::forget('users.all');

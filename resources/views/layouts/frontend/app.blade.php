@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ setting('site_title', 'LaraStarter') }}</title>
+    <title>{{ setting('site_title', 'App Name') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -53,14 +53,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @role('admin')
-                                        <a class="dropdown-item" href="{{ route('app.dashboard') }}">
+                                    @role('director')
+                                        <a class="dropdown-item" href="{{ route('dashboard') }}">
                                             {{ __('Dashboard') }}
                                         </a>
                                     @endrole
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 

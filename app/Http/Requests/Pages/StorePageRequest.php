@@ -9,7 +9,7 @@ class StorePageRequest extends FormRequest
 {
     public function authorize()
     {
-        Gate::authorize('app.pages.create');
+        Gate::authorize('pages.create');
         return true;
     }
 

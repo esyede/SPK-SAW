@@ -20,7 +20,7 @@
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
-                    <a href="{{ route('app.menus.builder',$menu->id) }}" class="btn-shadow btn btn-danger">
+                    <a href="{{ route('menus.builder',$menu->id) }}" class="btn-shadow btn btn-danger">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-arrow-circle-left fa-w-20"></i>
                         </span>
@@ -36,7 +36,7 @@
             <div class="main-card mb-3 card">
                 <!-- form start -->
                 <form id="itemFrom" role="form" method="POST"
-                      action="{{ isset($menuItem) ? route('app.menus.item.update',['id'=>$menu->id,'itemId'=>$menuItem->id]) : route('app.menus.item.store',$menu->id) }}">
+                      action="{{ isset($menuItem) ? route('menus.item.update',['id'=>$menu->id,'itemId'=>$menuItem->id]) : route('menus.item.store',$menu->id) }}">
                     @csrf
                     @isset($menuItem)
                         @method('PUT')

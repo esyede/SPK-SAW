@@ -9,7 +9,7 @@ class StoreMenuRequest extends FormRequest
 {
     public function authorize()
     {
-        Gate::authorize('app.menus.create');
+        Gate::authorize('menus.create');
         return true;
     }
 

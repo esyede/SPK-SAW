@@ -20,7 +20,7 @@
                 <div class="widget-content-outer">
                     <div class="widget-content-wrapper">
                         <div class="widget-content-left">
-                            <div class="widget-heading">Total Pegawai</div>
+                            <div class="widget-heading">Anggota</div>
                         </div>
                         <div class="widget-content-right">
                             <div class="widget-numbers text-success">{{ $usersCount }}</div>
@@ -48,7 +48,7 @@
                 <div class="widget-content-outer">
                     <div class="widget-content-wrapper">
                         <div class="widget-content-left">
-                            <div class="widget-heading">Total Pages</div>
+                            <div class="widget-heading">Halaman</div>
                         </div>
                         <div class="widget-content-right">
                             <div class="widget-numbers text-danger">{{ $pagesCount }}</div>
@@ -62,7 +62,7 @@
                 <div class="widget-content-outer">
                     <div class="widget-content-wrapper">
                         <div class="widget-content-left">
-                            <div class="widget-heading">Menus</div>
+                            <div class="widget-heading">Menu</div>
                         </div>
                         <div class="widget-content-right">
                             <div class="widget-numbers text-info">{{ $menusCount }}</div>
@@ -75,20 +75,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-                <div class="card-header">Terkahir Pegawai Login</div>
+                <div class="card-header">Login terbaru</div>
                 <div class="table-responsive">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th>Name</th>
+                            <th>Nama</th>
                             <th class="text-center">Email</th>
-                            <th class="text-center">Last Login At</th>
-                            <th class="text-center">Actions</th>
+                            <th class="text-center">Waktu</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $key=>$user)
+                        @foreach($users as $key => $user)
                             <tr>
                                 <td class="text-center text-muted">#{{ $key + 1 }}</td>
                                 <td>
@@ -106,7 +106,7 @@
                                                     @if ($user->role)
                                                         <span class="badge badge-info">{{ $user->role->name }}</span>
                                                     @else
-                                                        <span class="badge badge-danger">No role found :(</span>
+                                                        <span class="badge badge-danger">-</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -116,9 +116,8 @@
                                 <td class="text-center">{{ $user->email }}</td>
                                 <td class="text-center">{{ $user->last_login_at }}</td>
                                 <td class="text-center">
-                                    <a class="btn btn-info btn-sm" href="{{ route('app.users.show',$user->id) }}"><i
-                                            class="fas fa-eye"></i>
-                                        <span>Details</span>
+                                    <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}">
+                                        <i class="fas fa-eye"></i>
                                     </a>
                                 </td>
                             </tr>

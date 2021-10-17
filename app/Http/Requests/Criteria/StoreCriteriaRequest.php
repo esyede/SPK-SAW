@@ -9,7 +9,7 @@ class StoreCriteriaRequest extends FormRequest
 {
     public function authorize()
     {
-        Gate::authorize('app.criteria.create');
+        Gate::authorize('criteria.create');
         return true;
     }
 

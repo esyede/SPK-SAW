@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','Mail Settings')
+@section('title','Pengaturan Socialite')
 
 @section('content')
     <div class="app-page-title">
@@ -10,7 +10,7 @@
                     <i class="pe-7s-settings icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>Mail Settings</div>
+                <div>Pengaturan Socialite</div>
             </div>
         </div>
     </div>
@@ -24,12 +24,12 @@
             {{-- how to use callout --}}
             <div class="main-card mb-3 card">
                 <div class="card-body">
-                    <h5 class="card-title">Note:</h5>
-                    <p>Get appropriate client id and secret form respected providers.</p>
+                    <h5 class="card-title">Catatan:</h5>
+                    <p>Kredensial diperoleh dari situs masing - masing penyedia layanan.</p>
                 </div>
             </div>
             <!-- form start -->
-            <form id="settingsFrom" method="POST" action="{{ route('app.settings.socialite.update') }}">
+            <form id="settingsFrom" method="POST" action="{{ route('settings.socialite.update') }}">
                 @csrf
                 @method('PATCH')
                 <!-- general form elements -->
@@ -135,7 +135,7 @@
 
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-arrow-circle-up"></i>
-                            <span>Update</span>
+                            <span>Simpan</span>
                         </button>
 
                     </div>

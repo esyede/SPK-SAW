@@ -9,7 +9,7 @@ class UpdateProfileRequest extends FormRequest
 {
     public function authorize()
     {
-        Gate::authorize('app.profile.update');
+        Gate::authorize('profile.update');
         return true;
     }
 

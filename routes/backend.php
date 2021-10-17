@@ -9,7 +9,7 @@ use App\Http\Controllers\Backend\BackupController;
 use App\Http\Controllers\Backend\PegawaiController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SettingController;
-use App\Http\Controllers\Backend\KriteriaController;
+use App\Http\Controllers\Backend\CriteriaController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MenuBuilderController;
 use App\Http\Controllers\Backend\SubCriteriaController;
@@ -42,22 +42,21 @@ Route::get('backups/{file_name}', [BackupController::class, 'download'])->name('
 Route::get('profile/', [ProfileController::class, 'index'])->name('profile.index');
 Route::post('profile/', [ProfileController::class, 'update'])->name('profile.update');
 
+// Criteria
+Route::resource('criteria', CriteriaController::class);
 
-// Kriteria
-Route::resource('criterias', KriteriaController::class);
-
-//Sub Kriterial
-Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function(){
+// Sub Criterial
+Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function() {
     Route::get('/', [SubCriteriaController::class, 'index'])->name('index');
 });
 
-//Penilaian GAP
-Route::group(['as' => 'gap-score.', 'prefix' => 'gap-score'], function(){
+// Gap Score
+Route::group(['as' => 'gap-score.', 'prefix' => 'gap-score'], function() {
     Route::get('/', [GapScoreController::class, 'index'])->name('index');
 });
 
-//Penilaian 
-Route::group(['as' => 'rating.', 'prefix' => 'rating'], function(){
+// Penilaian
+Route::group(['as' => 'rating.', 'prefix' => 'rating'], function() {
     Route::get('/', [RatingController::class, 'index'])->name('index');
 });
 

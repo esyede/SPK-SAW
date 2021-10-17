@@ -19,7 +19,7 @@
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
-                    <a href="{{ route('app.menus.create') }}" class="btn-shadow btn btn-info">
+                    <a href="{{ route('menus.create') }}" class="btn-shadow btn btn-info">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-plus-circle fa-w-20"></i>
                         </span>
@@ -58,11 +58,11 @@
                                 </td>
                                 <td class="text-right">
                                     <a class="btn btn-success btn-sm"
-                                       href="{{ route('app.menus.builder',$menu->id) }}">
+                                       href="{{ route('menus.builder',$menu->id) }}">
                                         <i class="fas fa-list-ul"></i>
                                         <span>Builder</span>
                                     </a>
-                                    <a class="btn btn-info btn-sm" href="{{ route('app.menus.edit',$menu->id) }}">
+                                    <a class="btn btn-info btn-sm" href="{{ route('menus.edit',$menu->id) }}">
                                         <i class="fas fa-edit"></i>
                                         <span>Edit</span>
                                     </a>
@@ -73,7 +73,7 @@
                                             <span>Delete</span>
                                         </button>
                                         <form id="delete-form-{{ $menu->id }}"
-                                              action="{{ route('app.menus.destroy',$menu->id) }}"
+                                              action="{{ route('menus.destroy',$menu->id) }}"
                                               method="POST" style="display: none;">
                                             @csrf()
                                             @method('DELETE')

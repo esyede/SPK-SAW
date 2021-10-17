@@ -8,183 +8,178 @@ use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         // Dashboard
-        $moduleAppDashboard = Module::updateOrCreate(['name' => 'Admin Dashboard']);
+        $dashboard = Module::updateOrCreate(['name' => 'Dashboard']);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppDashboard->id,
-            'name' => 'Access Dashboard',
-            'slug' => 'app.dashboard',
+            'module_id' => $dashboard->id,
+            'name' => 'Lihat',
+            'slug' => 'dashboard',
         ]);
 
         // Settings
-        $moduleAppSettings = Module::updateOrCreate(['name' => 'Settings']);
+        $settings = Module::updateOrCreate(['name' => 'Pengaturan']);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppSettings->id,
-            'name' => 'Access Settings',
-            'slug' => 'app.settings.index',
+            'module_id' => $settings->id,
+            'name' => 'Lihat',
+            'slug' => 'settings.index',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppSettings->id,
-            'name' => 'Update Settings',
-            'slug' => 'app.settings.update',
+            'module_id' => $settings->id,
+            'name' => 'Edit',
+            'slug' => 'settings.update',
         ]);
 
         // Criteria management
-        $moduleAppCriteria = Module::updateOrCreate(['name' => 'Criteria Management']);
+        $criteria = Module::updateOrCreate(['name' => 'Kriteria']);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppCriteria->id,
-            'name' => 'Access Criteria',
-            'slug' => 'app.criteria.index',
+            'module_id' => $criteria->id,
+            'name' => 'Lihat',
+            'slug' => 'criteria.index',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppCriteria->id,
-            'name' => 'Create Criteria',
-            'slug' => 'app.criteria.create',
+            'module_id' => $criteria->id,
+            'name' => 'Buat',
+            'slug' => 'criteria.create',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppCriteria->id,
-            'name' => 'Edit Criteria',
-            'slug' => 'app.criteria.edit',
+            'module_id' => $criteria->id,
+            'name' => 'Edit',
+            'slug' => 'criteria.edit',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppCriteria->id,
-            'name' => 'Delete Criteria',
-            'slug' => 'app.criteria.destroy',
+            'module_id' => $criteria->id,
+            'name' => 'Hapus',
+            'slug' => 'criteria.destroy',
         ]);
 
         // Profile
-        $moduleAppProfile = Module::updateOrCreate(['name' => 'Profile']);
+        $profile = Module::updateOrCreate(['name' => 'Profil']);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppProfile->id,
-            'name' => 'Update Profile',
-            'slug' => 'app.profile.update',
+            'module_id' => $profile->id,
+            'name' => 'Edit',
+            'slug' => 'profile.update',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppProfile->id,
-            'name' => 'Update Password',
-            'slug' => 'app.profile.password',
+            'module_id' => $profile->id,
+            'name' => 'Ganti password',
+            'slug' => 'profile.password',
         ]);
 
         // Backups
-        $moduleAppBackups = Module::updateOrCreate(['name' => 'Backups']);
+        $backup = Module::updateOrCreate(['name' => 'Backup']);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppBackups->id,
-            'name' => 'Access Backups',
-            'slug' => 'app.backups.index',
+            'module_id' => $backup->id,
+            'name' => 'Lihat',
+            'slug' => 'backups.index',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppBackups->id,
-            'name' => 'Create Backups',
-            'slug' => 'app.backups.create',
+            'module_id' => $backup->id,
+            'name' => 'Buat',
+            'slug' => 'backups.create',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppBackups->id,
-            'name' => 'Download Backups',
-            'slug' => 'app.backups.download',
+            'module_id' => $backup->id,
+            'name' => 'Unduh',
+            'slug' => 'backups.download',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppBackups->id,
-            'name' => 'Delete Backups',
-            'slug' => 'app.backups.destroy',
+            'module_id' => $backup->id,
+            'name' => 'Hapus',
+            'slug' => 'backups.destroy',
         ]);
 
         // Role management
-        $moduleAppRole = Module::updateOrCreate(['name' => 'Role Management']);
+        $roles = Module::updateOrCreate(['name' => 'Roles']);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppRole->id,
-            'name' => 'Access Roles',
-            'slug' => 'app.roles.index',
+            'module_id' => $roles->id,
+            'name' => 'Lihat',
+            'slug' => 'roles.index',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppRole->id,
-            'name' => 'Create Role',
-            'slug' => 'app.roles.create',
+            'module_id' => $roles->id,
+            'name' => 'Buat',
+            'slug' => 'roles.create',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppRole->id,
-            'name' => 'Edit Role',
-            'slug' => 'app.roles.edit',
+            'module_id' => $roles->id,
+            'name' => 'Edit',
+            'slug' => 'roles.edit',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppRole->id,
-            'name' => 'Delete Role',
-            'slug' => 'app.roles.destroy',
+            'module_id' => $roles->id,
+            'name' => 'Hapus',
+            'slug' => 'roles.destroy',
         ]);
 
         // User management
-        $moduleAppUser = Module::updateOrCreate(['name' => 'User Management']);
+        $users = Module::updateOrCreate(['name' => 'Pegawai']);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppUser->id,
-            'name' => 'Access Users',
-            'slug' => 'app.users.index',
+            'module_id' => $users->id,
+            'name' => 'Lihat',
+            'slug' => 'users.index',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppUser->id,
-            'name' => 'Create User',
-            'slug' => 'app.users.create',
+            'module_id' => $users->id,
+            'name' => 'Buat',
+            'slug' => 'users.create',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppUser->id,
-            'name' => 'Edit User',
-            'slug' => 'app.users.edit',
+            'module_id' => $users->id,
+            'name' => 'Edit',
+            'slug' => 'users.edit',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppUser->id,
-            'name' => 'Delete User',
-            'slug' => 'app.users.destroy',
+            'module_id' => $users->id,
+            'name' => 'Hapus',
+            'slug' => 'users.destroy',
         ]);
 
         // Page management
-        $moduleAppPage = Module::updateOrCreate(['name' => 'Page Management']);
+        $pages = Module::updateOrCreate(['name' => 'Halaman']);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppPage->id,
-            'name' => 'Access Pages',
-            'slug' => 'app.pages.index',
+            'module_id' => $pages->id,
+            'name' => 'Lihat',
+            'slug' => 'pages.index',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppPage->id,
-            'name' => 'Create Page',
-            'slug' => 'app.pages.create',
+            'module_id' => $pages->id,
+            'name' => 'Buat',
+            'slug' => 'pages.create',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppPage->id,
-            'name' => 'Edit Page',
-            'slug' => 'app.pages.edit',
+            'module_id' => $pages->id,
+            'name' => 'Edit',
+            'slug' => 'pages.edit',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppPage->id,
-            'name' => 'Delete Page',
-            'slug' => 'app.pages.destroy',
+            'module_id' => $pages->id,
+            'name' => 'Hapus',
+            'slug' => 'pages.destroy',
         ]);
 
         // Menu management
-        $moduleAppMenu = Module::updateOrCreate(['name' => 'Menu Management']);
+        $menus = Module::updateOrCreate(['name' => 'Menu']);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppMenu->id,
-            'name' => 'Access Menus',
-            'slug' => 'app.menus.index',
+            'module_id' => $menus->id,
+            'name' => 'Lihat',
+            'slug' => 'menus.index',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppMenu->id,
-            'name' => 'Create Menu',
-            'slug' => 'app.menus.create',
+            'module_id' => $menus->id,
+            'name' => 'Buat',
+            'slug' => 'menus.create',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppMenu->id,
-            'name' => 'Edit Menu',
-            'slug' => 'app.menus.edit',
+            'module_id' => $menus->id,
+            'name' => 'Edit',
+            'slug' => 'menus.edit',
         ]);
         Permission::updateOrCreate([
-            'module_id' => $moduleAppMenu->id,
-            'name' => 'Delete Menu',
-            'slug' => 'app.menus.destroy',
+            'module_id' => $menus->id,
+            'name' => 'Hapus',
+            'slug' => 'menus.destroy',
         ]);
     }
 }

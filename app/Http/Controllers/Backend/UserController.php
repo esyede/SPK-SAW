@@ -14,15 +14,15 @@ class UserController extends Controller
 {
     public function index()
     {
-        Gate::authorize('app.users.index');
+        Gate::authorize('users.index');
 
-        $users = User::getAllUsers();
+        $users = User::getAllEmployees();
         return view('backend.users.index', compact('users'));
     }
 
     public function create()
     {
-        Gate::authorize('app.users.create');
+        Gate::authorize('users.create');
 
         $roles = Role::getForSelect();
         return view('backend.users.form', compact('roles'));
@@ -43,7 +43,7 @@ class UserController extends Controller
         }
 
         notify()->success('User berhasil ditambahkan');
-        return redirect()->route('app.users.index');
+        return redirect()->route('users.index');
     }
 
     public function show(User $user)
@@ -53,7 +53,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        Gate::authorize('app.users.edit');
+        Gate::authorize('users.edit');
 
         $roles = Role::all();
         return view('backend.users.form', compact('roles', 'user'));
@@ -74,12 +74,12 @@ class UserController extends Controller
         }
 
         notify()->success('User berhasil diperbarui');
-        return redirect()->route('app.users.index');
+        return redirect()->route('users.index');
     }
 
     public function destroy(User $user)
     {
-        Gate::authorize('app.users.destroy');
+        Gate::authorize('users.destroy');
 
         $user->delete();
 

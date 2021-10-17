@@ -9,7 +9,7 @@ class UpdatePageRequest extends FormRequest
 {
     public function authorize()
     {
-        Gate::authorize('app.pages.edit');
+        Gate::authorize('pages.edit');
         return true;
     }
 

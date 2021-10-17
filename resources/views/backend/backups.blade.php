@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','Backups')
+@section('title','Backup')
 
 @push('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
@@ -14,7 +14,7 @@
                     <i class="pe-7s-cloud icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>{{ __('All Backups') }}</div>
+                <div>Daftar Backup</div>
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block">
@@ -26,7 +26,7 @@
                         </span>
                         {{ __('Clean Old Backups') }}
                     </button>
-                    <form id="clean-old-backups" action="{{ route('app.backups.clean') }}" method="POST" style="display: none;">
+                    <form id="clean-old-backups" action="{{ route('backups.clean') }}" method="POST" style="display: none;">
                         @csrf
                         @method('DELETE')
                     </form>
@@ -37,9 +37,9 @@
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-plus-circle fa-w-20"></i>
                         </span>
-                        {{ __('Create New Backup') }}
+                        Buat
                     </button>
-                    <form id="new-backup-form" action="{{ route('app.backups.store') }}" method="POST" style="display: none;">
+                    <form id="new-backup-form" action="{{ route('backups.store') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
                 </div>
@@ -54,14 +54,14 @@
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="text-center">File Name</th>
-                            <th class="text-center">Size</th>
-                            <th class="text-center">Created At</th>
-                            <th class="text-center">Actions</th>
+                            <th class="text-center">Nama File</th>
+                            <th class="text-center">Ukuran</th>
+                            <th class="text-center">Dibuat</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach($backups as $key=>$backup)
+                            @foreach($backups as $key => $backup)
                                 <tr>
                                     <td class="text-center text-muted">#{{ $key + 1 }}</td>
                                     <td class="text-center">
@@ -70,17 +70,14 @@
                                     <td class="text-center">{{ $backup['file_size'] }}</td>
                                     <td class="text-center">{{ $backup['created_at'] }}</td>
                                     <td class="text-center">
-                                        <a class="btn btn-info btn-sm" href="{{ route('app.backups.download',$backup['file_name']) }}"><i
-                                                class="fas fa-download"></i>
-                                            <span>Download</span>
+                                        <a class="btn btn-info btn-sm" href="{{ route('backups.download',$backup['file_name']) }}"><i class="fas fa-download"></i>
                                         </a>
                                         <button type="button" class="btn btn-danger btn-sm"
                                                 onclick="deleteData({{ $key }})">
                                             <i class="fas fa-trash-alt"></i>
-                                            <span>Delete</span>
                                         </button>
                                         <form id="delete-form-{{ $key }}"
-                                              action="{{ route('app.backups.destroy',$backup['file_name']) }}" method="POST"
+                                              action="{{ route('backups.destroy',$backup['file_name']) }}" method="POST"
                                               style="display: none;">
                                             @csrf()
                                             @method('DELETE')

@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','User Details')
+@section('title','Detail Aggota')
 
 @section('content')
     <div class="app-page-title">
@@ -10,17 +10,17 @@
                     <i class="pe-7s-users icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>{{ __('User Details') }}</div>
+                <div>Detail Aggota</div>
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
-                    <a href="{{ route('app.users.edit',$user->id) }}" class="btn-shadow btn btn-info">
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn-shadow btn btn-info">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-edit fa-w-20"></i>
                         </span>
                         {{ __('Edit') }}
                     </a>
-                    <a href="{{ route('app.users.index') }}" class="btn-shadow btn btn-danger">
+                    <a href="{{ route('users.index') }}" class="btn-shadow btn btn-danger">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-arrow-circle-left fa-w-20"></i>
                         </span>
@@ -47,7 +47,7 @@
                     <table class="table table-hover mb-0">
                         <tbody>
                         <tr>
-                            <th scope="row">Name:</th>
+                            <th scope="row">Nama:</th>
                             <td>{{ $user->name }}</td>
                         </tr>
 
@@ -61,7 +61,7 @@
                                 @if ($user->role)
                                     <span class="badge badge-info">{{ $user->role->name }}</span>
                                 @else
-                                    <span class="badge badge-danger">No role found :(</span>
+                                    <span class="badge badge-danger">-</span>
                                 @endif
                             </td>
                         </tr>
@@ -69,22 +69,22 @@
                             <th scope="row">Status:</th>
                             <td>
                                 @if ($user->status)
-                                    <div class="badge badge-success">Active</div>
+                                    <div class="badge badge-success">Aktif</div>
                                 @else
-                                    <div class="badge badge-danger">Inactive</div>
+                                    <div class="badge badge-danger">Nonaktif</div>
                                 @endif
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row">Joined At:</th>
+                            <th scope="row">Terdaftar:</th>
                             <td>{{ $user->created_at->diffForHumans() }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Last Modified At:</th>
+                            <th scope="row">Aktivitas terakhir:</th>
                             <td>{{ $user->updated_at->diffForHumans() }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Last Login At:</th>
+                            <th scope="row">Login terakhir:</th>
                             <td>{{ $user->last_login_at }}</td>
                         </tr>
                         </tbody>

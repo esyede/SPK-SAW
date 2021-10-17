@@ -13,7 +13,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        Gate::authorize('app.profile.update');
+        Gate::authorize('profile.update');
 
         return view('backend.profile.index');
     }
@@ -37,7 +37,7 @@ class ProfileController extends Controller
 
     public function changePassword()
     {
-        Gate::authorize('app.profile.password');
+        Gate::authorize('profile.password');
 
         return view('backend.profile.security');
     }

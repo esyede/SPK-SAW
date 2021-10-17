@@ -13,7 +13,7 @@ class BackupController extends Controller
 {
     public function index()
     {
-        Gate::authorize('app.backups.index');
+        Gate::authorize('backups.index');
 
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
         $files = $disk->files(config('backup.backup.name'));
@@ -28,7 +28,7 @@ class BackupController extends Controller
                     'file_name' => $file_name,
                     'file_size' => $this->bytesToHuman($disk->size($file)),
                     'created_at' => Carbon::parse($disk->lastModified($file))->diffForHumans(),
-                    'download_link' => route('app.backups.download', [$file_name]),
+                    'download_link' => route('backups.download', [$file_name]),
                 ];
             }
         }
@@ -55,7 +55,7 @@ class BackupController extends Controller
 
     public function store(Request $request)
     {
-        Gate::authorize('app.backups.create');
+        Gate::authorize('backups.create');
 
         Artisan::call('backup:run');
 
@@ -65,7 +65,7 @@ class BackupController extends Controller
 
     public function download(Request $request, $file_name)
     {
-        Gate::authorize('app.backups.download');
+        Gate::authorize('backups.download');
 
         $file = config('backup.backup.name') . '/' . $file_name;
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
@@ -104,7 +104,7 @@ class BackupController extends Controller
 
     public function destroy($file_name)
     {
-        Gate::authorize('app.backups.destroy');
+        Gate::authorize('backups.destroy');
 
         $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
         $folder = config('backup.backup.name');
@@ -119,7 +119,7 @@ class BackupController extends Controller
 
     public function clean()
     {
-        Gate::authorize('app.backups.destroy');
+        Gate::authorize('backups.destroy');
 
         Artisan::call('backup:clean');
 

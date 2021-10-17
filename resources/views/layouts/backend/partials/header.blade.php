@@ -1,8 +1,7 @@
 <div class="app-header header-shadow">
     <div class="app-header__logo">
-        {{--<div class="logo-src"></div>--}}
         <div class="navbar-brand">
-            {{ setting('site_title','LaraStarter') }}
+            {{ setting('site_title', 'App Name') }}
         </div>
         <div class="header__pane ml-auto">
             <div>
@@ -49,9 +48,9 @@
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true"
                                      class="dropdown-menu dropdown-menu-right">
-                                    <a tabindex="0" class="dropdown-item" href="{{ route('app.profile.index') }}">Profile</a>
-                                    <a tabindex="0" class="dropdown-item" href="{{ route('app.profile.password.change') }}">Change Password</a>
-                                    <a tabindex="0" class="dropdown-item" href="{{ route('app.settings.index') }}">Settings</a>
+                                    <a tabindex="0" class="dropdown-item" href="{{ route('profile.index') }}">Profil</a>
+                                    <a tabindex="0" class="dropdown-item" href="{{ route('profile.password.change') }}">Ganti password</a>
+                                    <a tabindex="0" class="dropdown-item" href="{{ route('settings.index') }}">Pengaturan</a>
                                     <div tabindex="-1" class="dropdown-divider"></div>
                                     <button type="button" tabindex="0" class="dropdown-item" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">{{ __('Logout') }}</button>

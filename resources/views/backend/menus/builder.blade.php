@@ -14,14 +14,14 @@
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block">
-                    <a href="{{ route('app.menus.index') }}" class="btn-shadow btn btn-danger">
+                    <a href="{{ route('menus.index') }}" class="btn-shadow btn btn-danger">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-arrow-circle-left fa-w-20"></i>
                         </span>
                         {{ __('Back to list') }}
                     </a>
 
-                    <a href="{{ route('app.menus.item.create',$menu->id) }}" class="btn btn-shadow btn-primary">
+                    <a href="{{ route('menus.item.create',$menu->id) }}" class="btn btn-shadow btn-primary">
                         <i class="fas fa-plus-circle"></i>
                         <span>Create Menu Item</span>
                     </a>
@@ -59,7 +59,7 @@
         $(function () {
             $('.dd').nestable({maxDepth: 2});
             $('.dd').on('change', function (e) {
-                $.post('{{ route('app.menus.order',$menu->id) }}', {
+                $.post('{{ route('menus.order', $menu->id) }}', {
                     order: JSON.stringify($('.dd').nestable('serialize')),
                     _token: '{{ csrf_token() }}'
                 }, function (data) {

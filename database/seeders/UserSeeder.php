@@ -5,35 +5,31 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-        $adminRole = Role::where('slug', 'admin')->first();
-        // Create admin
+        // Create director
+        $director = Role::where('slug', 'director')->first();
         User::updateOrCreate([
-            'role_id' => $adminRole->id,
-            'employee_registration_number' => uniqid(),
-            'name' => 'Admin',
-            'email' => 'admin@mail.com',
+            'role_id' => $director->id,
+            'registration_code' => Str::random(10),
+            'name' => 'Mr. Director',
+            'email' => 'director@gmail.com',
             'password' => Hash::make('password'),
             'status' => true
         ]);
 
-        // Create user
-        $userRole = Role::where('slug', 'user')->first();
+        // Create employee
+        $employee = Role::where('slug', 'employee')->first();
         User::updateOrCreate([
-            'role_id' => $userRole->id,
-            'employee_registration_number' => uniqid(),
-            'name' => 'Jone Doe',
-            'email' => 'user@mail.com',
+            'role_id' => $employee->id,
+            'registration_code' => Str::random(10),
+            'name' => 'Employee One',
+            'email' => 'employee@gmail.com',
             'password' => Hash::make('password'),
             'status' => true
         ]);
