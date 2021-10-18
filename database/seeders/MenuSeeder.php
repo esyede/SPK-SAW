@@ -81,7 +81,7 @@ class MenuSeeder extends Seeder
             [
                 'order' => 8,
                 'title' => 'Penilaian',
-                'url' => '/rating',
+                'url' => '/evaluation',
                 'menu_id' => $menu->id,
                 'type' => 'item',
                 'parent_id' => null,
