@@ -116,7 +116,7 @@
                                 <td class="text-center">{{ $user->email }}</td>
                                 <td class="text-center">{{ $user->last_login_at }}</td>
                                 <td class="text-center">
-                                    <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}">
+                                    <a class="btn btn-info btn-sm" href="{{ route('users.show', $user->id) }}">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>
