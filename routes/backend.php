@@ -56,7 +56,7 @@ Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function() {
 });
 
 // Gap Score
-Route::group(['as' => 'gap-score.', 'prefix' => 'gap-score'], function() {
+Route::group(['as' => 'value-weighting.', 'prefix' => 'value-weighting'], function() {
     Route::get('/', [GapScoreController::class, 'index'])->name('index');
 });
 
