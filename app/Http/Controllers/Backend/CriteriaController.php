@@ -61,7 +61,7 @@ class CriteriaController extends Controller
 
         $criteria = Criteria::find($id);
 
-        if (! $criteria) {
+        if (!$criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }
@@ -85,7 +85,7 @@ class CriteriaController extends Controller
 
         $criteria = Criteria::find($id);
 
-        if (! $criteria) {
+        if (!$criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }
@@ -95,12 +95,7 @@ class CriteriaController extends Controller
             'criteria_code' => $request->criteria_code,
         ]);
 
-        if ($criteria) {
-            notify()->success('Kriteria berhasil diperbarui');
-        } else {
-            notify()->error('Kriteria gagal diperbarui');
-        }
-
+        notify()->success('Kriteria berhasil diperbarui');
         return redirect()->route('criteria.index');
     }
 
@@ -110,7 +105,7 @@ class CriteriaController extends Controller
 
         $criteria = Criteria::find($id);
 
-        if (! $criteria) {
+        if (!$criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }
