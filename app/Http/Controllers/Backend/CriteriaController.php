@@ -96,7 +96,7 @@ class CriteriaController extends Controller
         ]);
 
         notify()->success('Kriteria berhasil diperbarui');
-        return back();
+        return redirect()->route('criteria.index');
     }
 
     public function destroy($id)
