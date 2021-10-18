@@ -62,8 +62,8 @@ class MenuSeeder extends Seeder
             ],
             [
                 'order' => 6,
-                'title' => 'Nilai GAP',
-                'url' => '/gap-score',
+                'title' => 'Pembobotan Nilai',
+                'url' => '/value-weighting',
                 'menu_id' => $menu->id,
                 'type' => 'item',
                 'parent_id' => null,
