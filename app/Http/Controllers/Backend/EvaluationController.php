@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class RatingController extends Controller
+class EvauationController extends Controller
 {
     public function index()
     {

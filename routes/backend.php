@@ -48,6 +48,11 @@ Route::resource('criteria', CriteriaController::class);
 // Sub Criterial
 Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function() {
     Route::get('/', [SubCriteriaController::class, 'index'])->name('index');
+    Route::get('create', [SubCriteriaController::class, 'create'])->name('create');
+    Route::get('{id}/edit', [SubCriteriaController::class, 'edit'])->name('edit');
+    Route::post('store', [SubCriteriaController::class, 'store'])->name('store');
+    Route::put('{id}/update', [SubCriteriaController::class, 'update'])->name('update');
+    Route::delete('{id}/destroy', [SubCriteriaController::class, 'destroy'])->name('destroy');
 });
 
 // Gap Score

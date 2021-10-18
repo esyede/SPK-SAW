@@ -54,6 +54,29 @@ class PermissionSeeder extends Seeder
             'slug' => 'criteria.destroy',
         ]);
 
+        //SubCriteria Management
+        $subcriteria = Module::updateOrCreate(['name'=>'Sub Kriteria']);
+        Permission::updateOrCreate([
+            'module_id'=>$subcriteria->id,
+            'name'=>'Lihat',
+            'slug'=>'sub-criteria.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id'=>$subcriteria->id,
+            'name'=>'Tambah',
+            'slug'=>'sub-criteria.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id'=>$subcriteria->id,
+            'name'=>'Edit',
+            'slug'=>'sub-criteria.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id'=>$subcriteria->id,
+            'name'=>'Hapus',
+            'slug'=>'sub-criteria.destroy',
+        ]);
+
         // Profile
         $profile = Module::updateOrCreate(['name' => 'Profil']);
         Permission::updateOrCreate([
