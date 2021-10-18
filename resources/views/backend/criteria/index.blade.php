@@ -38,15 +38,14 @@
                             <th class="text-center">#</th>
                             <th>Nama</th>
                             <th class="text-center">Kode</th>
-                            <th class="text-center">Status</th>
                             <th class="text-center">Dibuat</th>
                             <th class="text-center">Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach($criterias as $key => $criteria)
+                            @forelse($criterias as $criteria)
                                 <tr>
-                                    <td class="text-center text-muted">#{{ $key + 1 }}</td>
+                                    <td class="text-center text-muted">#{{ $loop->iteration }}</td>
                                     <td>
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
@@ -57,13 +56,6 @@
                                         </div>
                                     </td>
                                     <td class="text-center">{{ $criteria->criteria_code }}</td>
-                                    <td class="text-center">
-                                        @if ($criteria->status)
-                                            <div class="badge badge-success">Aktif</div>
-                                        @else
-                                            <div class="badge badge-danger">Nonaktif</div>
-                                        @endif
-                                    </td>
                                     <td class="text-center">{{ $criteria->created_at->diffForHumans() }}</td>
                                     <td class="text-center">
                                         <a class="btn btn-info btn-sm" href="{{ route('criteria.edit', $criteria->id) }}">
@@ -78,7 +70,11 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">Data tidak ditemukan</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
