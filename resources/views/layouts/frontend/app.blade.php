@@ -16,65 +16,87 @@
     <!-- Styles -->
     <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        .register-photo {
+            background: #f1f7fc;
+            padding: 80px 0
+        }
+
+        .register-photo .image-holder {
+            display: table-cell;
+            width: auto;
+            background: url(https://images.unsplash.com/photo-1535957998253-26ae1ef29506?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=436&q=80);
+            background-size: cover
+        }
+
+        .register-photo .form-container {
+            display: table;
+            max-width: 900px;
+            width: 90%;
+            margin: 0 auto;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1)
+        }
+
+        .register-photo form {
+            display: table-cell;
+            width: 400px;
+            background-color: #ffffff;
+            padding: 40px 60px;
+            color: #505e6c
+        }
+
+        @media (max-width:991px) {
+            .register-photo form {
+                padding: 40px
+            }
+        }
+
+        .register-photo form h2 {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 30px
+        }
+
+        .register-photo form .form-control {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #dfe7f1;
+            border-radius: 0;
+            box-shadow: none;
+            outline: none;
+            color: inherit;
+            text-indent: 0px;
+            height: 40px
+        }
+
+        .register-photo form .form-check {
+            font-size: 13px;
+            line-height: 20px
+        }
+
+        .register-photo form .already {
+            display: block;
+            text-align: left;
+            font-size: 12px;
+            color: #6f7a85;
+            opacity: 0.9;
+            text-decoration: none
+        }
+
+        .btn-success{
+            background: #567CDD !important;
+            border: 1px solid #567CDD !important;
+        }
+
+        .btn-success:hover{
+            background: #4A73DA !important;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ setting('site_title', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @role('director')
-                                        <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                            {{ __('Dashboard') }}
-                                        </a>
-                                    @endrole
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>
