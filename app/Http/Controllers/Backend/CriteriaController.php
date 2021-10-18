@@ -71,7 +71,7 @@ class CriteriaController extends Controller
 
     public function update(Request $request)
     {
-        Gate::authorize('criteria.update');
+        Gate::authorize('criteria.edit');
 
         $validation = Validator::make($request->all(), [
             'criteria_name' => 'required|string|min:3|max:191',
