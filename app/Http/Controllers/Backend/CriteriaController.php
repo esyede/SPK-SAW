@@ -61,7 +61,7 @@ class CriteriaController extends Controller
 
         $criteria = Criteria::find($id);
 
-        if (! $criteria) {
+        if (!$criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }
@@ -69,15 +69,13 @@ class CriteriaController extends Controller
         return view('backend.criteria.edit', compact('criteria'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         Gate::authorize('criteria.edit');
 
         $validation = Validator::make($request->all(), [
             'criteria_name' => 'required|string|min:3|max:191',
             'criteria_code' => 'required|string|min:2|max:20',
-            'attribute' => 'nullable|string',
-            'bobot' => 'required|integer',
         ]);
 
         if ($validation->fails()) {
@@ -85,9 +83,9 @@ class CriteriaController extends Controller
             return back();
         }
 
-        $criteria = Criteria::find($criteria->criteria_code);
+        $criteria = Criteria::find($id);
 
-        if (! $criteria) {
+        if (!$criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }
@@ -107,15 +105,12 @@ class CriteriaController extends Controller
 
         $criteria = Criteria::find($id);
 
-        if (! $criteria) {
+        if (!$criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }
 
-        if (! $criterias->delete()) {
-            notify()->error('Kriteria gagal dihapus');
-            return back();
-        }
+        $criteria->delete();
 
         notify()->success('Kriteria berhasil dihapus');
         return back();
