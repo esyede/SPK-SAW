@@ -14,7 +14,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MenuBuilderController;
 use App\Http\Controllers\Backend\SubCriteriaController;
 use App\Http\Controllers\Backend\GapScoreController;
-use App\Http\Controllers\Backend\RatingController;
+use App\Http\Controllers\Backend\EvaluationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,8 +61,8 @@ Route::group(['as' => 'gap-score.', 'prefix' => 'gap-score'], function() {
 });
 
 // Penilaian
-Route::group(['as' => 'rating.', 'prefix' => 'rating'], function() {
-    Route::get('/', [RatingController::class, 'index'])->name('index');
+Route::group(['as' => 'evaluation.', 'prefix' => 'evaluation'], function() {
+    Route::get('/', [EvaluationController::class, 'index'])->name('index');
 });
 
 // Security
