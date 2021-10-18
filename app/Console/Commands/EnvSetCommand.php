@@ -14,8 +14,7 @@ class EnvSetCommand extends Command
     public const ARGUMENT_VALUE = 'value';
     public const ARGUMENT_ENV_FILE = 'env_file';
 
-    protected $signature
-        = self::COMMAND_NAME
+    protected $signature = self::COMMAND_NAME
         . ' {' . self::ARGUMENT_KEY . ' : Key or "key=value" pair}'
         . ' {' . self::ARGUMENT_VALUE . '? : Value}'
         . ' {' . self::ARGUMENT_ENV_FILE . '? : Optional path to the .env file}';
@@ -71,7 +70,7 @@ class EnvSetCommand extends Command
 
     public function readKeyValuePair(string $envFileContent, string $key)
     {
-        if (preg_match("#^ *{$key} *= *[^\r\n]*$#uimU", $envFileContent, $matches)) {
+        if (preg_match('#^' . $key . '=*[^\R]*$#uimU', $envFileContent, $matches)) {
             return $matches[0];
         }
 
@@ -105,7 +104,7 @@ class EnvSetCommand extends Command
             $value = '"' . $value . '"';
         }
 
-        return [strtoupper($key), $value, ($envFilePath === null ? null : realpath($envFilePath))];
+        return [strtoupper($key), $value, (($envFilePath === null) ? null : realpath($envFilePath))];
     }
 
     public function assertKeyIsValid(string $key): bool
