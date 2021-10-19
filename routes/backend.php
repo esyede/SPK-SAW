@@ -59,7 +59,7 @@ Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function () 
 Route::resource('integrity', IntegrityController::class);
 
 // Penilaian
-Route::resource('evaluation', [EvaluationController::class, 'index']);
+Route::resource('evaluation', EvaluationController::class);
 
 
 // Security
