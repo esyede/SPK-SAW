@@ -18,7 +18,7 @@
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
-                    <a href="#" class="btn-shadow btn btn-info">
+                    <a href="{{ route('evaluation.create') }}" class="btn-shadow btn btn-info">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-plus-circle fa-w-20"></i>
                         </span>
