@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Validator;
-use App\Models\SubCriteria;
 use App\Models\Role;
 use App\Models\Criteria;
+use App\Models\SubCriteria;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class SubCriteriaController extends Controller
 {
@@ -33,9 +34,9 @@ class SubCriteriaController extends Controller
     {
         Gate::authorize('sub-criteria.create');
 
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'criteria_id'       => 'required|integer|exists:criterias,id',
-            'subcriteria_code'  => 'required|string|max:255',
+            'subcriteria_code'  => 'required|string|max:255|unique:sub_criterias,subcriteria_code',
             'name'              => 'required|string|max:255',
             'standard_value'    => 'required|integer'
         ]);
@@ -47,7 +48,7 @@ class SubCriteriaController extends Controller
 
         $subcriteria = SubCriteria::create([
             'criteria_id'       => $request->criteria_id,
-            'subcriteria_code'  => $request->subcriteria_code,
+            'subcriteria_code'  => Str::upper($request->subcriteria_code),
             'name'              => $request->name,
             'standard_value'    => $request->standard_value,
         ]);

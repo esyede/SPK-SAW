@@ -44,15 +44,15 @@
                         </div>
                         <div class="form-group">
                             <label for="">Kode Sub Kriteria</label>
-                            <input type="text" class="form-control" name="subcriteria_code" placeholder="Kode Sub Kriteria">
+                            <input value="{{ old('subcriteria_code') }}" type="text" class="form-control" name="subcriteria_code" placeholder="Kode Sub Kriteria">
                         </div>
                         <div class="form-group">
                             <label for="">Nama Sub Kriteria</label>
-                            <input type="text" class="form-control" name="name" placeholder="Nama Sub Kriteria">
+                            <input value="{{ old('name') }}" type="text" class="form-control" name="name" placeholder="Nama Sub Kriteria">
                         </div>
                         <div class="form-group">
                             <label for="">Nilai Standard</label>
-                            <input type="number" name="standard_value" class="form-control" placeholder="Nilai Standard">
+                            <input value="{{ old('standart_value') }}" type="number" name="standard_value" class="form-control" placeholder="Nilai Standard">
                         </div>
                     </div>
                 </div>

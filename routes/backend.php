@@ -46,7 +46,7 @@ Route::post('profile/', [ProfileController::class, 'update'])->name('profile.upd
 Route::resource('criteria', CriteriaController::class);
 
 // Sub Criterial
-Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function() {
+Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function () {
     Route::get('/', [SubCriteriaController::class, 'index'])->name('index');
     Route::get('create', [SubCriteriaController::class, 'create'])->name('create');
     Route::get('{id}/edit', [SubCriteriaController::class, 'edit'])->name('edit');
@@ -56,12 +56,10 @@ Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function() {
 });
 
 // Gap Score
-Route::group(['as' => 'value-weighting.', 'prefix' => 'value-weighting'], function() {
-    Route::get('/', [GapScoreController::class, 'index'])->name('index');
-});
+Route::resource('value-weighting', GapScoreController::class);
 
 // Penilaian
-Route::group(['as' => 'evaluation.', 'prefix' => 'evaluation'], function() {
+Route::group(['as' => 'evaluation.', 'prefix' => 'evaluation'], function () {
     Route::get('/', [EvaluationController::class, 'index'])->name('index');
 });
 
