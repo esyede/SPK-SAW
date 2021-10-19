@@ -59,9 +59,8 @@ Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function () 
 Route::resource('integrity', IntegrityController::class);
 
 // Penilaian
-Route::group(['as' => 'evaluation.', 'prefix' => 'evaluation'], function () {
-    Route::get('/', [EvaluationController::class, 'index'])->name('index');
-});
+Route::resource('evaluation', [EvaluationController::class, 'index']);
+
 
 // Security
 Route::get('profile/security', [ProfileController::class, 'changePassword'])->name('profile.password.change');
