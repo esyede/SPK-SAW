@@ -1,12 +1,13 @@
 function deleteData(id) {
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Hapus data ini?',
+        text: "Anda tidak akan dapat mengembalikan ini!",
         icon: 'warning',
         showCancelButton: true,
+        confirmButtonText: 'Hapus'
         confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        cancelButtonText: 'Batal',
+        cancelButtonColor: '#d33'
     }).then((result) => {
         if (result.value) {
             document.getElementById('delete-form-' + id).submit();

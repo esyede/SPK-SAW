@@ -16,8 +16,8 @@ class StoreCriteriaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_kriteria' => 'required|string',
-            'kode_kriteria' => 'required|string',
+            'criteria_name' => 'required|string',
+            'criteria_code' => 'required|string',
         ];
     }
 }
