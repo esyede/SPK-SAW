@@ -13,7 +13,7 @@ use App\Http\Controllers\Backend\CriteriaController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\MenuBuilderController;
 use App\Http\Controllers\Backend\SubCriteriaController;
-use App\Http\Controllers\Backend\GapScoreController;
+use App\Http\Controllers\Backend\IntegrityController;
 use App\Http\Controllers\Backend\EvaluationController;
 
 /*
@@ -55,10 +55,8 @@ Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function() {
     Route::delete('{id}/destroy', [SubCriteriaController::class, 'destroy'])->name('destroy');
 });
 
-// Gap Score
-Route::group(['as' => 'value-weighting.', 'prefix' => 'value-weighting'], function() {
-    Route::get('/', [GapScoreController::class, 'index'])->name('index');
-});
+// Pembobotan Nilai
+Route::resource('integrity', IntegrityController::class);
 
 // Penilaian
 Route::group(['as' => 'evaluation.', 'prefix' => 'evaluation'], function() {

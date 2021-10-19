@@ -54,7 +54,7 @@ class PermissionSeeder extends Seeder
             'slug' => 'criteria.destroy',
         ]);
 
-        //SubCriteria Management
+        // SubCriteria Management
         $subcriteria = Module::updateOrCreate(['name'=>'Sub Kriteria']);
         Permission::updateOrCreate([
             'module_id'=>$subcriteria->id,
@@ -75,6 +75,29 @@ class PermissionSeeder extends Seeder
             'module_id'=>$subcriteria->id,
             'name'=>'Hapus',
             'slug'=>'sub-criteria.destroy',
+        ]);
+
+        // Pembobotan Nilai
+        $integrity = Module::updateOrCreate(['name' => 'Pembobotan Nilai']);
+        Permission::updateOrCreate([
+            'module_id' => $integrity->id,
+            'name' => 'Lihat',
+            'slug' => 'integrity.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $integrity->id,
+            'name' => 'Buat',
+            'slug' => 'integrity.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $integrity->id,
+            'name' => 'Edit',
+            'slug' => 'integrity.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $integrity->id,
+            'name' => 'Hapus',
+            'slug' => 'integrity.destroy',
         ]);
 
         // Profile

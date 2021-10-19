@@ -63,7 +63,7 @@ class MenuSeeder extends Seeder
             [
                 'order' => 6,
                 'title' => 'Pembobotan Nilai',
-                'url' => '/value-weighting',
+                'url' => '/integrity',
                 'menu_id' => $menu->id,
                 'type' => 'item',
                 'parent_id' => null,
