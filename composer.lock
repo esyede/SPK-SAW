@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a608ee2b1d4dde932c87f487b2731ae",
+    "content-hash": "3ad6337f92453748f82ae6aaaeabedb2",
     "packages": [
         {
             "name": "appslabke/lara-izitoast",
@@ -2350,6 +2350,75 @@
                 }
             ],
             "time": "2021-10-01T21:08:31+00:00"
+        },
+        {
+            "name": "msztorc/laravel-env",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/msztorc/laravel-env.git",
+                "reference": "cb89523d1fdd43085d00a87b5180d2a02c57b184"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/msztorc/laravel-env/zipball/cb89523d1fdd43085d00a87b5180d2a02c57b184",
+                "reference": "cb89523d1fdd43085d00a87b5180d2a02c57b184",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/support": "^6.0|^7.0|^8.0",
+                "php": "^7.3|^7.4|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2 || ^3",
+                "orchestra/testbench": "^4.0|^5.0|^6.0",
+                "phpunit/phpunit": "^8.0 || ^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "msztorc\\LaravelEnv\\LaravelEnvServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelEnv": "msztorc\\LaravelEnv\\LaravelEnvFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "msztorc\\LaravelEnv\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miroslaw Sztorc",
+                    "email": "miroslaw@sztorc.com",
+                    "homepage": "https://sztorc.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel env helper commands",
+            "homepage": "https://github.com/msztorc/laravel-env",
+            "keywords": [
+                "artisan",
+                "command",
+                "env",
+                "environment",
+                "laravel",
+                "laravel-env",
+                "variables"
+            ],
+            "support": {
+                "issues": "https://github.com/msztorc/laravel-env/issues",
+                "source": "https://github.com/msztorc/laravel-env/tree/1.2.2"
+            },
+            "time": "2021-10-12T13:19:36+00:00"
         },
         {
             "name": "myclabs/php-enum",

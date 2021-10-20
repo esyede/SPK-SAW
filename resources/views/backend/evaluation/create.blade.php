@@ -18,7 +18,7 @@
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-plus-circle fa-w-20"></i>
                         </span>
-                        {{ __('Kembali ke daftar') }}
+                        Kembali
                     </a>
                 </div>
             </div>

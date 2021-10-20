@@ -36,9 +36,7 @@
                     @endif
                     <div class="card-body">
                         <h5 class="card-title">Kelola Roles</h5>
-
-                        <x-forms.textbox label="Nama role" name="name" value="{{ $role->name ?? ''  }}" placeholder="Masukkan nama role" field-attributes="required autofocus">
-                        </x-forms.textbox>
+                        <input type="text" class="form-control" name="name" value="{{ $role->name ?? '' }}" placeholder="Masukkan nama role" required autofocus>
 
                         <div class="text-center">
                             <strong>Kelola permission untuk role</strong>

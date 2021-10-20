@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Tambah Kriteria')
+@section('title', 'Edit Sub Kriteria')
 
 @section('content')
     <div class="app-page-title">
@@ -10,7 +10,7 @@
                     <i class="pe-7s-users icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>{{ __('Tambah Sub Kriteria') }}</div>
+                <div>Edit Sub Kriteria</div>
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
@@ -18,7 +18,7 @@
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-arrow-circle-left fa-w-20"></i>
                         </span>
-                        {{ __('Back to list') }}
+                        Kembali
                     </a>
                 </div>
             </div>
@@ -56,9 +56,15 @@
                             <input type="number" name="standard_value" class="form-control" placeholder="Nilai Standard" value="{{$subcriteria->standard_value}}">
                         </div>
                     </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-danger" onclick="resetForm('subcriteriaForm')">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                        <button type="submit" class="btn btn-info">
+                            <i class="fas fa-plus-circle"></i> Simpan
+                        </button>
+                    </div>
                 </div>
-                <x-forms.button label="Reset" class="btn-danger" icon-class="fas fa-redo" on-click="resetForm('subcriteriaForm')"/>
-                <x-forms.button type="submit" label="Tambah" icon-class="fas fa-plus-circle"/>
             </form>
         </div>
     </div>

@@ -45,15 +45,8 @@ Route::post('profile/', [ProfileController::class, 'update'])->name('profile.upd
 // Criteria
 Route::resource('criteria', CriteriaController::class);
 
-// Sub Criterial
-Route::group(['as' => 'sub-criteria.', 'prefix' => 'sub-criteria'], function () {
-    Route::get('/', [SubCriteriaController::class, 'index'])->name('index');
-    Route::get('create', [SubCriteriaController::class, 'create'])->name('create');
-    Route::get('{id}/edit', [SubCriteriaController::class, 'edit'])->name('edit');
-    Route::post('store', [SubCriteriaController::class, 'store'])->name('store');
-    Route::put('{id}/update', [SubCriteriaController::class, 'update'])->name('update');
-    Route::delete('{id}/destroy', [SubCriteriaController::class, 'destroy'])->name('destroy');
-});
+// Sub Criteria
+Route::resource('sub-criteria', SubCriteriaController::class);
 
 // Pembobotan Nilai
 Route::resource('integrity', IntegrityController::class);
@@ -65,9 +58,6 @@ Route::resource('evaluation', EvaluationController::class);
 // Security
 Route::get('profile/security', [ProfileController::class, 'changePassword'])->name('profile.password.change');
 Route::post('profile/security', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
-
-// Pages
-Route::resource('pages', PageController::class)->except(['show']);
 
 // Settings
 Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {

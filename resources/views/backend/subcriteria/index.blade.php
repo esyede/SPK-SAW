@@ -14,7 +14,7 @@
                     <i class="pe-7s-users icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>{{ __('Daftar Sub Kriteria') }}</div>
+                <div>Daftar Sub Kriteria</div>
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
@@ -22,7 +22,7 @@
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-plus-circle fa-w-20"></i>
                         </span>
-                        {{ __('Tambah Sub Kriteria') }}
+                        Tambah
                     </a>
                 </div>
             </div>
@@ -79,3 +79,14 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Datatable
+            $("#datatable").DataTable();
+        });
+    </script>
+@endpush

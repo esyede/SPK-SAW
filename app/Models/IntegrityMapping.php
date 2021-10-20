@@ -19,7 +19,7 @@ class IntegrityMapping extends Model
 
     public function sub_criteria()
     {
-        return $this->belongsTo(SubCriteria::class,'subcriteria_code','subcriteria_code');
+        return $this->belongsTo(SubCriteria::class, 'subcriteria_code', 'subcriteria_code');
     }
 
     public function user()

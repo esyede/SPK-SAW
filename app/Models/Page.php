@@ -12,17 +12,12 @@ class Page extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    public function registerMediaCollections() : void
+    public function registerMediaCollections(): void
     {
         $this->addMediaCollection('image')
             ->singleFile()
             ->useFallbackUrl(config('app.placeholder').'800.png')
             ->useFallbackPath(config('app.placeholder').'800.png');
-    }
-
-    public static function findBySlug($slug)
-    {
-        return self::where('slug', $slug)->firstOrFail();
     }
 
     public function scopeActive($query)

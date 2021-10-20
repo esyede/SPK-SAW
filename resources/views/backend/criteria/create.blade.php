@@ -18,7 +18,7 @@
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-arrow-circle-left fa-w-20"></i>
                         </span>
-                        {{ __('Back to list') }}
+                        Kembali
                     </a>
                 </div>
             </div>
@@ -33,13 +33,20 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <h5 class="card-title">Tambah Kriteria</h5>
-                        <x-forms.textbox label="Kode Kriteria" name="criteria_code" value="{{ $criteria->criteria_code ?? '' }}" field-attributes="required"></x-forms.textbox>
-                        <x-forms.textbox label="Nama Kriteria" name="criteria_name" value="{{ $criteria->criteria_name ?? '' }}" field-attributes="required"></x-forms.textbox>
+                        <label class="form-label">Kode Kriteria</label>
+                        <input type="text" class="form-control" name="criteria_code" value="{{ $criteria->criteria_code ?? '' }}" placeholder="Kode kriteria" required>
+                        <label class="form-label">Nama Kriteria</label>
+                        <input type="text" class="form-control" name="criteria_name" value="{{ $criteria->criteria_name ?? '' }}" placeholder="Kode kriteria" required>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-danger" onclick="resetForm('criteriaForm')">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                        <button type="submit" class="btn btn-info">
+                            <i class="fas fa-plus-circle"></i> Simpan
+                        </button>
                     </div>
                 </div>
-
-                <x-forms.button label="Reset" class="btn-danger" icon-class="fas fa-redo" on-click="resetForm('criteriaForm')"/>
-                <x-forms.button type="submit" label="Tambah" icon-class="fas fa-plus-circle"/>
             </form>
         </div>
     </div>

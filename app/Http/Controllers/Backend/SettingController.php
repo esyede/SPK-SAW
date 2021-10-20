@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
-use Inertia\Inertia;
+use msztorc\LaravelEnv\Env;
 
 class SettingController extends Controller
 {
@@ -23,8 +23,10 @@ class SettingController extends Controller
 
     public function update(UpdateGeneralSettingsRequest $request)
     {
-        Setting::updateSettings($request->validated());
-        Artisan::call('env:set APP_NAME='. $request->site_title);
+        Setting::change($request->validated());
+
+        $env = new Env();
+        $env->setValue('APP_NAME', (string) $request->site_title);
 
         notify()->success('Pengaturan berhasil disimpan');
         return back();
@@ -63,16 +65,17 @@ class SettingController extends Controller
 
     public function updateMailSettings(UpdateMailSettingsRequest $request)
     {
-        Setting::updateSettings($request->validated());
+        Setting::change($request->validated());
 
-        Artisan::call('env:set MAIL_MAILER=' . $request->mail_mailer);
-        Artisan::call('env:set MAIL_HOST=' . $request->mail_host);
-        Artisan::call('env:set MAIL_PORT=' . $request->mail_port);
-        Artisan::call('env:set MAIL_USERNAME=' . $request->mail_username);
-        Artisan::call('env:set MAIL_PASSWORD=' . $request->mail_password);
-        Artisan::call('env:set MAIL_ENCRYPTION=' . $request->mail_encryption);
-        Artisan::call('env:set MAIL_FROM_ADDRESS=' . $request->mail_from_address);
-        Artisan::call('env:set MAIL_FROM_NAME=' . $request->mail_from_name);
+        $env = new Env();
+        $env->setValue('MAIL_MAILER', (string) $request->mail_mailer);
+        $env->setValue('MAIL_HOST', (string) $request->mail_host);
+        $env->setValue('MAIL_PORT', (string) $request->mail_port);
+        $env->setValue('MAIL_USERNAME', (string) $request->mail_username);
+        $env->setValue('MAIL_PASSWORD', (string) $request->mail_password);
+        $env->setValue('MAIL_ENCRYPTION', (string) $request->mail_encryption);
+        $env->setValue('MAIL_FROM_ADDRESS', (string) $request->mail_from_address);
+        $env->setValue('MAIL_FROM_NAME', (string) $request->mail_from_name);
 
         notify()->success('Pengaturan berhasil disimpan');
         return back();

@@ -10,6 +10,7 @@ class SubCriteria extends Model
 {
     use HasFactory;
 
+    protected $table = 'sub_criterias';
     protected $guarded = ['id'];
 
     public function criteria()
