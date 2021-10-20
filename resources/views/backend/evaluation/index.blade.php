@@ -22,7 +22,7 @@
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-plus-circle fa-w-20"></i>
                         </span>
-                        {{ __('Tambah Data') }}
+                        Tambah
                     </a>
                 </div>
             </div>
@@ -208,7 +208,7 @@
     <script>
         $(document).ready(function() {
             // Datatable
-            $(".datatable").DataTable();
+            $("#datatable").DataTable();
         });
     </script>
 @endpush

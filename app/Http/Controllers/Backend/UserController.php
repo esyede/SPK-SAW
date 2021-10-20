@@ -16,7 +16,10 @@ class UserController extends Controller
     {
         Gate::authorize('users.index');
 
-        $users = User::getAllEmployees();
+        $users = User::with('role')->whereHas('role', function ($q) {
+            $q->where('slug', 'employee');
+        })->get();
+
         return view('backend.users.index', compact('users'));
     }
 
@@ -24,7 +27,7 @@ class UserController extends Controller
     {
         Gate::authorize('users.create');
 
-        $roles = Role::getForSelect();
+        $roles = Role::select('id', 'name')->get();;
         return view('backend.users.form', compact('roles'));
     }
 

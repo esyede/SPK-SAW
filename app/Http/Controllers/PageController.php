@@ -9,7 +9,7 @@ class PageController extends Controller
 {
     public function __invoke($slug)
     {
-        $page = Page::findBySlug($slug);
+        $page = Page::where('slug', $slug)->firstOrFail();
         return view('backend.page.index', compact('page'));
     }
 }

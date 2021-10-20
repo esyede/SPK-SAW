@@ -66,10 +66,10 @@ class SubCriteriaController extends Controller
     {
         Gate::authorize('sub-criteria.edit');
 
-        $criteria    = Criteria::all();
+        $criteria = Criteria::all();
         $subcriteria = SubCriteria::find($id);
 
-        if (!$subcriteria) {
+        if (! $subcriteria) {
             notify()->error('Sub Kriteria tidak ditemukan');
             return back();
         }
@@ -94,7 +94,7 @@ class SubCriteriaController extends Controller
 
         $subcriteria = SubCriteria::find($id);
 
-        if (!$subcriteria) {
+        if (! $subcriteria) {
             notify()->error('Sub Kriteria tidak ditemukan');
         }
 
@@ -120,7 +120,7 @@ class SubCriteriaController extends Controller
 
         $subcriteria = SubCriteria::find($id);
 
-        if (!$subcriteria) {
+        if (! $subcriteria) {
             notify()->error('Sub Kriteria gagal dihapus');
         }
 

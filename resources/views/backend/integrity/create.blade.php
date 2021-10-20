@@ -18,7 +18,7 @@
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-arrow-circle-left fa-w-20"></i>
                         </span>
-                        {{ __('Back to list') }}
+                        Kembali
                     </a>
                 </div>
             </div>
@@ -33,14 +33,22 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <h5 class="card-title">Tambah Pembobotan Nilai</h5>
-                        <x-forms.textbox label="Deskripsi" name="description" field-attributes="required"></x-forms.textbox>
-                        <x-forms.textbox label="Bobot Nilai" name="integrity" type="number" step="0.1" field-attributes="required"></x-forms.textbox>
-                        <x-forms.textbox label="Nilai GAP" name="difference_value" type="number" step="0.1" field-attributes="required"></x-forms.textbox>
+                        <label class="form-label">Deskripsi</label>
+                        <input type="text" class="form-control" name="description" placeholder="Deskripsi" required>
+                        <label class="form-label">Bobot Nilai</label>
+                        <input type="number" step="0.1" class="form-control" name="integrity" placeholder="Bobot nilai" required>
+                        <label class="form-label">Nilai GAP</label>
+                        <input type="number" step="0.1" class="form-control" name="difference_value" placeholder="Nilai GAP" required>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-danger" onclick="resetForm('integrityForm')">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                        <button type="submit" class="btn btn-info">
+                            <i class="fas fa-plus-circle"></i> Simpan
+                        </button>
                     </div>
                 </div>
-
-                <x-forms.button label="Reset" class="btn-danger" icon-class="fas fa-redo" on-click="resetForm('integrityForm')"/>
-                <x-forms.button type="submit" label="Tambah" icon-class="fas fa-plus-circle"/>
             </form>
         </div>
     </div>

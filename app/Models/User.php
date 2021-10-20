@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Cache;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -35,60 +34,8 @@ class User extends Authenticatable implements HasMedia
             });
     }
 
-    public static function getAllUsers()
-    {
-        return Cache::rememberForever('users.all', function () {
-            return self::with('role')->latest('id')->get();
-        });
-    }
-
-    public static function getAllEmployees()
-    {
-        return Cache::rememberForever('employee.all', function () {
-            return self::with('role')->whereHas('role', function ($q) {
-                $q->where('slug', 'employee');
-            })->latest('id')->get();
-        });
-    }
-
-    public static function getAllDirectors()
-    {
-        return Cache::rememberForever('director.all', function () {
-            return self::with('role')->whereHas('role', function ($q) {
-                $q->where('slug', 'director');
-            })->latest('id')->get();
-        });
-    }
-
-    public static function flushCache()
-    {
-        Cache::forget('users.all');
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::updated(function () {
-            self::flushCache();
-        });
-
-        static::created(function () {
-            self::flushCache();
-        });
-
-        static::deleted(function () {
-            self::flushCache();
-        });
-    }
-
     public function role()
     {
         return $this->belongsTo(Role::class);
-    }
-
-    public function hasPermission($permission): bool
-    {
-        return $this->role->permissions()->where('slug', $permission)->first() ? true : false;
     }
 }

@@ -15,11 +15,11 @@ class AuthGates
         $user = Auth::user();
 
         if ($user) {
-            $permissions = Permission::getAllPermissions();
+            $permissions = Permission::all();
 
             foreach ($permissions as $key => $permission) {
                 Gate::define($permission->slug, function (User $user) use ($permission) {
-                    return $user->hasPermission($permission->slug);
+                    return $user->role->permissions()->where('slug', $permission->slug)->first() ? true : false;
                 });
             }
         }

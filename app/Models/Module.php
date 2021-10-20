@@ -11,31 +11,7 @@ class Module extends Model
 
     public static function getWithPermissions()
     {
-        return Cache::rememberForever('permissions.getWithPermissions', function () {
-            return self::with('permissions')->get();
-        });
-    }
-
-    public static function flushCache()
-    {
-        Cache::forget('permissions.getWithPermissions');
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::updated(function () {
-            self::flushCache();
-        });
-
-        static::created(function () {
-            self::flushCache();
-        });
-
-        static::deleted(function () {
-            self::flushCache();
-        });
+        return self::with('permissions')->get();
     }
 
     public function permissions()

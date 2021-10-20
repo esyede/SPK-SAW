@@ -19,7 +19,7 @@ class RoleController extends Controller
     {
         Gate::authorize('roles.index');
 
-        $roles = Role::getAllRoles();
+        $roles = Role::withCount('permissions')->latest('id')->get();
 
         return view('backend.roles.index', compact('roles'));
     }
