@@ -100,6 +100,29 @@ class PermissionSeeder extends Seeder
             'slug' => 'integrity.destroy',
         ]);
 
+        //evaluation
+        $evaluation = Module::updateOrCreate(['name' => 'Penilaian']);
+        Permission::updateOrCreate([
+            'module_id' => $evaluation->id,
+            'name' => 'Lihat',
+            'slug' => 'evaluation.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $evaluation->id,
+            'name' => 'Buat',
+            'slug' => 'evaluation.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $evaluation->id,
+            'name' => 'Edit',
+            'slug' => 'evaluation.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $evaluation->id,
+            'name' => 'Hapus',
+            'slug' => 'evaluation.destroy',
+        ]);
+
         // Profile
         $profile = Module::updateOrCreate(['name' => 'Profil']);
         Permission::updateOrCreate([
