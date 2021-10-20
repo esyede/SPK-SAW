@@ -69,21 +69,6 @@ Route::post('profile/security', [ProfileController::class, 'updatePassword'])->n
 // Pages
 Route::resource('pages', PageController::class)->except(['show']);
 
-// Menu Builder
-Route::resource('menus', MenuController::class)->except(['show']);
-Route::post('menus/{menu}/order', [MenuController::class, 'orderItem'])->name('menus.order');
-Route::group(['as' => 'menus.', 'prefix' => 'menus/{id}/'], function () {
-    Route::get('builder', [MenuBuilderController::class, 'index'])->name('builder');
-    // Menu Item
-    Route::group(['as' => 'item.', 'prefix' => 'item'], function () {
-        Route::get('/create', [MenuBuilderController::class, 'itemCreate'])->name('create');
-        Route::post('/store', [MenuBuilderController::class, 'itemStore'])->name('store');
-        Route::get('/{itemId}/edit', [MenuBuilderController::class, 'itemEdit'])->name('edit');
-        Route::put('/{itemId}/update', [MenuBuilderController::class, 'itemUpdate'])->name('update');
-        Route::delete('/{itemId}/destroy', [MenuBuilderController::class, 'itemDestroy'])->name('destroy');
-    });
-});
-
 // Settings
 Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
     Route::get('general', [SettingController::class, 'index'])->name('index');

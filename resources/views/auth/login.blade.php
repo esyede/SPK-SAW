@@ -7,7 +7,7 @@
             @csrf
 
             <h2 class="text-center">
-                Sistem Pendukung Keputusan Pemberian Gaji Karyawan
+                Sistem Pendukung Keputusan Penilaian Karyawan
             </h2>
             <h2 class="mb-3"><strong>Login</strong></h2>
             <div class="form-group">
@@ -43,11 +43,11 @@
                     {{ __('Login') }}
                 </button>
             </div>
-            @if (Route::has('password.request'))
+            <!-- @if (Route::has('password.request'))
                 <a class="already" href="{{ route('password.request') }}">
                     Lupa password?
                 </a>
-            @endif
+            @endif -->
         </form>
         <div class="image-holder"></div>
     </div>

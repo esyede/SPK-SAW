@@ -16,7 +16,7 @@ class EvaluationController extends Controller
 
     public function create()
     {
-        Gate::authorize('evaluation.create');
+        // Gate::authorize('evaluation.create');
 
         return view('backend.evaluation.create');
     }
