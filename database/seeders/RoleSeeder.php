@@ -18,11 +18,8 @@ class RoleSeeder extends Seeder
             ->sync($permissions->pluck('id'));
 
         // Employee permissions
-        $permissions = Permission::where('slug', 'like', '%dashboard%')
-            ->orWhere('slug', 'like', '%criteria%')
-            ->orWhere('slug', 'like', '%profile%')
-            ->orWhere('slug', 'like', '%pages%')
-            ->where('name', 'Lihat')
+        $permissions = Permission::where('slug', 'dashboard')
+            ->orWhere('slug', 'evaluation.index')
             ->get();
 
         Role::updateOrCreate(['name' => 'Employee', 'slug' => 'employee', 'deletable' => true])

@@ -79,7 +79,4 @@ Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
 
     Route::get('mail', [SettingController::class, 'mail'])->name('mail.index');
     Route::patch('mail', [SettingController::class, 'updateMailSettings'])->name('mail.update');
-
-    Route::get('socialite', [SettingController::class, 'socialite'])->name('socialite.index');
-    Route::patch('socialite', [SettingController::class, 'updateSocialiteSettings'])->name('socialite.update');
 });

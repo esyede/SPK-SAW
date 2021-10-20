@@ -77,26 +77,4 @@ class SettingController extends Controller
         notify()->success('Pengaturan berhasil disimpan');
         return back();
     }
-
-    public function socialite()
-    {
-        return view('backend.settings.socialite');
-    }
-
-    public function updateSocialiteSettings(UpdateSocialiteSettingsRequest $request)
-    {
-        Setting::updateSettings($request->validated());
-
-        Artisan::call('env:set FACEBOOK_CLIENT_ID='. $request->facebook_client_id);
-        Artisan::call('env:set FACEBOOK_CLIENT_SECRET='. $request->facebook_client_secret);
-
-        Artisan::call('env:set GOOGLE_CLIENT_ID='. $request->google_client_id);
-        Artisan::call('env:set GOOGLE_CLIENT_SECRET='. $request->google_client_secret);
-
-        Artisan::call('env:set GITHUB_CLIENT_ID='. $request->github_client_id);
-        Artisan::call('env:set GITHUB_CLIENT_SECRET='. $request->github_client_secret);
-
-        notify()->success('Pengaturan berhasil disimpan');
-        return back();
-    }
 }

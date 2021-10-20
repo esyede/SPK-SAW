@@ -40,68 +40,86 @@
                         Dashboard
                     </a>
                 </li>
-                
-                @if( Auth::user()->role_id == 2)
-                <li>
-                    <a href="/evaluation" class="{{ Request::is('evaluation*') ? 'mm-active' : '' }}">
-                        <i class="metismenu-icon pe-7s-note"></i>
-                        Penilaian
-                    </a>
-                </li>
-                @endif
 
-                @if( Auth::user()->role_id == 1 )
+                @can('roles.index')
                 <li>
                     <a href="/roles" class="{{ Request::is('roles*') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-check"></i>
                         Roles
                     </a>
                 </li>
+                @endcan
+
+                @can('evaluation.index')
                 <li class="app-sidebar__heading">SPK</li>
+                @endcan
+
+                @can('criteria.index')
                 <li>
                     <a href="/criteria" class="{{ Request::is('criteria*') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-news-paper"></i>
                         Kriteria
                     </a>
                 </li>
+                @endcan
+
+                @can('sub-criteria.index')
                 <li>
                     <a href="/sub-criteria" class="{{ Request::is('sub-criteria*') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-note2"></i>
                         Sub Kriteria
                     </a>
                 </li>
+                @endcan
+
+                @can('integrity.index')
                 <li>
                     <a href="/integrity" class="{{ Request::is('integrity*') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-graph3"></i>
                         Pembobotan Nilai
                     </a>
                 </li>
+                @endcan
+
+                @can('users.index')
                 <li>
                     <a href="/users" class="{{ Request::is('users*') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-id"></i>
                         Pegawai
                     </a>
                 </li>
+                @endcan
+
+                @can('evaluation.index')
                 <li>
                     <a href="/evaluation" class="{{ Request::is('evaluation*') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-note"></i>
                         Penilaian
                     </a>
                 </li>
+                @endcan
+
+                @can('settings.index')
                 <li class="app-sidebar__heading">Pengaturan</li>
+                @endcan
+
+                @can('settings.index')
                 <li>
                     <a href="/settings/general" class="{{ Request::is('setting/general*') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-settings"></i>
                         Umum
                     </a>
                 </li>
+                @endcan
+
+                @can('backups.index')
                 <li>
                     <a href="/backups" class="{{ Request::is('backups*') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-cloud"></i>
                         Backup
                     </a>
                 </li>
-                @endif
+                @endcan
             </ul>
         </div>
     </div>
