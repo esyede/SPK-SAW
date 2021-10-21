@@ -38,7 +38,7 @@
                         <label class="form-label">Nama Kriteria</label>
                         <input type="text" class="form-control" name="criteria_name" value="{{ $criteria->criteria_name ?? '' }}" placeholder="Kode kriteria" required>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-danger" onclick="resetForm('criteriaForm')">
                             <i class="fas fa-redo"></i> Reset
                         </button>

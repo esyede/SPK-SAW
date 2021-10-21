@@ -55,7 +55,7 @@
                             <input value="{{ old('standart_value') }}" type="number" name="standard_value" class="form-control" placeholder="Nilai Standard">
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-danger" onclick="resetForm('subcriteriaForm')">
                             <i class="fas fa-redo"></i> Reset
                         </button>

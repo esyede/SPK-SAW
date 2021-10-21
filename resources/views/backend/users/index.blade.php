@@ -79,6 +79,7 @@
                                     </td>
                                     <td class="text-center">{{ $user->created_at->diffForHumans() }}</td>
                                     <td class="text-center">
+                                        <a href="{{ route('evaluation.evaluate', $user->id) }}" class="btn btn-success btn-sm">Penilaian</a>
                                         <a class="btn btn-secondary btn-sm" href="{{ route('users.show',$user->id) }}"><i
                                                 class="fas fa-eye"></i>
                                         </a>

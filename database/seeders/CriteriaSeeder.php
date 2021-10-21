@@ -11,20 +11,14 @@ class CriteriaSeeder extends Seeder
     {
         $criterias = [
             [
-                'criteria_name' => 'Aspek Kecerdasan',
+                'criteria_name' => 'Capaian SKP',
                 'criteria_code' => 'K1',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'criteria_name' => 'Aspek Target Kerja',
+                'criteria_name' => 'Perilaku Kerja',
                 'criteria_code' => 'K2',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'criteria_name' => 'Aspek Sikap Kerja',
-                'criteria_code' => 'K3',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
