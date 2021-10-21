@@ -53,6 +53,7 @@ Route::resource('integrity', IntegrityController::class);
 
 // Penilaian
 Route::group(['as' => 'evaluation.', 'prefix' => 'evaluation'], function () {
+    Route::get('/', [EvaluationController::class, 'index']);
     Route::get('/evaluate/{id}', [EvaluationController::class, 'evaluate'])->name('evaluate');
     Route::post('/evaluate', [EvaluationController::class, 'storeEvaluate'])->name('store');
 });

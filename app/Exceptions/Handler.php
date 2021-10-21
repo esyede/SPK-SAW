@@ -51,11 +51,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof AuthorizationException) {
-            notify()->error('Anda tidak memiliki akses ke halaman tersebut');
-            return redirect()->route('dashboard');
-        }
-
         return parent::render($request, $exception);
     }
 }

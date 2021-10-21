@@ -60,7 +60,7 @@
                         <button type="button" class="btn btn-danger" onclick="resetForm('subcriteriaForm')">
                             <i class="fas fa-redo"></i> Reset
                         </button>
-                        <button type="submit" class="btn btn-info">
+                        <button type="submit" class="btn btn-info ml-3">
                             <i class="fas fa-plus-circle"></i> Simpan
                         </button>
                     </div>
