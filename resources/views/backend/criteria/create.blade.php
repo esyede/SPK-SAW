@@ -33,10 +33,14 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <h5 class="card-title">Tambah Kriteria</h5>
-                        <label class="form-label">Kode Kriteria</label>
-                        <input type="text" class="form-control" name="criteria_code" value="{{ $criteria->criteria_code ?? '' }}" placeholder="Kode kriteria" required>
-                        <label class="form-label">Nama Kriteria</label>
-                        <input type="text" class="form-control" name="criteria_name" value="{{ $criteria->criteria_name ?? '' }}" placeholder="Kode kriteria" required>
+                        <div class="form-group">
+                            <label class="form-label">Kode Kriteria</label>
+                            <input type="text" class="form-control" name="criteria_code" value="{{ $criteria->criteria_code ?? '' }}" placeholder="Kode kriteria" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nama Kriteria</label>
+                            <input type="text" class="form-control" name="criteria_name" value="{{ $criteria->criteria_name ?? '' }}" placeholder="Kode kriteria" required>
+                        </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-danger" onclick="resetForm('criteriaForm')">

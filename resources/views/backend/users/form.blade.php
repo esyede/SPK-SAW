@@ -40,14 +40,22 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 <h5 class="card-title">Info Anggota</h5>
-                                <label class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="name" value="{{ $user->name ?? '' }}" placeholder="Nama user" required autofocus>
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" value="{{ $user->email ?? '' }}" placeholder="Email" required>
-                                <label class="form-label">Password</label>
-                                <input type="password" class="form-control" name="password" placeholder="******" required>
-                                <label class="form-label">Ulangi Password</label>
-                                <input type="password" class="form-control" name="password_confirmation" placeholder="******" required>
+                                <div class="form-group">
+                                    <label class="form-label">Nama</label>
+                                    <input type="text" class="form-control" name="name" value="{{ $user->name ?? '' }}" placeholder="Nama user" required autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="email" value="{{ $user->email ?? '' }}" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" class="form-control" name="password" placeholder="******" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Ulangi Password</label>
+                                    <input type="password" class="form-control" name="password_confirmation" placeholder="******" required>
+                                </div>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -57,29 +65,22 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 <h5 class="card-title">Role & Status</h5>
-                                <select class="form-select select" name="role">
+                                <select class="form-control required fetch-info" name="role">
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->id }}" selected="{{ $user->role->id ?? null }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>
-                                <div class="form-group">
-                                    <div class="custom-control">
-                                        <input type="checkbox" class="custom-control-input" name="status"
-                                            {{ $user->status ? 'checked' : '' }}>
-                                        <label class="custom-control-label">Status</label>
-                                    </div>
-                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="button" class="btn btn-danger" onclick="resetForm('userForm')">
                                     <i class="fas fa-redo"></i> Reset
                                 </button>
                                 @isset($user)
-                                    <button type="submit" class="btn btn-info">
+                                    <button type="submit" class="btn btn-info ml-3">
                                     <i class="fas fa-arrow-circle-up"></i> Perbarui
                                 </button>
                                 @else
-                                    <button type="submit" class="btn btn-info">
+                                    <button type="submit" class="btn btn-info ml-3">
                                         <i class="fas fa-plus-circle"></i> Simpan
                                     </button>
                                 @endisset

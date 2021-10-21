@@ -33,18 +33,24 @@
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <h5 class="card-title">Tambah Pembobotan Nilai</h5>
-                        <label class="form-label">Deskripsi</label>
-                        <input type="text" class="form-control" name="description" value="{{ $integrity->description ?? '' }}" placeholder="Deskripsi" required>
-                        <label class="form-label">Bobot Nilai</label>
-                        <input type="number" step="0.1" class="form-control" name="integrity" value="{{ $integrity->integrity ?? '' }}" placeholder="Bobot nilai" required>
-                        <label class="form-label">Nilai GAP</label>
-                        <input type="number" step="0.1" class="form-control" name="difference_value" value="{{ $integrity->difference_value ?? '' }}" placeholder="Nilai GAP" required>
+                        <div class="form-group">
+                            <label class="form-label">Deskripsi</label>
+                            <input type="text" class="form-control" name="description" value="{{ $integrity->description ?? '' }}" placeholder="Deskripsi" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Bobot Nilai</label>
+                            <input type="number" step="0.1" class="form-control" name="integrity" value="{{ $integrity->integrity ?? '' }}" placeholder="Bobot nilai" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nilai GAP</label>
+                            <input type="number" step="0.1" class="form-control" name="difference_value" value="{{ $integrity->difference_value ?? '' }}" placeholder="Nilai GAP" required>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <button type="button" class="btn btn-danger" onclick="resetForm('integrityForm')">
                             <i class="fas fa-redo"></i> Reset
                         </button>
-                        <button type="submit" class="btn btn-info">
+                        <button type="submit" class="btn btn-info ml-3">
                             <i class="fas fa-plus-circle"></i> Simpan
                         </button>
                     </div>
