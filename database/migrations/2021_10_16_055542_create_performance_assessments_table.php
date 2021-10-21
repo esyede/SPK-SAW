@@ -10,8 +10,27 @@ class CreatePerformanceAssessmentsTable extends Migration
     {
         Schema::create('performance_assessments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->unsignedBigInteger('criteria_id');
+            $table->string('subcriteria_code');
+            $table->integer('subcriteria_standard_value');
+            $table->integer('value');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('criteria_id')
+                ->references('id')
+                ->on('criterias')
+                ->onDelete('cascade');
+
+            $table->foreign('subcriteria_code')
+                ->references('subcriteria_code')
+                ->on('sub_criterias')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

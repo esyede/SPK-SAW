@@ -4,11 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\IntegrityMapping;
 
 class PerformanceAssessment extends Model
 {
     use HasFactory;
 
-    protected $table = 'performance_assessments';
     protected $guarded = ['id'];
+
+    public function integrity_mappping()
+    {
+        return $this->hasOne(IntegrityMapping::class);
+    }
 }
