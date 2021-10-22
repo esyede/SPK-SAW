@@ -6,13 +6,13 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
-use Faker\Factory as FakerFactory;
+use Faker\Factory;
 
 class UserSeeder extends Seeder
 {
     public function run()
     {
-        $faker = FakerFactory::create('id_ID');
+        $faker = Factory::create('id_ID');
         $password = bcrypt('password');
         $users = [];
 
