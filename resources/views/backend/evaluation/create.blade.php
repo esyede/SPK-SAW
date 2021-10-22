@@ -1,7 +1,7 @@
 @extends('layouts.backend.app')
 
 @section('title', 'Penilaian')
-    
+
 @push('css')
     <link rel="stylesheet" href="{{ url('/Wizard-JS/styles/css/main.css') }}" />
 @endpush
@@ -81,7 +81,7 @@
                                      <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $subcriteria->name }}</label>
                                         <div class="col-sm-10">
-                                        <select class="form-control required fetch-info" name="segment">
+                                        <select class="form-control required fetch-info" name="segment-{{\Illuminate\Support\Str::slug($subcriteria->name)}}">
                                             @foreach(range(1, $subcriteria->standard_value) as $v)
                                             <option value="{{ $v }}">{{ $v }}</option>
                                             @endforeach
