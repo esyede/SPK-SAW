@@ -74,7 +74,7 @@
                                 @endforeach
                             </aside>
                             <aside class="wizard-content container">
-                                @csrf
+                                {{-- @csrf --}}
                                 @foreach($criteria as $item)
                                 <div class="wizard-step">
                                     @foreach($item->sub_criteria as $subcriteria)
@@ -105,5 +105,9 @@
     <script>
         const wizard = new Wizard();
         wizard.init();
+
+        document.addEventListener("submitWizard", function (e) {
+
+        });
     </script>
 @endpush
