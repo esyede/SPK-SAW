@@ -32,8 +32,7 @@
     <div class="row">
         <div class="col-md-12">
             <!-- Form Start -->
-            <form role="form" id="employeeForm" action="{{ route('evaluation.store') }}" method="POST">
-                @csrf
+            
                 <div class="main-card mb-3 card">
                     <div class="card-body">
 
@@ -95,7 +94,7 @@
                         </section>
                     </div>
                 </div>
-            </form>
+            
         </div>
     </div>
 @endsection
@@ -107,7 +106,14 @@
         wizard.init();
 
         document.addEventListener("submitWizard", function (e) {
+            
+        });
 
+        $('body').on('click', '.wizard-buttons > .finish', function() {
+            var form = $('form.wizard-form');
+            form.attr('action', '{{ route('evaluation.store') }}');
+            $('form.wizard-form').append('@csrf');
+            form.submit();
         });
     </script>
 @endpush
