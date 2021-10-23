@@ -47,7 +47,7 @@
                                 <div class="col-lg-4 ml-4">
                                     <div class="form-group">
                                         <label class="form-label">NIP</label>
-                                        <input class="form-control" value="{{ $employee->registration_code }}" disabled>
+                                        <input name="employee_number" class="form-control" value="{{ $employee->registration_code }}" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Nama</label>
@@ -79,10 +79,10 @@
                                 <div class="wizard-step">
                                     @foreach($item->sub_criteria as $subcriteria)
                                      <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-2 col-form-label">{{ $subcriteria->name }}</label>
+                                        <label for="sub_criteria" class="col-sm-2 col-form-label">{{ $subcriteria->name }}</label>
                                         <div class="col-sm-10">
-                                        <select class="form-control required fetch-info" name="segment-{{\Illuminate\Support\Str::slug($subcriteria->name)}}">
-                                            @foreach(range(1, $subcriteria->standard_value) as $v)
+                                        <select class="form-control required fetch-info" name="segment_{{$subcriteria->subcriteria_code}}">
+                                            @foreach(range(1, 5) as $v)
                                             <option value="{{ $v }}">{{ $v }}</option>
                                             @endforeach
                                         </select>

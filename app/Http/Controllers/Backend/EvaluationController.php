@@ -7,6 +7,7 @@ use App\Http\Requests\Evaluation\StoreEvaluationRequest;
 use App\Models\{
     User,
     Criteria,
+    IntegrityMapping,
     SubCriteria
 };
 use Illuminate\Http\Request;
@@ -33,6 +34,12 @@ class EvaluationController extends Controller
 
     public function storeEvaluate(Request $request)
     {
+        $gap = $request->segment_tugas;
+        $employee_number = User::where('registration_code', $request->employee_number)->first();
         dd($request);
+
+        $evaluate = IntegrityMapping::create([
+            'performance_assessment_id' => $employee_number
+        ]);
     }
 }
