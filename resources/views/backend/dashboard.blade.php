@@ -14,6 +14,8 @@
             </div>
         </div>
     </div>
+
+    @if( Auth::user()->role_id == 1 )
     <div class="row">
         <div class="col-md-6 col-xl-3">
             <div class="card mb-3 widget-content">
@@ -128,4 +130,48 @@
             </div>
         </div>
     </div>
+
+    <!-- ========== Ranking ========== -->
+    @else
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="d-flex mb-2">
+                <div class="h6">
+                    Ranking Karyawan
+                </div>
+                <div class="ml-auto">
+                    <button type="button" class="btn btn-primary btn-sm">
+                        Salin
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm">
+                        Excel
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm">
+                        Pdf
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm">
+                        Print
+                    </button>
+                </div>
+            </div>
+            <div class="main-card mb-3 card">
+                <div class="table-responsive">
+                    <table class="datatable align-middle mb-0 table table-borderless table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Nama Karyawan</th>
+                                <th class="text-center">Ranking</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 @endsection
