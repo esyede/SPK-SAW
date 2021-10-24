@@ -13,7 +13,8 @@ class CreatePerformanceAssessmentsTable extends Migration
             $table->unsignedBigInteger('criteria_id');
             $table->string('subcriteria_code');
             $table->integer('subcriteria_standard_value');
-            $table->integer('value');
+            $table->integer('attribute_value');
+            $table->integer('gap');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

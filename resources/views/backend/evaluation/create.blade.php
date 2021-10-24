@@ -74,6 +74,7 @@
                             </aside>
                             <aside class="wizard-content container">
                                 {{-- @csrf --}}
+                                <input name="employee_number" type="hidden" class="form-control" value="{{ $employee->registration_code }}">
                                 @foreach($criteria as $item)
                                 <div class="wizard-step">
                                     @foreach($item->sub_criteria as $subcriteria)

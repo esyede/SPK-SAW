@@ -8,8 +8,11 @@ use App\Models\{
     User,
     Criteria,
     IntegrityMapping,
-    SubCriteria
+    PerformanceAssessment,
+    SubCriteria,
+    ConvertionIntegrityMapping
 };
+use CreatePerformanceAssessmentsTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -34,12 +37,27 @@ class EvaluationController extends Controller
 
     public function storeEvaluate(Request $request)
     {
-        $gap = $request->segment_tugas;
-        $employee_number = User::where('registration_code', $request->employee_number)->first();
-        dd($request);
+        $user = User::where('registration_code', $request->employee_number)->first();
 
-        $evaluate = IntegrityMapping::create([
-            'performance_assessment_id' => $employee_number
-        ]);
+        if (!$user) {
+            notify()->error('User / Pegawai tidak ditemukan');
+        }
+
+        foreach ($request->except('employee_number', '_token') as $name => $val) {
+            $name = explode('_', $name);
+
+            $subcriteria = SubCriteria::with('criteria')->where('subcriteria_code', $name[1])->first();
+
+            $evaluate = PerformanceAssessment::create([
+                'criteria_id'       => $subcriteria->criteria->id,
+                'subcriteria_code'  => $subcriteria->subcriteria_code,
+                'subcriteria_standard_value' => $subcriteria->standard_value,
+                'attribute_value'             => $val,
+                'user_id'           => $user->id,
+                'gap'               => intval($val) - intval($subcriteria->standard_value),
+            ]);
+
+            //$convertion_gap = 
+        }
     }
 }

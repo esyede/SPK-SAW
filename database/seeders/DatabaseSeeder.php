@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SubCriteriaSeeder::class);
         $this->call(PerfomanceAssesmentSeeder::class);
         $this->call(IntegrityMappingSeeder::class);
+        $this->call(IntegritiesSeeder::class);
     }
 }

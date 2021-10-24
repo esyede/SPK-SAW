@@ -21,14 +21,17 @@ class PerfomanceAssesmentSeeder extends Seeder
         $users = User::where('role_id', 2)->get()->toArray();
         $data = [];
 
+        $value = mt_rand(1, 5);
+
         foreach ($users as $user) {
-            foreach($criterias as $criteria) {
+            foreach ($criterias as $criteria) {
                 $data[] = [
                     'criteria_id' => $criteria['id'],
-                    'subcriteria_code'=>$criteria['sub_criteria']['0']['subcriteria_code'],
-                    'value'=>mt_rand(1,5),
-                    'subcriteria_standard_value'=>$criteria['sub_criteria']['0']['standard_value'],
-                    'user_id'=>$user['id'],
+                    'subcriteria_code' => $criteria['sub_criteria']['0']['subcriteria_code'],
+                    'attribute_value' => $value,
+                    'subcriteria_standard_value' => $criteria['sub_criteria']['0']['standard_value'],
+                    'user_id' => $user['id'],
+                    'gap' => intval($value) -  intval($criteria['sub_criteria']['0']['standard_value']),
                 ];
             }
         }
