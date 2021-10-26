@@ -12,6 +12,7 @@ use App\Models\Integrity;
 class ConvertionIntegrityMapping extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
     public function user()
     {
