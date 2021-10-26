@@ -12,6 +12,7 @@ use App\Models\PerformanceAssessment;
 class IntegrityMapping extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
 
     public function user()
     {

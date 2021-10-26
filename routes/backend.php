@@ -27,6 +27,8 @@ use App\Http\Controllers\Backend\EvaluationController;
 |
 */
 
+Route::get('/test', [EvaluationController::class, 'test']);
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // Roles and Users
