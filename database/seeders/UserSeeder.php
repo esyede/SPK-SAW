@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         $role = Role::where('slug', 'employee')->first();
         $genders = ['Male', 'Female'];
 
-        for ($i = 0; $i < 19; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $users[$i] = [
                 'role_id' => $role->id,
                 'registration_code' => random_int(100000, 999999),
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
 
         $users[] = [
             'role_id' => $role->id,
-            'registration_code' => Str::random(10),
+            'registration_code' => random_int(100000, 999999),
             'name' => $faker->name,
             'address' => $faker->address,
             'date_of_birth' => $faker->dateTimeBetween('-10 years', 'now'),
@@ -58,7 +58,7 @@ class UserSeeder extends Seeder
         $role = Role::where('slug', 'director')->first();
         $users[] = [
             'role_id' => $role->id,
-            'registration_code' => Str::random(10),
+            'registration_code' => random_int(100000, 999999),
             'name' => $faker->name,
             'address' => 'Pak Direktur',
             'date_of_birth' => $faker->dateTimeBetween('-10 years', 'now'),

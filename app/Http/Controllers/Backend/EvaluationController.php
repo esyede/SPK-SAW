@@ -20,19 +20,16 @@ class EvaluationController extends Controller
 {
     public function index()
     {
-
         return view('backend.evaluation.index');
     }
 
     public function evaluate($id)
     {
-
-        // Gate::authorize('evaluation.create');
         $employee = User::findOrFail($id);
-
         $criteria = Criteria::with('sub_criteria')->get();
+        $performanceAssess = PerformanceAssessment::where('user_id', $id)->first();
 
-        return view('backend.evaluation.create', compact('employee', 'criteria'));
+        return view('backend.evaluation.create', compact('employee', 'criteria', 'performanceAssess'));
     }
 
     public function storeEvaluate(Request $request)
@@ -48,16 +45,19 @@ class EvaluationController extends Controller
 
             $subcriteria = SubCriteria::with('criteria')->where('subcriteria_code', $name[1])->first();
 
+            // Input nilai atribut setiap karyawan dan hitung nilai gap lalu masukkan ke DB performance_assessments
             $evaluate = PerformanceAssessment::create([
-                'criteria_id'       => $subcriteria->criteria->id,
-                'subcriteria_code'  => $subcriteria->subcriteria_code,
                 'subcriteria_standard_value' => $subcriteria->standard_value,
-                'attribute_value'             => $val,
-                'user_id'           => $user->id,
-                'gap'               => intval($val) - intval($subcriteria->standard_value),
+                'subcriteria_code' => $subcriteria->subcriteria_code,
+                'attribute_value' => $val,
+                'criteria_id' => $subcriteria->criteria->id,
+                'user_id' => $user->id,
+                'gap' => intval($val) - intval($subcriteria->standard_value),
             ]);
-
-            //$convertion_gap = 
         }
+
+        notify()->success('Gap sukses di hitung!');
+
+        return redirect('/users');
     }
 }
