@@ -3,23 +3,27 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Evaluation\StoreEvaluationRequest;
 use App\Models\{
     User,
     Criteria,
-    IntegrityMapping,
     PerformanceAssessment,
     SubCriteria,
-    ConvertionIntegrityMapping
 };
-use CreatePerformanceAssessmentsTable;
+use App\Repository\EvaluationRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class EvaluationController extends Controller
 {
+    protected $evaluationRepository;
+
+    public function __construct(EvaluationRepository $evaluationRepository)
+    {
+        $this->evaluationRepository = $evaluationRepository;
+    }
+
     public function index()
     {
+        $this->evaluationRepository->findAll();
         return view('backend.evaluation.index');
     }
 
