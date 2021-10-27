@@ -58,6 +58,7 @@ Route::group(['as' => 'evaluation.', 'prefix' => 'evaluation'], function () {
     Route::get('/', [EvaluationController::class, 'index']);
     Route::get('/evaluate/{id}', [EvaluationController::class, 'evaluate'])->name('evaluate');
     Route::post('/evaluate', [EvaluationController::class, 'storeEvaluate'])->name('store');
+    Route::get('/detail/{id}', [EvaluationController::class, 'detailEvaluation']);
 });
 
 

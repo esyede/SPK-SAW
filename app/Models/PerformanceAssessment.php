@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\IntegrityMapping;
 use App\Models\Criteria;
 use App\Models\SubCriteria;
 use App\Models\User;
@@ -16,11 +15,6 @@ class PerformanceAssessment extends Model
 
     protected $guarded = ['id'];
 
-    public function integrity_mappping()
-    {
-        return $this->hasOne(IntegrityMapping::class);
-    }
-
     public function criteria()
     {
         return $this->belongsTo(Criteria::class);
@@ -28,11 +22,24 @@ class PerformanceAssessment extends Model
 
     public function subcriteria()
     {
-        return $this->belongsTo(SubCriteria::class,'subcriteria_code','subcriteria_code');
+        return $this->belongsTo(SubCriteria::class, 'subcriteria_code', 'subcriteria_code');
     }
 
     public function users()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function integrity()
+    {
+        return $this->belongsTo(Integrity::class);
+    }
+
+    public function scopeDataPerformanceAssessment($query, $user_id)
+    {
+        return $query->selectRaw('performance_assessments.*, integrities.id as integrity_id, integrities.integrity, integrities.description')
+            ->join('integrities', 'integrities.difference_value', '=', 'performance_assessments.gap')
+            ->where('performance_assessments.user_id', $user_id)
+            ->get();
     }
 }

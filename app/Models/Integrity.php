@@ -11,8 +11,8 @@ class Integrity extends Model
 
     protected $guarded = ['id'];
 
-    public function integrity_mapping()
+    public function performance_assessment()
     {
-        return $this->hasMany(IntegrityMapping::class);
+        return $this->hasMany(PerformanceAssessment::class);
     }
 }

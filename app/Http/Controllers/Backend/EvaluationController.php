@@ -9,13 +9,11 @@ use App\Models\{
     PerformanceAssessment,
     SubCriteria,
     Integrity,
-    IntegrityMapping,
-    ConvertionIntegrityMapping
 };
 use App\Repository\EvaluationRepository;
 use Illuminate\Http\Request;
-use DB;
-use Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class EvaluationController extends Controller
 {
@@ -23,8 +21,15 @@ class EvaluationController extends Controller
 
     public function index()
     {
-        $evaluates = PerformanceAssessment::with(['criteria','subcriteria','users','integrity_mappping'])->orderby('id','desc')->get();
-        return view('backend.evaluation.index', compact('evaluates'));
+        $users = User::where('role_id', 2)->get();
+        return view('backend.evaluation.index', compact('users'));
+    }
+
+    public function detailEvaluation($id)
+    {
+        $evaluates = PerformanceAssessment::with('criteria', 'subcriteria', 'users')->where('user_id', $id)->get();
+
+        return view('backend.evaluation.detail-evaluation', compact('evaluates'));
     }
 
     public function evaluate($id)
@@ -71,13 +76,11 @@ class EvaluationController extends Controller
                 ]);
             }
 
-            $integrityMapping = $this->storeToIntegrityMapping($user->id);
-
             DB::commit();
             notify()->success('Gap sukses di hitung!');
 
             return redirect('/users');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             notify()->error('Terjadi Kesalahan');
 
@@ -85,24 +88,7 @@ class EvaluationController extends Controller
         }
     }
 
-    protected function storeToIntegrityMapping($user_id)
-    {
-        $performance = PerformanceAssessment::selectRaw('performance_assessments.*, integrities.id as integrity_id, integrities.integrity, integrities.description')
-            ->join('integrities', 'integrities.difference_value', '=', 'performance_assessments.gap')
-            ->where('performance_assessments.user_id', $user_id)
-            ->get();
-
-        foreach ($performance as $item) {
-            $integrityMapping = IntegrityMapping::create([
-                'performance_assessment_id' => $item->id,
-                'integrity_id' => $item->integrity_id,
-                'user_id' => $user_id,
-                'value' => $item->integrity,
-            ]);
-        }
-    }
-
-    public function UpdateEvaluate(Request $request)
+    public function updateEvaluate(Request $request)
     {
         $validate = Validator::make($request->all(), [
             'performance_assessment_id' => 'required|integer',
@@ -113,7 +99,7 @@ class EvaluationController extends Controller
         $evaluate = PerformanceAssessment::find($request->performace_assessment_id);
 
         if (!$evaluate) {
-            return response()->json(['success' => false, 'message' => 'Data nilai tidak ditemukan'],500);
+            return response()->json(['success' => false, 'message' => 'Data nilai tidak ditemukan'], 500);
         }
 
         DB::beginTransaction();
@@ -127,7 +113,6 @@ class EvaluationController extends Controller
             notify()->success('Berhasil mengubah data penilaian');
 
             return redirect()->back();
-
         } catch (\Exception $e) {
             DB::rollback();
 
@@ -135,27 +120,6 @@ class EvaluationController extends Controller
             return redirect()->back();
         }
     }
-
-    protected function updateToIntegrityMapping(integer $user_id, integer $evaluate_id)
-    {
-        $performance = PerformanceAssessment::selectRaw('performance_assessments.*, integrities.id as integrity_id, integrities.integrity, integrities.description')
-            ->join('integrities', 'integrities.difference_value', '=', 'performance_assessments.gap')
-            ->where('id', $evaluate_id)
-            ->where('performance_assessments.user_id', $user_id)
-            ->first();
-
-        $integrityMapping = IntegrityMapping::find($performance->id);
-
-        if (!$integrityMapping) {
-            notify()->error('Data Penilaian tidak ditemukan');
-        }
-
-        $integrityMapping->integrity_id  = $performance->integrity_id;
-        $integrityMapping->value         = $performance->integrity;
-        $integrityMapping->save();
-    }
-
-
 
     public function destroy($id)
     {
