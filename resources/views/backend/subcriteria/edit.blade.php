@@ -53,7 +53,20 @@
                         </div>
                         <div class="form-group">
                             <label for="">Nilai Standard</label>
-                            <input type="number" name="standard_value" class="form-control" placeholder="Nilai Standard" value="{{$subcriteria->standard_value}}">
+                            <select name="standard_value" id="standard_value" class="form-control">
+                                <option value="1" {{$subcriteria->standard_value == 1 ? 'selected' : ''}}>1</option>
+                                <option value="2" {{$subcriteria->standard_value == 2 ? 'selected' : ''}}>2</option>
+                                <option value="3" {{$subcriteria->standard_value == 3 ? 'selected' : ''}}>3</option>
+                                <option value="4" {{$subcriteria->standard_value == 4 ? 'selected' : ''}}>4</option>
+                                <option value="5" {{$subcriteria->standard_value == 5 ? 'selected' : ''}}>5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Factor</label>
+                            <select name="factor" id="factor" class="form-control">
+                                <option value="core" {{$subcriteria->factor == 'core' ? 'selected' : ''}}>Core</option>
+                                <option value="secondary" {{$subcriteria->factor == 'secondary' ? 'selected' : ''}}>Secondary</option>
+                            </select>
                         </div>
                     </div>
                     <div class="card-footer">
