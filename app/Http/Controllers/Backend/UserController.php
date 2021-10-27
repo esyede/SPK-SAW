@@ -24,6 +24,8 @@ class UserController extends Controller
             $q->where('slug', 'employee');
         })->with('performanceAssesment')
           ->get();
+        
+        // dd($users);
 
         return view('backend.users.index', compact('users'));
     }
@@ -32,7 +34,8 @@ class UserController extends Controller
     {
         Gate::authorize('users.create');
 
-        $roles = Role::select('id', 'name')->get();;
+        $roles = Role::select('id', 'name')->get();
+
         return view('backend.users.form', compact('roles'));
     }
 
@@ -44,7 +47,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'status' => $request->filled('status'),
+            'status' => $request->status,
             'registration_code' => random_int(100000, 999999)
         ]);
 
@@ -76,7 +79,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => isset($request->password) ? Hash::make($request->password) : $user->password,
-            'status' => $request->filled('status'),
+            'status' => $request->status,
         ]);
 
         if ($request->hasFile('avatar')) {
