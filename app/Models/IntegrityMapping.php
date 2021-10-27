@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Criteria;
 use App\Models\User;
-use App\Models\SubCriteria;
+use App\Models\Integrity;
 use App\Models\PerformanceAssessment;
 
 class IntegrityMapping extends Model
@@ -22,5 +22,10 @@ class IntegrityMapping extends Model
     public function performance_assessment()
     {
         return $this->belongsTo(PerformanceAssessment::class);
+    }
+
+    public function integritries()
+    {
+        return $this->belongsTo(Integrity::class);
     }
 }

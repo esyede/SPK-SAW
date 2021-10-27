@@ -63,38 +63,30 @@ class EvaluationController extends Controller
             ]);
         }
 
+        $integrityMapping = $this->storeToIntegrityMapping($user->id);
+
         notify()->success('Gap sukses di hitung!');
 
         return redirect('/users');
     }
 
-    public function test()
+    public function storeToIntegrityMapping($user_id)
     {
-        
         $performance = PerformanceAssessment::selectRaw('performance_assessments.*, integrities.id as integrity_id, integrities.integrity, integrities.description')
-                                              ->join('integrities', 'integrities.difference_value', '=', 'performance_assessments.gap')
-                                              ->where('performance_assessments.user_id', 1)
-                                              ->get();
+            ->join('integrities', 'integrities.difference_value', '=', 'performance_assessments.gap')
+            ->where('performance_assessments.user_id', $user_id)
+            ->get();
 
-        foreach($performance as $item)
-        {
+        $integrity = Integrity::with('integrity_mapping')->get();
+        dd($integrity);
+
+        foreach ($performance as $item) {
             $integrityMapping = IntegrityMapping::create([
-                'performance_assessment_id'    => $item->id,
-                'value'                        => $item->integrity,
-                'user_id'                      => 1
-            ]);
-
-            $convertion = ConvertionIntegrityMapping::create([
-                'criteria_id'               => $item->criteria_id,
-                'user_id'                   => 1,
-                'subcriteria_code'          => $item->subcriteria_code,
-                'integrity_id'              => $item->integrity_id,
-                'integrity_mapping_id'      => $integrityMapping->id,
-                'integrity_mapping_value'   => $integrityMapping->value,
-                'convertion_value'          => $item->integrity
+                'performance_assessment_id' => $item->id,
+                'integrity_id' => 1,
+                'user_id' => $user_id,
+                'value' => $item->integrity,
             ]);
         }
-
-        return 'Berhasil';
     }
 }

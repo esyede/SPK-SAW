@@ -10,4 +10,9 @@ class Integrity extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function integrity_mapping()
+    {
+        return $this->hasMany(IntegrityMapping::class);
+    }
 }

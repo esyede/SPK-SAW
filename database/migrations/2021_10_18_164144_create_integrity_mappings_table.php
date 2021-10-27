@@ -16,6 +16,7 @@ class CreateIntegrityMappingsTable extends Migration
         Schema::create('integrity_mappings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBiginteger('performance_assessment_id');
+            $table->unsignedBiginteger('integrity_id')->nullable();
             $table->integer('value');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
@@ -28,6 +29,11 @@ class CreateIntegrityMappingsTable extends Migration
             $table->foreign('performance_assessment_id')
                 ->references('id')
                 ->on('performance_assessments')
+                ->onDelete('cascade');
+
+            $table->foreign('integrity_id')
+                ->references('id')
+                ->on('integrities')
                 ->onDelete('cascade');
         });
     }

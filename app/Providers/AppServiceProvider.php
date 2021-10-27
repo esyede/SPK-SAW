@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
-use App\Repository\EvaluationRepository;
-use App\Repository\EvaluationRepositoryImplement;
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -20,10 +17,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            EvaluationRepository::class, 
-            EvaluationRepositoryImplement::class
-        );
     }
 
     /**
