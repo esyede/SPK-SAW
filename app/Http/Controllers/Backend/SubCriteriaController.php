@@ -38,7 +38,8 @@ class SubCriteriaController extends Controller
             'criteria_id'       => 'required|integer|exists:criterias,id',
             'subcriteria_code'  => 'required|string|max:255|unique:sub_criterias,subcriteria_code',
             'name'              => 'required|string|max:255',
-            'standard_value'    => 'required|integer'
+            'standard_value'    => 'required|integer',
+            'factor'            => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -51,6 +52,7 @@ class SubCriteriaController extends Controller
             'subcriteria_code'  => Str::upper($request->subcriteria_code),
             'name'              => $request->name,
             'standard_value'    => $request->standard_value,
+            'factor'            => $request->factor,
         ]);
 
         if ($subcriteria) {
@@ -85,7 +87,8 @@ class SubCriteriaController extends Controller
             'criteria_id'       => 'required|integer|exists:criterias,id',
             'subcriteria_code'  => 'required|string|max:255',
             'name'              => 'required|string|max:255',
-            'standard_value'    => 'required|integer'
+            'standard_value'    => 'required|integer',
+            'factor'            => 'required|string',
         ]);
 
         if ($validate->fails()) {
@@ -103,6 +106,7 @@ class SubCriteriaController extends Controller
             'subcriteria_code'  => $request->subcriteria_code,
             'name'              => $request->name,
             'standard_value'    => $request->standard_value,
+            'factor'            => $request->factor,
         ]);
 
         if ($subcriteria) {

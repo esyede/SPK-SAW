@@ -52,7 +52,20 @@
                         </div>
                         <div class="form-group">
                             <label for="">Nilai Standard</label>
-                            <input value="{{ old('standart_value') }}" type="number" name="standard_value" class="form-control" placeholder="Nilai Standard">
+                            <select name="standard_value" id="standard_value" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Factor</label>
+                            <select name="factor" id="factor" class="form-control">
+                                <option value="core">Core</option>
+                                <option value="secondary">Secondary</option>
+                            </select>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between">

@@ -48,15 +48,44 @@
                             <tr>
                                 <th class="text-center">#</th>
                                 <th>Karyawan</th>
-                                <th class="text-center">Kriteria</th>
-                                <th class="text-center">Nilai</th>
-                                <th class="text-center">Selisih</th>
-                                <th class="text-center">Nilai GAP</th>
-                                <th class="text-center">Action</th>
+                                <th>Kriteria</th>
+                                <th>Sub Kriteria</th>
+                                <th>Standard Nilai Sub Kriteria</th>
+                                <th>Nilai</th>
+                                <th>Selisih</th>
+                                <th>Konversi Nilai GAP</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            @forelse ($evaluates as $evaluate)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$evaluate->users->name}}</td>
+                                    <td>{{$evaluate->criteria->criteria_name}}</td>
+                                    <td>{{$evaluate->subcriteria->name}}</td>
+                                    <td>{{$evaluate->subcriteria_standard_value}}</td>
+                                    <td>{{$evaluate->attribute_value}}</td>
+                                    <td>{{$evaluate->gap}}</td>
+                                    <td>{{$evaluate->integrity_mappping->value}}</td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{$evaluate->id}})">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <form id="delete-form-" action="" method="POST" style="display: none;">
+                                            @csrf()
+                                            @method('DELETE')
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td class="text-center" colspan="7">Data tidak ditemukan</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -65,7 +94,7 @@
     </div>
 
     <div class="row mt-4">
-    
+
         <!-- ========== Rata - Rata ========== -->
         <div class="col-md-6">
             <div class="d-flex mb-2">
@@ -100,7 +129,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -141,7 +170,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -183,7 +212,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                     </table>
                 </div>

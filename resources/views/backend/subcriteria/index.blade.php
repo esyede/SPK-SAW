@@ -40,6 +40,7 @@
                             <th >Nama Sub Kriteria</th>
                             <th >Kode Sub Kriteria</th>
                             <th >Standard nilai</th>
+                            <th >Factor</th>
                             <th >Dibuat</th>
                             <th >Actions</th>
                         </tr>
@@ -51,6 +52,7 @@
                                     <td>{{$data->criteria->criteria_name}}</td>
                                     <td>{{$data->name}}</td>
                                     <td>{{$data->subcriteria_code}}</td>
+                                    <td>{{ucwords($data->factor)}}</td>
                                     <td>{{$data->standard_value}}</td>
                                     <td>{{ $data->created_at->diffForHumans() }}</td>
                                     <td>
