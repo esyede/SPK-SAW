@@ -16,4 +16,9 @@ class PerformanceAssessment extends Model
     {
         return $this->hasOne(IntegrityMapping::class);
     }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

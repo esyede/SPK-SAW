@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Requests\Users\StoreUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
-use App\Models\Role;
-use App\Models\User;
+use App\Models\{
+    Role,
+    User,
+    PerformanceAssessment,
+};
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -18,7 +22,8 @@ class UserController extends Controller
 
         $users = User::with('role')->whereHas('role', function ($q) {
             $q->where('slug', 'employee');
-        })->get();
+        })->with('performanceAssesment')
+          ->get();
 
         return view('backend.users.index', compact('users'));
     }
@@ -31,14 +36,16 @@ class UserController extends Controller
         return view('backend.users.form', compact('roles'));
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(Request $request)
     {
+        
         $user = User::create([
             'role_id' => $request->role,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'status' => $request->filled('status'),
+            'registration_code' => random_int(100000, 999999)
         ]);
 
         if ($request->hasFile('avatar')) {

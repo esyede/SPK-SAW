@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\PerformanceAssessment;
 use App\Models\IntegrityMapping;
+use App\Models\User;
 
 class IntegrityMappingSeeder extends Seeder
 {
@@ -15,15 +16,28 @@ class IntegrityMappingSeeder extends Seeder
      */
     public function run()
     {
-        $performance_assessment = PerformanceAssessment::get();
+        $users = User::where('role_id', 2)->get()->toArray();
 
-        foreach ($performance_assessment as $data) {
-            $integrity_mapping = IntegrityMapping::create([
-                'performance_assessment_id' => $data->id,
-                'value' => intval($data->value) - $data->subcriteria_standard_value,
-                'user_id' => $data->user_id,
-                'integrity_id' => null
-            ]);
+        $data = [];
+
+        foreach ($users as $user) {
+
+            $performance = PerformanceAssessment::selectRaw('performance_assessments.*, integrities.id as integrity_id, integrities.integrity, integrities.description')
+                            ->join('integrities', 'integrities.difference_value', '=', 'performance_assessments.gap')
+                            ->where('performance_assessments.user_id', $user['id'])
+                            ->get()
+                            ->toArray();
+
+            foreach ($performance as $item) {
+                $data[] = [
+                    'performance_assessment_id' => $item['id'],
+                    'integrity_id' => $item['integrity_id'],
+                    'user_id' => $user['id'],
+                    'value' => $item['integrity'],
+                ];
+            }
         }
+
+        IntegrityMapping::insert($data);
     }
 }
