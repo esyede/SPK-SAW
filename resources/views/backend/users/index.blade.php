@@ -79,7 +79,15 @@
                                     </td>
                                     <td class="text-center">{{ $user->created_at->diffForHumans() }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('evaluation.evaluate', $user->id) }}" class="btn btn-success btn-sm">Penilaian</a>
+
+                                        {{ $user->performanceAssesment }}
+
+                                        @if( empty($user->performanceAssesment) )
+                                            <a href="{{ route('evaluation.evaluate', $user->id) }}" class="btn btn-success btn-sm">Penilaian</a>
+                                        @else 
+                                            <button class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Data sudah ada" disabled>Penilaian</button>
+                                        @endif 
+
                                         <a class="btn btn-secondary btn-sm" href="{{ route('users.show',$user->id) }}"><i
                                                 class="fas fa-eye"></i>
                                         </a>
@@ -114,6 +122,8 @@
         $(document).ready(function() {
             // Datatable
             $("#datatable").DataTable();
+
+            $('[data-toggle="tooltip"]').tooltip()
         });
     </script>
 @endpush

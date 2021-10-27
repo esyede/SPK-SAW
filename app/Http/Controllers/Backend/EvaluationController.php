@@ -77,13 +77,10 @@ class EvaluationController extends Controller
             ->where('performance_assessments.user_id', $user_id)
             ->get();
 
-        $integrity = Integrity::with('integrity_mapping')->get();
-        dd($integrity);
-
         foreach ($performance as $item) {
             $integrityMapping = IntegrityMapping::create([
                 'performance_assessment_id' => $item->id,
-                'integrity_id' => 1,
+                'integrity_id' => $item->integrity_id,
                 'user_id' => $user_id,
                 'value' => $item->integrity,
             ]);
