@@ -65,11 +65,25 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 <h5 class="card-title">Role & Status</h5>
-                                <select class="form-control required fetch-info" name="role">
-                                    @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}" selected="{{ $user->role->id ?? null }}">{{ $role->name }}</option>
-                                    @endforeach
-                                </select>
+                                <div class="form-group">
+                                    <label class="form-label">Role</label>
+                                    <select class="form-control required fetch-info" name="role">
+                                        @foreach ($roles as $role)
+                                            <option value="{{ $role->id }}" selected="{{ $user->role->id ?? null }}">{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-control required fetch-info" name="status">
+                                        <option value="{{ $user->status }}" selected="{{ $user->status }}">{{ $user->status == 1 ? 'Aktif' : 'Nonaktif' }}</option>
+                                        @if($user->status == 0)
+                                            <option value="1">Aktif</option>
+                                        @else
+                                            <option value="0">Nonaktif</option>
+                                        @endif
+                                    </select>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="button" class="btn btn-danger" onclick="resetForm('userForm')">
