@@ -97,15 +97,25 @@ class EvaluationController extends Controller
         }
     }
 
-    public function updateEvaluate(Request $request)
+    public function edit(Request $request, $id)
     {
+        $evaluate = PerformanceAssessment::with('criteria', 'subcriteria', 'users')
+                                            ->where('subcriteria_code', $id)
+                                            ->first();
+     
+        return view('backend.evaluation.form', compact('evaluate'));
+    }
+
+    public function updateEvaluate(Request $request, $id)
+    {
+
         $validate = Validator::make($request->all(), [
             'performance_assessment_id' => 'required|integer',
             'employee_number' => 'required|integer',
             'attribute_value' => 'required|integer|min:1,max:5'
         ]);
 
-        $evaluate = PerformanceAssessment::find($request->performace_assessment_id);
+        $evaluate = PerformanceAssessment::find($id);
 
         if (!$evaluate) {
             return response()->json(['success' => false, 'message' => 'Data nilai tidak ditemukan'], 500);
@@ -117,6 +127,15 @@ class EvaluationController extends Controller
             $evaluate->attribute_value = $request->attribute_value;
             $evaluate->gap             = intval($request->attribute_value) - intval($evaluate->subcriteria_standard_value);
             $evaluate->save();
+
+            $performance = PerformanceAssessment::dataPerformanceAssessment($request->user_id);
+
+            foreach ($performance as $item) {
+                $evaluate->update([
+                    'convertion_value' => $item->integrity
+                ]);
+            }
+
             DB::commit();
 
             notify()->success('Berhasil mengubah data penilaian');

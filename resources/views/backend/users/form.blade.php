@@ -76,8 +76,8 @@
                                 <div class="form-group">
                                     <label class="form-label">Status</label>
                                     <select class="form-control required fetch-info" name="status">
-                                        <option value="{{ $user->status }}" selected="{{ $user->status }}">{{ $user->status == 1 ? 'Aktif' : 'Nonaktif' }}</option>
-                                        @if($user->status == 0)
+                                        <option value="{{ isset($user->status) }}" selected="{{ isset($user->status) }}">{{ isset($user->status) == 1 ? 'Aktif' : 'Nonaktif' }}</option>
+                                        @if( isset($user->status) == 0)
                                             <option value="1">Aktif</option>
                                         @else
                                             <option value="0">Nonaktif</option>
