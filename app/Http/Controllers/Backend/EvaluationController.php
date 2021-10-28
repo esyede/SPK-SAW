@@ -134,23 +134,24 @@ class EvaluationController extends Controller
         DB::beginTransaction();
 
         try {
+            
             $evaluate->attribute_value = $request->attribute_value;
             $evaluate->gap = intval($request->attribute_value) - intval($evaluate->subcriteria_standard_value);
             $evaluate->save();
 
-            $performance = PerformanceAssessment::dataPerformanceAssessment($request->user_id);
+            $integrity = Integrity::where('difference_value', $evaluate->gap)->first();
 
-            foreach ($performance as $item) {
-                $evaluate->update([
-                    'convertion_value' => $item->integrity
-                ]);
-            }
+            $evaluate->update([
+                'convertion_value' => $integrity->integrity,
+            ]);
 
             DB::commit();
 
             notify()->success('Berhasil mengubah data penilaian');
             return back();
         } catch (\Exception $e) {
+
+            \Log::error($e);
             DB::rollback();
 
             notify()->error('Terjadi kesalahan saat memperbarui data evaluasi nilai');

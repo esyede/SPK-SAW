@@ -1,6 +1,5 @@
 <form role="form" action="{{ url('evaluation/evaluate/update', $evaluate->id) }}" method="POST">
   @csrf
-  <input type="hidden" value="{{$evaluate->users->id}}" name="user_id">
   <div class="form-group">
     <label for="formGroupExampleInput">Kriteria</label>
     <input type="text" class="form-control" id="formGroupExampleInput" value="{{ $evaluate->criteria->criteria_name }}" disabled>
