@@ -36,9 +36,8 @@ class EvaluationController extends Controller
     {
         $employee = User::findOrFail($id);
         $criteria = Criteria::with('sub_criteria')->get();
-        $performanceAssess = PerformanceAssessment::where('user_id', $id)->first();
 
-        return view('backend.evaluation.create', compact('employee', 'criteria', 'performanceAssess'));
+        return view('backend.evaluation.create', compact('employee', 'criteria'));
     }
 
     public function storeEvaluate(Request $request)
@@ -69,11 +68,21 @@ class EvaluationController extends Controller
                 $evaluate = PerformanceAssessment::create([
                     'subcriteria_standard_value'    => $subcriteria->standard_value,
                     'subcriteria_code'              => $subcriteria->subcriteria_code,
-                    'attribute_value'               => $val,
+                    'attribute_value'               => intval($val),
+                    'integrity_id'                  => $user->id,
                     'criteria_id'                   => $subcriteria->criteria->id,
                     'user_id'                       => $user->id,
                     'gap'                           => intval($val) - intval($subcriteria->standard_value),
                 ]);
+
+                $performance = PerformanceAssessment::dataPerformanceAssessment($user->id);
+
+                foreach ($performance as $item) {
+                    $evaluate->update([
+                        'convertion_value' => $item->integrity,
+                        'integrity_id' => $item->integrity_id
+                    ]);
+                }
             }
 
             DB::commit();
@@ -84,7 +93,7 @@ class EvaluationController extends Controller
             DB::rollback();
             notify()->error('Terjadi Kesalahan');
 
-            return redirect()->back();
+            return back();
         }
     }
 
