@@ -69,7 +69,7 @@
                                     <td>{{$evaluate->gap}}</td>
                                     <td>{{$evaluate->convertion_value}}</td>
                                     <td>
-                                        <a class="btn btn-info btn-sm" href="">
+                                        <a href="" class="btn btn-info btn-sm" id="editEvaluate" data-toggle="modal" data-target="#evaluateModal" data-attr="{{ url('evaluation/detail/edit', $evaluate->subcriteria_code) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{$evaluate->id}})">
@@ -178,47 +178,6 @@
         </div>
     </div>
 
-    <!-- ========== Ranking ========== -->
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <div class="d-flex mb-2">
-                <div class="h6">
-                    Ranking Karyawan
-                </div>
-                <div class="ml-auto">
-                    <button type="button" class="btn btn-primary btn-sm">
-                        Salin
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm">
-                        Excel
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm">
-                        Pdf
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm">
-                        Print
-                    </button>
-                </div>
-            </div>
-            <div class="main-card mb-3 card">
-                <div class="table-responsive">
-                    <table class="datatable align-middle mb-0 table table-borderless table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th>Nama Karyawan</th>
-                                <th class="text-center">Ranking</th>
-                                <th class="text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('js')

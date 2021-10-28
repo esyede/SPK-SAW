@@ -27,11 +27,33 @@
             @include('layouts.backend.partials.footer')
         </div>
     </div>
+
+    @include('backend.modal.evaluation')
 </div>
 <!-- Scripts -->
 <script src="{{ asset('js/backend.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
+<script>
+    $(document).on('click', '#editEvaluate', function(event) {
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            $.ajax({
+                url: href,
+                success: function(result) {
+                    $('#evaluateModal').show().on('shown', function() { 
+                        $('#evaluateModal').modal('hide') 
+                    });
+                    $('#evaluateBody').html(result).show();
+                },
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                },
+                timeout: 8000
+            })
+        });
+</script>
 @stack('js')
 @include('vendor.lara-izitoast.toast')
 </body>
