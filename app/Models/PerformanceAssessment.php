@@ -34,12 +34,4 @@ class PerformanceAssessment extends Model
     {
         return $this->belongsTo(Integrity::class);
     }
-
-    public function scopeDataPerformanceAssessment($query, $user_id)
-    {
-        return $query->selectRaw('performance_assessments.*, integrities.id as integrity_id, integrities.integrity, integrities.description')
-            ->join('integrities', 'integrities.difference_value', '=', 'performance_assessments.gap')
-            ->where('performance_assessments.user_id', $user_id)
-            ->get();
-    }
 }
