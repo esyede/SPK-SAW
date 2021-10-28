@@ -14,8 +14,6 @@ class DashboardController extends Controller
     {
         $data['usersCount'] = User::count();
         $data['rolesCount'] = Role::count();
-        $data['pagesCount'] = Page::count();
-        $data['menusCount'] = 0;
         $data['users'] = User::orderBy('last_login_at', 'desc')->take(10)->get();
 
         return view('backend.dashboard', $data);
