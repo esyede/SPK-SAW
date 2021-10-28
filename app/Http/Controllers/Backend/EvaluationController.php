@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\{
-    User,
-    Criteria,
-    PerformanceAssessment,
-    SubCriteria,
-    Integrity,
-};
+
+use App\Models\User;
+use App\Models\Criteria;
+use App\Models\PerformanceAssessment;
+use App\Models\SubCriteria;
+use App\Models\Integrity;
 use App\Repository\EvaluationRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class EvaluationController extends Controller
 {
@@ -21,12 +22,15 @@ class EvaluationController extends Controller
 
     public function index()
     {
-        $users = User::where('role_id', 2)->get();
+        $users = User::where('role_id', 2)->with('performanceAssesment')->get();
+
         return view('backend.evaluation.index', compact('users'));
     }
 
     public function detailEvaluation($id)
     {
+        Gate::authorize('evaluation.index');
+
         $evaluates = PerformanceAssessment::with('criteria', 'subcriteria', 'users')->where('user_id', $id)->get();
 
         return view('backend.evaluation.detail-evaluation', compact('evaluates'));
@@ -34,6 +38,8 @@ class EvaluationController extends Controller
 
     public function evaluate($id)
     {
+        Gate::authorize('evaluation.create');
+
         $employee = User::findOrFail($id);
         $criteria = Criteria::with('sub_criteria')->get();
 
@@ -42,18 +48,22 @@ class EvaluationController extends Controller
 
     public function storeEvaluate(Request $request)
     {
+        Gate::authorize('evaluation.create');
+
         $validate = Validator::make($request->all(), [
             'employee_number' => 'required|integer',
         ]);
 
-        if (!$validate) {
+        if (! $validate) {
             notify()->error($validate->errors()->first());
+            return back();
         }
 
         $user = User::where('registration_code', $request->employee_number)->first();
 
-        if (!$user) {
+        if (! $user) {
             notify()->error('User / Pegawai tidak ditemukan');
+            return back();
         }
 
         DB::beginTransaction();
@@ -61,7 +71,6 @@ class EvaluationController extends Controller
         try {
             foreach ($request->except('employee_number', '_token') as $name => $val) {
                 $name = explode('_', $name);
-
                 $subcriteria = SubCriteria::with('criteria')->where('subcriteria_code', $name[1])->first();
 
                 // Input nilai atribut setiap karyawan dan hitung nilai gap lalu masukkan ke DB performance_assessments
@@ -75,14 +84,12 @@ class EvaluationController extends Controller
                     'gap'                           => intval($val) - intval($subcriteria->standard_value),
                 ]);
 
-                $performance = PerformanceAssessment::dataPerformanceAssessment($user->id);
+                $integrity = Integrity::where('difference_value', $evaluate->gap)->first();
 
-                foreach ($performance as $item) {
-                    $evaluate->update([
-                        'convertion_value' => $item->integrity,
-                        'integrity_id' => $item->integrity_id
-                    ]);
-                }
+                $evaluate->update([
+                    'convertion_value' => $integrity->integrity,
+                    'integrity_id' => $integrity->integrity_id
+                ]);
             }
 
             DB::commit();
@@ -90,9 +97,10 @@ class EvaluationController extends Controller
 
             return redirect('/users');
         } catch (\Exception $e) {
+            Log::error($e);
             DB::rollback();
-            notify()->error('Terjadi Kesalahan');
 
+            notify()->error('Terjadi Kesalahan');
             return back();
         }
     }
@@ -108,6 +116,7 @@ class EvaluationController extends Controller
 
     public function updateEvaluate(Request $request, $id)
     {
+        Gate::authorize('evaluation.edit');
 
         $validate = Validator::make($request->all(), [
             'performance_assessment_id' => 'required|integer',
@@ -117,15 +126,16 @@ class EvaluationController extends Controller
 
         $evaluate = PerformanceAssessment::find($id);
 
-        if (!$evaluate) {
-            return response()->json(['success' => false, 'message' => 'Data nilai tidak ditemukan'], 500);
+        if (! $evaluate) {
+            notify()->error('Data nilai tidak ditemukan');
+            return back();
         }
 
         DB::beginTransaction();
-        try {
 
+        try {
             $evaluate->attribute_value = $request->attribute_value;
-            $evaluate->gap             = intval($request->attribute_value) - intval($evaluate->subcriteria_standard_value);
+            $evaluate->gap = intval($request->attribute_value) - intval($evaluate->subcriteria_standard_value);
             $evaluate->save();
 
             $performance = PerformanceAssessment::dataPerformanceAssessment($request->user_id);
@@ -139,28 +149,29 @@ class EvaluationController extends Controller
             DB::commit();
 
             notify()->success('Berhasil mengubah data penilaian');
-
-            return redirect()->back();
+            return back();
         } catch (\Exception $e) {
             DB::rollback();
 
-            notify()->error('Terjadi Kesalahan');
-            return redirect()->back();
+            notify()->error('Terjadi kesalahan saat memperbarui data evaluasi nilai');
+            return back();
         }
     }
 
     public function destroy($id)
     {
+        Gate::authorize('evaluation.destroy');
+
         $evaluate = PerformanceAssessment::find($id);
 
-        if (!$evaluate) {
+        if (! $evaluate) {
             notify()->error('Data Penilaian tidak ditemukan');
+            return back();
         }
 
         $evaluate->delete();
 
         notify()->success('Berhasil menghapus data penilaian');
-
-        return redirect()->back();
+        return back();
     }
 }

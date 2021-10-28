@@ -1,17 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\MenuController;
-use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\BackupController;
-use App\Http\Controllers\Backend\PegawaiController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\CriteriaController;
 use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\MenuBuilderController;
 use App\Http\Controllers\Backend\SubCriteriaController;
 use App\Http\Controllers\Backend\IntegrityController;
 use App\Http\Controllers\Backend\EvaluationController;
@@ -26,8 +22,6 @@ use App\Http\Controllers\Backend\EvaluationController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/test', [EvaluationController::class, 'test']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

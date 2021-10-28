@@ -57,6 +57,8 @@ class BackupController extends Controller
     {
         Gate::authorize('backups.create');
 
+        @set_time_limit(180);
+
         Artisan::call('backup:run');
 
         notify()->success('Backup berhasil dibuat');

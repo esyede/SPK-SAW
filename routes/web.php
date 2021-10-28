@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PageController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -29,7 +28,4 @@ Route::group(['as' => 'login.', 'prefix' => 'login', 'namespace' => 'Auth'], fun
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-// Pages route e.g. [about,contact,etc]
-Route::get('/pages/{slug}', PageController::class)->name('page');
 
