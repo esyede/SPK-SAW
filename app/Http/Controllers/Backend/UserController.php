@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Requests\Users\StoreUserRequest;
 use App\Http\Requests\Users\UpdateUserRequest;
-use App\Models\{
-    Role,
-    User,
-    PerformanceAssessment,
-};
+use App\Models\Role;
+use App\Models\User;
+use App\Models\PerformanceAssessment;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -24,8 +22,6 @@ class UserController extends Controller
             $q->where('slug', 'employee');
         })->with('performanceAssesment')
           ->get();
-        
-        // dd($users);
 
         return view('backend.users.index', compact('users'));
     }
@@ -41,7 +37,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        
         $user = User::create([
             'role_id' => $request->role,
             'name' => $request->name,

@@ -31,7 +31,7 @@ class CriteriaController extends Controller
     {
         Gate::authorize('criteria.create');
 
-        $validation =  Validator::make($request->all(), [
+        $validation = Validator::make($request->all(), [
             'criteria_name' => 'required|string|min:3|max:191',
             'criteria_code' => 'required|string|min:2|max:20',
         ]);
@@ -61,7 +61,7 @@ class CriteriaController extends Controller
 
         $criteria = Criteria::find($id);
 
-        if (!$criteria) {
+        if (! $criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }
@@ -85,7 +85,7 @@ class CriteriaController extends Controller
 
         $criteria = Criteria::find($id);
 
-        if (!$criteria) {
+        if (! $criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }
@@ -105,7 +105,7 @@ class CriteriaController extends Controller
 
         $criteria = Criteria::find($id);
 
-        if (!$criteria) {
+        if (! $criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }

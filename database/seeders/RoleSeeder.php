@@ -22,7 +22,7 @@ class RoleSeeder extends Seeder
             ->orWhere('slug', 'evaluation.index')
             ->get();
 
-        Role::updateOrCreate(['name' => 'Employee', 'slug' => 'employee', 'deletable' => true])
+        Role::updateOrCreate(['name' => 'Employee', 'slug' => 'employee', 'deletable' => false])
             ->permissions()
             ->sync($permissions->pluck('id'));
     }

@@ -93,12 +93,14 @@ class SubCriteriaController extends Controller
 
         if ($validate->fails()) {
             notify()->error($validate->errors()->first());
+            return back();
         }
 
         $subcriteria = SubCriteria::find($id);
 
         if (! $subcriteria) {
             notify()->error('Sub Kriteria tidak ditemukan');
+            return back();
         }
 
         $subcriteria->update([
@@ -112,7 +114,7 @@ class SubCriteriaController extends Controller
         if ($subcriteria) {
             notify()->success('Berhasil mengubah data Sub Kriteria');
         } else {
-            notify()->success('Gagal mengubah data Sub Kriteria');
+            notify()->error('Gagal mengubah data Sub Kriteria');
         }
 
         return redirect()->route('sub-criteria.index');
@@ -126,6 +128,7 @@ class SubCriteriaController extends Controller
 
         if (! $subcriteria) {
             notify()->error('Sub Kriteria gagal dihapus');
+            return back();
         }
 
         $subcriteria->delete();
