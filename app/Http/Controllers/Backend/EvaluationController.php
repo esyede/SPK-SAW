@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+
 use App\Models\User;
 use App\Models\Criteria;
 use App\Models\PerformanceAssessment;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class EvaluationController extends Controller
 {
@@ -20,9 +22,8 @@ class EvaluationController extends Controller
 
     public function index()
     {
-        Gate::authorize('evaluation.index');
+        $users = User::where('role_id', 2)->with('performanceAssesment')->get();
 
-        $users = User::where('role_id', 2)->get();
         return view('backend.evaluation.index', compact('users'));
     }
 
@@ -83,14 +84,12 @@ class EvaluationController extends Controller
                     'gap'                           => intval($val) - intval($subcriteria->standard_value),
                 ]);
 
-                $performance = PerformanceAssessment::dataPerformanceAssessment($user->id);
+                $integrity = Integrity::where('difference_value', $evaluate->gap)->first();
 
-                foreach ($performance as $item) {
-                    $evaluate->update([
-                        'convertion_value' => $item->integrity,
-                        'integrity_id' => $item->integrity_id
-                    ]);
-                }
+                $evaluate->update([
+                    'convertion_value' => $integrity->integrity,
+                    'integrity_id' => $integrity->integrity_id
+                ]);
             }
 
             DB::commit();
@@ -98,6 +97,7 @@ class EvaluationController extends Controller
 
             return redirect('/users');
         } catch (\Exception $e) {
+            Log::error($e);
             DB::rollback();
 
             notify()->error('Terjadi Kesalahan');
