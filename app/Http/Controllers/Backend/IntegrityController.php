@@ -34,7 +34,7 @@ class IntegrityController extends Controller
 
         $integrity = Integrity::create($request->validated());
 
-        if (!$integrity) {
+        if (! $integrity) {
             notify()->error('Gagal menambahkan pembobotan nilai');
             return back();
         }
@@ -49,7 +49,7 @@ class IntegrityController extends Controller
 
         $integrity = Integrity::find($id);
 
-        if (!$integrity) {
+        if (! $integrity) {
             notify()->error('Pembobotan nilai tidak ditemukan');
             return back();
         }
@@ -61,7 +61,7 @@ class IntegrityController extends Controller
     {
         $integrity = Integrity::find($id);
 
-        if (!$integrity) {
+        if (! $integrity) {
             notify()->error('Pembobotan nilai tidak ditemukan');
             return back();
         }
@@ -78,7 +78,7 @@ class IntegrityController extends Controller
 
         $integrity = Integrity::find($id);
 
-        if (!$integrity) {
+        if (! $integrity) {
             notify()->error('Pembobotan nilai tidak ditemukan');
             return back();
         }
