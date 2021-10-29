@@ -10,7 +10,7 @@
                     <i class="pe-7s-news-paper icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>{{ __('Tambah Kriteria') }}</div>
+                <div>Tambah Kriteria</div>
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">

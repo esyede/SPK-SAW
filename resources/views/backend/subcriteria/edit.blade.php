@@ -39,33 +39,33 @@
                             <select name="criteria_id" id="criteria_id" class="form-control">
                                <option>Pilih Kriteria</option>
                                 @foreach($criteria as $item)
-                                <option value="{{$item->id}}" {{$item->id == $subcriteria->criteria_id ? 'selected' : ''}}>{{$item->criteria_name}}</option>
+                                <option value="{{ $item->id }}" {{ $item->id == $subcriteria->criteria_id ? 'selected' : '' }}>{{ $item->criteria_name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="">Kode Sub Kriteria</label>
-                            <input type="text" class="form-control" name="subcriteria_code" placeholder="Kode Sub Kriteria" value="{{$subcriteria->subcriteria_code}}">
+                            <input type="text" class="form-control" name="subcriteria_code" placeholder="Kode sub kriteria" value="{{ $subcriteria->subcriteria_code }}">
                         </div>
                         <div class="form-group">
                             <label for="">Nama Sub Kriteria</label>
-                            <input type="text" class="form-control" name="name" placeholder="Nama Sub Kriteria" value="{{$subcriteria->name}}">
+                            <input type="text" class="form-control" name="name" placeholder="Nama sub kriteria" value="{{ $subcriteria->name }}">
                         </div>
                         <div class="form-group">
                             <label for="">Nilai Standard</label>
                             <select name="standard_value" id="standard_value" class="form-control">
-                                <option value="1" {{$subcriteria->standard_value == 1 ? 'selected' : ''}}>1</option>
-                                <option value="2" {{$subcriteria->standard_value == 2 ? 'selected' : ''}}>2</option>
-                                <option value="3" {{$subcriteria->standard_value == 3 ? 'selected' : ''}}>3</option>
-                                <option value="4" {{$subcriteria->standard_value == 4 ? 'selected' : ''}}>4</option>
-                                <option value="5" {{$subcriteria->standard_value == 5 ? 'selected' : ''}}>5</option>
+                                <option value="1" {{ $subcriteria->standard_value == 1 ? 'selected' : '' }}>1</option>
+                                <option value="2" {{ $subcriteria->standard_value == 2 ? 'selected' : '' }}>2</option>
+                                <option value="3" {{ $subcriteria->standard_value == 3 ? 'selected' : '' }}>3</option>
+                                <option value="4" {{ $subcriteria->standard_value == 4 ? 'selected' : '' }}>4</option>
+                                <option value="5" {{ $subcriteria->standard_value == 5 ? 'selected' : '' }}>5</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="">Factor</label>
                             <select name="factor" id="factor" class="form-control">
-                                <option value="core" {{$subcriteria->factor == 'core' ? 'selected' : ''}}>Core</option>
-                                <option value="secondary" {{$subcriteria->factor == 'secondary' ? 'selected' : ''}}>Secondary</option>
+                                <option value="core" {{ $subcriteria->factor == 'core' ? 'selected' : '' }}>Core</option>
+                                <option value="secondary" {{ $subcriteria->factor == 'secondary' ? 'selected' : '' }}>Secondary</option>
                             </select>
                         </div>
                     </div>

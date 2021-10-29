@@ -28,7 +28,7 @@
                                     <label for="avatar">Avatar</label>
                                     <input type="file" name="avatar" id="avatar"
                                            class="dropify @error('avatar') is-invalid @enderror"
-                                           data-default-file="{{ Auth::user()->getFirstMediaUrl('avatar','thumb') ?? '' }}">
+                                           data-default-file="{{ Auth::user()->getFirstMediaUrl('avatar', 'thumb') ?? '' }}">
                                     @error('avatar')
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>

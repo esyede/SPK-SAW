@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','Users')
+@section('title','Pegawai')
 
 @push('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
@@ -36,18 +36,18 @@
                     <table id="datatable" class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                         <tr>
-                            <th class="text-center">#</th>
+                            <th>No.</th>
                             <th>Nama</th>
-                            <th class="text-center">Email</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Terdaftar</th>
-                            <th class="text-center">Aksi</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Terdaftar</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
                             @foreach ($users as $key => $user)
                                 <tr>
-                                    <td class="text-center text-muted">#{{ $key + 1 }}</td>
+                                    <td>{{ $loop->iteration }}.</td>
                                     <td>
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
@@ -70,33 +70,31 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-center">{{ $user->email }}</td>
-                                    <td class="text-center">
+                                    <td>{{ $user->email }}</td>
+                                    <td>
                                         @if ($user->status)
                                             <div class="badge badge-success">Aktif</div>
                                         @else
                                             <div class="badge badge-danger">Nonaktif</div>
                                         @endif
                                     </td>
-                                    <td class="text-center">{{ $user->created_at->diffForHumans() }}</td>
-                                    <td class="text-center">
+                                    <td>{{ $user->created_at->diffForHumans() }}</td>
+                                    <td>
 
                                         @if (count($user->performance_assesment) > 0)
-                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Data Sudah Ada">
+                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Data sudah ada">
                                                 <button class="btn btn-success btn-sm" style="pointer-events: none;" type="button" disabled>Penilaian</button>
                                             </span>
                                         @else 
-                                            <a href="{{ route('evaluation.evaluate', $user->id) }}" class="btn btn-success btn-sm">Penilaian</a>
+                                            <a href="{{ route('evaluation.evaluate', $user->id) }}" class="btn btn-success btn-sm" data-toggle="tooltip" title="Penilaian">Penilaian</a>
                                         @endif 
 
-                                        <a class="btn btn-secondary btn-sm" href="{{ route('users.show',$user->id) }}"><i
-                                                class="fas fa-eye"></i>
+                                        <a class="btn btn-secondary btn-sm" data-toggle="tooltip" title="Lihat profil" href="{{ route('users.show', $user->id) }}"><i class="fas fa-eye"></i>
                                         </a>
-                                        <a class="btn btn-info btn-sm" href="{{ route('users.edit',$user->id) }}"><i
+                                        <a class="btn btn-info btn-sm" data-toggle="tooltip" title="Edit" href="{{ route('users.edit',$user->id) }}"><i
                                                 class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm"
-                                                onclick="deleteData({{ $user->id }})">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Hapus" onclick="deleteData({{ $user->id }})">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                         <form id="delete-form-{{ $user->id }}"
@@ -139,7 +137,8 @@
             let table = $('#datatable').DataTable({
                 dom: 'Bfrtip',
                 lengthChange: false,
-                buttons: buttons
+                buttons: buttons,
+                language: {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json"}
             });
 
             table.buttons().container().appendTo('#datatable_wrapper .col-sm-6:eq(0)');

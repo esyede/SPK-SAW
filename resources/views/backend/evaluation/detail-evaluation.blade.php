@@ -15,7 +15,7 @@
                     <i class="pe-7s-note icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>{{ __('Daftar Penilaian') }}</div>
+                <div>Daftar Penilaian</div>
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="score-datatable">
                         <thead>
                             <tr>
-                                <th class="text-center">#</th>
+                                <th>No.</th>
                                 <th>Karyawan</th>
                                 <th>Kriteria</th>
                                 <th>Sub Kriteria</th>
@@ -41,25 +41,25 @@
                                 <th>Nilai Atribut</th>
                                 <th>Selisih</th>
                                 <th>Konversi Nilai GAP</th>
-                                <th>Action</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($evaluates as $evaluate)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$evaluate->users->name}}</td>
-                                    <td>{{$evaluate->criteria->criteria_name}}</td>
-                                    <td>{{$evaluate->subcriteria->name}}</td>
-                                    <td>{{$evaluate->subcriteria_standard_value}}</td>
-                                    <td>{{$evaluate->attribute_value}}</td>
-                                    <td>{{$evaluate->gap}}</td>
-                                    <td>{{$evaluate->convertion_value}}</td>
+                                    <td>{{ $loop->iteration }}.</td>
+                                    <td>{{ $evaluate->users->name }}</td>
+                                    <td>{{ $evaluate->criteria->criteria_name }}</td>
+                                    <td>{{ $evaluate->subcriteria->name }}</td>
+                                    <td>{{ $evaluate->subcriteria_standard_value }}</td>
+                                    <td>{{ $evaluate->attribute_value }}</td>
+                                    <td>{{ $evaluate->gap }}</td>
+                                    <td>{{ $evaluate->convertion_value }}</td>
                                     <td>
-                                        <a href="" class="btn btn-info btn-sm" id="editEvaluate" data-toggle="modal" data-target="#evaluateModal" data-attr="{{ url('evaluation/detail/edit', $evaluate->subcriteria_code) }}">
+                                        <a href="" class="btn btn-info btn-sm" data-toggle="tooltip" title="Edit" id="editEvaluate" data-toggle="modal" data-target="#evaluateModal" data-attr="{{ url('evaluation/detail/edit', $evaluate->subcriteria_code) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{$evaluate->id}})">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Hapus" onclick="deleteData({{ $evaluate->id }})">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                         <form id="delete-form-" action="" method="POST" style="display: none;">
@@ -70,7 +70,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="text-center" colspan="7">Data tidak ditemukan</td>
+                                    <td colspan="7">Data tidak ditemukan</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -94,11 +94,11 @@
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="mean-datatable">
                         <thead>
                             <tr>
-                                <th class="text-center">#</th>
+                                <th>No.</th>
                                 <th>Karyawan</th>
-                                <th class="text-center">Kriteria</th>
-                                <th class="text-center">Faktor</th>
-                                <th class="text-center">Rata - Rata</th>
+                                <th>Kriteria</th>
+                                <th>Faktor</th>
+                                <th>Rata - Rata</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,15 +121,15 @@
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="total-datatable">
                         <thead>
                             <tr>
-                                <th class="text-center">#</th>
+                                <th>No.</th>
                                 <th>Karyawan</th>
-                                <th class="text-center">Kriteria</th>
-                                <th class="text-center">Nilai Total</th>
-                                <th class="text-center">Nilai Akhir</th>
+                                <th>Kriteria</th>
+                                <th>Nilai Total</th>
+                                <th>Nilai Akhir</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            {{-- Isi data disini --}}
                         </tbody>
                     </table>
                 </div>

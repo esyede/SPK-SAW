@@ -36,17 +36,17 @@
                     <table id="datatable" class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                         <tr>
-                            <th class="text-center">#</th>
+                            <th>No.</th>
                             <th>Nama</th>
-                            <th class="text-center">Kode</th>
-                            <th class="text-center">Dibuat</th>
-                            <th class="text-center">Aksi</th>
+                            <th>Kode</th>
+                            <th>Dibuat</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
                             @forelse($criterias as $criteria)
                                 <tr>
-                                    <td class="text-center text-muted">#{{ $loop->iteration }}</td>
+                                    <td>{{ $loop->iteration }}.</td>
                                     <td>
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
@@ -56,13 +56,13 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-center">{{ $criteria->criteria_code }}</td>
-                                    <td class="text-center">{{ $criteria->created_at->diffForHumans() }}</td>
-                                    <td class="text-center">
-                                        <a class="btn btn-info btn-sm" href="{{ route('criteria.edit', $criteria->id) }}">
+                                    <td>{{ $criteria->criteria_code }}</td>
+                                    <td>{{ $criteria->created_at->diffForHumans() }}</td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" data-toggle="tooltip" title="Edit" href="{{ route('criteria.edit', $criteria->id) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $criteria->id }})">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Hapus" onclick="deleteData({{ $criteria->id }})">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                         <form id="delete-form-{{ $criteria->id }}" action="{{ route('criteria.destroy', $criteria->id) }}" method="POST" style="display: none;">
@@ -73,7 +73,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">Data tidak ditemukan</td>
+                                    <td colspan="7">Data tidak ditemukan</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -107,7 +107,8 @@
             let table = $('#datatable').DataTable({
                 dom: 'Bfrtip',
                 lengthChange: false,
-                buttons: buttons
+                buttons: buttons,
+                language: {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json"}
             });
 
             table.buttons().container().appendTo('#datatable_wrapper .col-sm-6:eq(0)');
