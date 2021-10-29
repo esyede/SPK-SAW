@@ -4,6 +4,7 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.bootstrap4.min.css">
 @endpush
 
 @section('content')
@@ -11,7 +12,7 @@
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-users icon-gradient bg-mean-fruit">
+                    <i class="pe-7s-graph3 icon-gradient bg-mean-fruit">
                     </i>
                 </div>
                 <div>Daftar Pembobotan Nilai</div>
@@ -80,10 +81,33 @@
 @push('js')
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Datatable
-            $("#datatable").DataTable();
+        $(document).ready(function () {
+            let buttons = [
+                { "extend": 'copy', "text":'Salin',"className": 'btn btn-light btn-xs btn-copy' },
+                { "extend": 'excel', "text":'Excel',"className": 'btn btn-light btn-xs btn-excel' },
+                { "extend": 'pdf', "text":'PDF',"className": 'btn btn-light btn-xs btn-pdf' },
+                { "extend": 'print', "text":'Print',"className": 'btn btn-light btn-xs btn-print' }
+            ];
+
+            let table = $('#datatable').DataTable({
+                dom: 'Bfrtip',
+                lengthChange: false,
+                buttons: buttons
+            });
+
+            table.buttons().container().appendTo('#datatable_wrapper .col-sm-6:eq(0)');
+
+            let tooltip = $('.tooltip');
+            if (tooltip.length) tooltip.tooltip();
         });
     </script>
 @endpush

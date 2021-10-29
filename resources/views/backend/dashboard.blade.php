@@ -2,6 +2,11 @@
 
 @section('title','Dashboard')
 
+@push('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.bootstrap4.min.css">
+@endpush
+
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -15,9 +20,38 @@
         </div>
     </div>
 
-    @if( Auth::user()->role_id == 1 )
+    {{-- Tampilan admin --}}
+    @if (Gate::check('settings.index'))
     <div class="row">
-        <div class="col-md-6 col-xl-3">
+        <div class="col-md-12 col-xl-3">
+            <div class="card mb-3 widget-content">
+                <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Kriteria</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-success">{{ $criteriaCount }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-3">
+            <div class="card mb-3 widget-content">
+                <div class="widget-content-outer">
+                    <div class="widget-content-wrapper">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">Sub Kriteria</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <div class="widget-numbers text-info">{{ $subcriteriaCount }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-3">
             <div class="card mb-3 widget-content">
                 <div class="widget-content-outer">
                     <div class="widget-content-wrapper">
@@ -25,13 +59,13 @@
                             <div class="widget-heading">Anggota</div>
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-success">{{ $usersCount }}</div>
+                            <div class="widget-numbers text-warning">{{ $usersCount }}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-xl-3">
+        <div class="col-md-12 col-xl-3">
             <div class="card mb-3 widget-content">
                 <div class="widget-content-outer">
                     <div class="widget-content-wrapper">
@@ -39,7 +73,7 @@
                             <div class="widget-heading">Roles</div>
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-warning">{{ $rolesCount }}</div>
+                            <div class="widget-numbers text-danger">{{ $rolesCount }}</div>
                         </div>
                     </div>
                 </div>
@@ -103,7 +137,7 @@
         </div>
     </div>
 
-    <!-- ========== Ranking ========== -->
+    {{-- Tampilan non-admin --}}
     @else
     <div class="row mt-4">
         <div class="col-md-6">
@@ -111,24 +145,10 @@
                 <div class="h6">
                     Ranking Karyawan
                 </div>
-                <div class="ml-auto">
-                    <button type="button" class="btn btn-primary btn-sm">
-                        Salin
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm">
-                        Excel
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm">
-                        Pdf
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm">
-                        Print
-                    </button>
-                </div>
             </div>
             <div class="main-card mb-3 card">
                 <div class="table-responsive">
-                    <table class="datatable align-middle mb-0 table table-borderless table-striped table-hover">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="datatable">
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
@@ -138,7 +158,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            {{-- Isi data disini --}}
                         </tbody>
                     </table>
                 </div>
@@ -147,3 +167,37 @@
     </div>
     @endif
 @endsection
+
+@push('js')
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let buttons = [
+                { "extend": 'copy', "text":'Salin',"className": 'btn btn-light btn-xs btn-copy' },
+                { "extend": 'excel', "text":'Excel',"className": 'btn btn-light btn-xs btn-excel' },
+                { "extend": 'pdf', "text":'PDF',"className": 'btn btn-light btn-xs btn-pdf' },
+                { "extend": 'print', "text":'Print',"className": 'btn btn-light btn-xs btn-print' }
+            ];
+
+            let table = $('#datatable').DataTable({
+                dom: 'Bfrtip',
+                lengthChange: false,
+                buttons: buttons
+            });
+
+            table.buttons().container().appendTo('#datatable_wrapper .col-sm-6:eq(0)');
+
+            let tooltip = $('.tooltip');
+            if (tooltip.length) tooltip.tooltip();
+        });
+    </script>
+@endpush

@@ -24,7 +24,7 @@
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-trash fa-w-20"></i>
                         </span>
-                        {{ __('Clean Old Backups') }}
+                        Bersihkan
                     </button>
                     <form id="clean-old-backups" action="{{ route('backups.clean') }}" method="POST" style="display: none;">
                         @csrf
@@ -37,7 +37,7 @@
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-plus-circle fa-w-20"></i>
                         </span>
-                        Buat
+                        Tambah
                     </button>
                     <form id="new-backup-form" action="{{ route('backups.store') }}" method="POST" style="display: none;">
                         @csrf

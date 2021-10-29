@@ -4,6 +4,7 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.bootstrap4.min.css">
 @endpush
 
 @section('content')
@@ -11,7 +12,7 @@
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-users icon-gradient bg-mean-fruit">
+                    <i class="pe-7s-note icon-gradient bg-mean-fruit">
                     </i>
                 </div>
                 <div>{{ __('Daftar Penilaian') }}</div>
@@ -26,24 +27,10 @@
                 <div class="h6">
                     Nilai
                 </div>
-                <div class="ml-auto">
-                    <button type="button" class="btn btn-primary btn-sm">
-                        Salin
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm">
-                        Excel
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm">
-                        Pdf
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm">
-                        Print
-                    </button>
-                </div>
             </div>
             <div class="main-card mb-3 card">
                 <div class="table-responsive">
-                    <table class="datatable align-middle mb-0 table table-borderless table-striped table-hover">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="score-datatable">
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
@@ -69,7 +56,7 @@
                                     <td>{{$evaluate->gap}}</td>
                                     <td>{{$evaluate->convertion_value}}</td>
                                     <td>
-                                        <a class="btn btn-info btn-sm" href="">
+                                        <a href="" class="btn btn-info btn-sm" id="editEvaluate" data-toggle="modal" data-target="#evaluateModal" data-attr="{{ url('evaluation/detail/edit', $evaluate->subcriteria_code) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{$evaluate->id}})">
@@ -101,24 +88,10 @@
                 <div class="h6">
                     Nilai Rata - Rata Per Faktor
                 </div>
-                <div class="ml-auto">
-                    <button type="button" class="btn btn-primary btn-sm">
-                        Salin
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm">
-                        Excel
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm">
-                        Pdf
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm">
-                        Print
-                    </button>
-                </div>
             </div>
             <div class="main-card mb-3 card">
                 <div class="table-responsive">
-                    <table class="datatable align-middle mb-0 table table-borderless table-striped table-hover">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="mean-datatable">
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
@@ -142,24 +115,10 @@
                 <div class="h6">
                     Nilai Total & Akhir
                 </div>
-                <div class="ml-auto">
-                    <button type="button" class="btn btn-primary btn-sm">
-                        Salin
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm">
-                        Excel
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm">
-                        Pdf
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm">
-                        Print
-                    </button>
-                </div>
             </div>
             <div class="main-card mb-3 card">
                 <div class="table-responsive">
-                    <table class="datatable align-middle mb-0 table table-borderless table-striped table-hover">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="total-datatable">
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
@@ -178,56 +137,51 @@
         </div>
     </div>
 
-    <!-- ========== Ranking ========== -->
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <div class="d-flex mb-2">
-                <div class="h6">
-                    Ranking Karyawan
-                </div>
-                <div class="ml-auto">
-                    <button type="button" class="btn btn-primary btn-sm">
-                        Salin
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm">
-                        Excel
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm">
-                        Pdf
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm">
-                        Print
-                    </button>
-                </div>
-            </div>
-            <div class="main-card mb-3 card">
-                <div class="table-responsive">
-                    <table class="datatable align-middle mb-0 table table-borderless table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th>Nama Karyawan</th>
-                                <th class="text-center">Ranking</th>
-                                <th class="text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('js')
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Datatable
-            $("#datatable").DataTable();
+        $(document).ready(function () {
+            let buttons = [
+                { "extend": 'copy', "text":'Salin',"className": 'btn btn-light btn-xs btn-copy' },
+                { "extend": 'excel', "text":'Excel',"className": 'btn btn-light btn-xs btn-excel' },
+                { "extend": 'pdf', "text":'PDF',"className": 'btn btn-light btn-xs btn-pdf' },
+                { "extend": 'print', "text":'Print',"className": 'btn btn-light btn-xs btn-print' }
+            ];
+
+            let scoreTable = $('#score-datatable').DataTable({
+                dom: 'Bfrtip',
+                lengthChange: false,
+                buttons: buttons
+            });
+
+            scoreTable.buttons().container().appendTo('#score_wrapper .col-sm-6:eq(0)');
+
+            let meanTable = $('#mean-datatable').DataTable({
+                dom: 'Bfrtip',
+                lengthChange: false,
+                buttons: buttons
+            });
+
+            meanTable.buttons().container().appendTo('#mean_wrapper .col-sm-6:eq(0)');
+
+            let totalTable = $('#total-datatable').DataTable({
+                dom: 'Bfrtip',
+                lengthChange: false,
+                buttons: buttons
+            });
+
+            totalTable.buttons().container().appendTo('#total_wrapper .col-sm-6:eq(0)');
         });
     </script>
 @endpush

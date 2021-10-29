@@ -12,7 +12,7 @@
         <div class="page-title-wrapper">
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s- icon-gradient bg-mean-fruit">
+                    <i class="pe-7s-note icon-gradient bg-mean-fruit">
                     </i>
                 </div>
                 <div>{{ __('Daftar Penilaian') }}</div>
@@ -36,7 +36,7 @@
                                 <th class="text-center">#</th>
                                 <th>NIP</th>
                                 <th>Karyawan</th>
-                                <th>Action</th>
+                                @can('evaluation.edit') <th>Action</th> @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -45,27 +45,29 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$user->registration_code}}</td>
                                     <td>{{$user->name}}</td>
-                                    <td>
-                                        @if( count($user->performanceAssesment) > 0 )
-                                            <a class="btn btn-info btn-sm"  data-toggle="tooltip" title="Lihat nilai" href="{{ url('evaluation/detail', $user->id) }}">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                        @else
-                                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Belum ada data">
-                                            <button class="btn btn-info btn-sm" style="pointer-events: none;" disabled>
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </span>
-                                        @endif
+                                    @can('evaluation.edit')
+                                        <td>
+                                            @if (count($user->performance_assesment) > 0)
+                                                <a class="btn btn-info btn-sm"  data-toggle="tooltip" title="Lihat nilai" href="{{ url('evaluation/detail', $user->id) }}">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            @else
+                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Belum ada data">
+                                                <button class="btn btn-info btn-sm" style="pointer-events: none;" disabled>
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </span>
+                                            @endif
 
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{$user->id}})">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                        <form id="delete-form-" action="" method="POST" style="display: none;">
-                                            @csrf()
-                                            @method('DELETE')
-                                        </form>
-                                    </td>
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{$user->id}})">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                            <form id="delete-form-" action="" method="POST" style="display: none;">
+                                                @csrf()
+                                                @method('DELETE')
+                                            </form>
+                                        </td>
+                                    @endcan
                                 </tr>
                             @empty
                                 <tr>
@@ -93,19 +95,23 @@
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js"></script>
     <script>
         $(document).ready(function () {
-            var table = $('#datatable').DataTable( {
+            let buttons = [
+                { "extend": 'copy', "text":'Salin',"className": 'btn btn-light btn-xs btn-copy' },
+                { "extend": 'excel', "text":'Excel',"className": 'btn btn-light btn-xs btn-excel' },
+                { "extend": 'pdf', "text":'PDF',"className": 'btn btn-light btn-xs btn-pdf' },
+                { "extend": 'print', "text":'Print',"className": 'btn btn-light btn-xs btn-print' }
+            ];
+
+            let table = $('#datatable').DataTable({
                 dom: 'Bfrtip',
                 lengthChange: false,
-                buttons: [
-                    { "extend": 'copy', "text":'Salin',"className": 'btn btn-light btn-xs btn-copy' },
-                    { "extend": 'excel', "text":'Excel',"className": 'btn btn-light btn-xs btn-excel' },
-                    { "extend": 'pdf', "text":'PDF',"className": 'btn btn-light btn-xs btn-pdf' },
-                    { "extend": 'print', "text":'Print',"className": 'btn btn-light btn-xs btn-print' }
-                ]
-            } );
+                buttons: buttons
+            });
 
-            table.buttons().container()
-                .appendTo('#datatable_wrapper .col-sm-6:eq(0)');
-        } );
+            table.buttons().container().appendTo('#datatable_wrapper .col-sm-6:eq(0)');
+
+            let tooltip = $('.tooltip');
+            if (tooltip.length) tooltip.tooltip();
+        });
     </script>
 @endpush

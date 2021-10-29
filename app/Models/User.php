@@ -39,7 +39,7 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsTo(Role::class);
     }
 
-    public function performanceAssesment()
+    public function performance_assesment()
     {
         return $this->hasMany(PerformanceAssessment::class);
     }

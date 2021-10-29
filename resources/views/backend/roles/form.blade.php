@@ -18,7 +18,7 @@
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-arrow-circle-left fa-w-20"></i>
                         </span>
-                        Back to list
+                        Kembali
                     </a>
                 </div>
             </div>
