@@ -2,11 +2,6 @@
 
 @section('title', 'Penilaian')
 
-@push('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.bootstrap4.min.css">
-@endpush
-
 @section('content')
     <div class="app-page-title">
         <div class="page-title-wrapper">
@@ -56,10 +51,10 @@
                                     <td>{{ $evaluate->gap }}</td>
                                     <td>{{ $evaluate->convertion_value }}</td>
                                     <td>
-                                        <a href="" class="btn btn-info btn-sm" data-toggle="tooltip" title="Edit" id="editEvaluate" data-toggle="modal" data-target="#evaluateModal" data-attr="{{ url('evaluation/detail/edit', $evaluate->subcriteria_code) }}">
+                                        <a href="" class="btn btn-info btn-sm" id="editEvaluate" data-toggle="modal" data-target="#evaluateModal" data-attr="{{ url('evaluation/detail/edit', $evaluate->subcriteria_code) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Hapus" onclick="deleteData({{ $evaluate->id }})">
+                                        <button type="button" class="btn btn-danger btn-sm mt-2" onclick="deleteData({{ $evaluate->id }})">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                         <form id="delete-form-" action="" method="POST" style="display: none;">
@@ -136,7 +131,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('js')

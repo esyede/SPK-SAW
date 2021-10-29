@@ -195,6 +195,11 @@
   display: none;
 }
 
+table.dataTable{
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
 .dataTables_wrapper .dataTables_length {
   padding-top: 1rem;
   padding-left: 1rem;
@@ -207,10 +212,15 @@
 
 .dataTables_wrapper .dataTables_info {
   padding-left: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
+  display: inline-block; 
 }
 
 .dataTables_wrapper .dataTables_paginate {
   padding-right: 1rem;
+  padding-bottom: 2rem;
+  display: inline-block; 
+  right: 0;
+  position: absolute;
 }
 
