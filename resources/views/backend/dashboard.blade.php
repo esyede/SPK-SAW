@@ -21,7 +21,7 @@
     </div>
 
     {{-- Tampilan admin --}}
-    @if (Gate::check('settings.index'))
+    @role('director')
     <div class="row">
         <div class="col-md-12 col-xl-3">
             <div class="card mb-3 widget-content">
@@ -165,7 +165,7 @@
             </div>
         </div>
     </div>
-    @endif
+    @endrole
 @endsection
 
 @push('js')
