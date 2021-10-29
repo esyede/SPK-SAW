@@ -156,7 +156,6 @@ class EvaluationController extends Controller
         DB::beginTransaction();
 
         try {
-
             $evaluate->attribute_value = $request->attribute_value;
             $evaluate->gap = intval($request->attribute_value) - intval($evaluate->subcriteria_standard_value);
             $evaluate->save();
@@ -172,7 +171,6 @@ class EvaluationController extends Controller
             notify()->success('Berhasil mengubah data penilaian');
             return back();
         } catch (\Exception $e) {
-
             Log::error($e);
             DB::rollback();
 

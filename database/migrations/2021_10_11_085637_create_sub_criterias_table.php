@@ -14,7 +14,7 @@ class CreateSubCriteriasTable extends Migration
             $table->string('subcriteria_code')->unique();
             $table->string('name');
             $table->integer('standard_value');
-            $table->enum('factor',['core','secondary']);
+            $table->enum('factor', ['core','secondary']);
             $table->timestamps();
 
             $table->foreign('criteria_id')
@@ -22,8 +22,6 @@ class CreateSubCriteriasTable extends Migration
             ->on('criterias')
             ->onDelete('cascade');
         });
-
-
     }
 
     public function down()

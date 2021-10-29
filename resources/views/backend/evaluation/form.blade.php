@@ -16,7 +16,9 @@
         @endforeach
     </select>
   </div>
-  <button type="submit" class="btn btn-info ml-2">
-      <i class="fas fa-plus-circle"></i> Simpan
-  </button>
+  <div class="text-center pt-3">
+    <button type="submit" class="btn btn-info ml-2">
+        <i class="fas fa-plus-circle"></i> Simpan
+    </button>
+  </div>
 </form>
