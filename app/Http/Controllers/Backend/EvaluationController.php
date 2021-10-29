@@ -9,6 +9,7 @@ use App\Models\Criteria;
 use App\Models\PerformanceAssessment;
 use App\Models\SubCriteria;
 use App\Models\Integrity;
+use App\Models\Factor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -92,9 +93,26 @@ class EvaluationController extends Controller
                     'convertion_value' => $integrity->integrity,
                     'integrity_id' => $integrity->id
                 ]);
-
-                $coreFactor = $this->calculateCoreFactor($evaluate->subcriteria_code);
             }
+
+            $factor_values = $this->calculateFactor($user->id);
+
+            foreach ($factor_values as $factor_value) {
+
+                $core_factor_value = $factor_value->core_value / $factor_value->total_core_value;
+                $secondary_factor_value = $factor_value->secondary_value / $factor_value->total_secondary_value;
+
+                $total_value = ((60/100) * $core_factor_value) + ((40/100) * $secondary_factor_value);
+
+                $factor = Factor::create([
+                    'criteria_id' => $factor_value->id,
+                    'user_id'     => $user->id,
+                    'core_factor_value' => $core_factor_value,
+                    'secondary_factor_value' => $secondary_factor_value,
+                    'total_value' => $total_value,
+                ]);
+            }
+
 
             DB::commit();
             notify()->success('Gap sukses di hitung!');
@@ -180,9 +198,51 @@ class EvaluationController extends Controller
         return back();
     }
 
-    public function calculateCoreFactor($subcriteria_code)
+    protected function calculateFactor($user_id)
     {
-        $performanceAssessment = PerformanceAssessment::with('subcriteria')->where('subcriteria_code', $subcriteria_code)->where('factor', 'core')->first();
-        dd($performanceAssessment);
+        $factor_value = DB::select("SELECT id, criteria_name,
+        (
+            SELECT SUM(performance_assessments.convertion_value)
+            FROM performance_assessments
+                INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
+            WHERE performance_assessments.user_id = $user_id
+                AND sub_criterias.factor = 'core'
+                AND sub_criterias.criteria_id=criterias.id
+        ) AS `core_value`,
+        (
+            SELECT COUNT(performance_assessments.subcriteria_code)
+            FROM performance_assessments
+                INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
+            WHERE performance_assessments.user_id = $user_id
+                AND sub_criterias.factor = 'core'
+                AND sub_criterias.criteria_id=criterias.id
+        ) AS `total_core_value`,
+        (
+            SELECT SUM(performance_assessments.convertion_value)
+            FROM performance_assessments
+                INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
+            WHERE performance_assessments.user_id = $user_id
+                AND sub_criterias.factor = 'secondary'
+                AND sub_criterias.criteria_id=criterias.id
+        ) AS `secondary_value`,
+        (
+            SELECT COUNT(performance_assessments.subcriteria_code)
+            FROM performance_assessments
+                INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
+            WHERE performance_assessments.user_id = $user_id
+                AND sub_criterias.factor = 'secondary'
+                AND sub_criterias.criteria_id=criterias.id
+        ) AS `total_secondary_value`,
+        (
+            SELECT SUM(performance_assessments.convertion_value)
+            FROM performance_assessments
+                INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
+            WHERE performance_assessments.user_id = 1
+                AND sub_criterias.criteria_id=criterias.id
+        ) AS `total_value`
+    FROM criterias;"
+    );
+
+        return $factor_value;
     }
 }

@@ -17,9 +17,6 @@ class CreatePerformanceAssessmentsTable extends Migration
             $table->integer('attribute_value');
             $table->integer('gap');
             $table->float('convertion_value')->nullable();
-            $table->float('core_factor_value')->nullable();
-            $table->float('secondary_factor_value')->nullable();
-            $table->float('total_value')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
