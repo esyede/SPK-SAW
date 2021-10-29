@@ -36,35 +36,35 @@
                     <table id="datatable" class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                         <tr>
-                            <th class="text-center">#</th>
-                            <th class="text-center">Nama</th>
-                            <th class="text-center">Permission</th>
-                            <th class="text-center">Dibuat</th>
-                            <th class="text-center">Aksi</th>
+                            <th>No.</th>
+                            <th>Nama</th>
+                            <th>Permission</th>
+                            <th>Dibuat</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($roles as $key => $role)
                             <tr>
-                                <td class="text-center text-muted">#{{ $key + 1 }}</td>
-                                <td class="text-center">{{ $role->name }}</td>
-                                <td class="text-center">
+                                <td>{{ $loop->iteration }}.</td>
+                                <td>{{ $role->name }}</td>
+                                <td>
                                     @if ($role->permissions_count > 0)
                                         <span class="badge badge-info">{{ $role->permissions_count }}</span>
                                     @else
                                         <span class="badge badge-danger">0</span>
                                     @endif
                                 </td>
-                                <td class="text-center">{{ $role->created_at->diffForHumans() }}</td>
-                                <td class="text-center">
-                                    <a class="btn btn-info btn-sm" href="{{ route('roles.edit',$role->id) }}">
+                                <td>{{ $role->created_at->diffForHumans() }}</td>
+                                <td>
+                                    <a class="btn btn-info btn-sm" data-toggle="tooltip" title="Edit" href="{{ route('roles.edit', $role->id) }}">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     @if ($role->deletable == true)
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $role->id }})">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Hapus" onclick="deleteData({{ $role->id }})">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
-                                        <form id="delete-form-{{ $role->id }}" action="{{ route('roles.destroy',$role->id) }}" method="POST" style="display: none;">
+                                        <form id="delete-form-{{ $role->id }}" action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display: none;">
                                             @csrf()
                                             @method('DELETE')
                                         </form>
@@ -103,7 +103,8 @@
             let table = $('#datatable').DataTable({
                 dom: 'Bfrtip',
                 lengthChange: false,
-                buttons: buttons
+                buttons: buttons,
+                language: {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json"}
             });
 
             table.buttons().container().appendTo('#datatable_wrapper .col-sm-6:eq(0)');

@@ -38,7 +38,7 @@
                             <select name="criteria_id" id="criteria_id" class="form-control">
                                <option>Pilih Kriteria</option>
                                 @foreach($criteria as $item)
-                                <option value="{{$item->id}}">{{$item->criteria_name}}</option>
+                                <option value="{{ $item->id }}">{{ $item->criteria_name }}</option>
                                 @endforeach
                             </select>
                         </div>

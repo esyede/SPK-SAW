@@ -85,20 +85,20 @@
             <div class="main-card mb-3 card">
                 <div class="card-header">Login terbaru</div>
                 <div class="table-responsive">
-                    <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="datatable">
                         <thead>
                         <tr>
-                            <th class="text-center">#</th>
+                            <th>No.</th>
                             <th>Nama</th>
-                            <th class="text-center">Email</th>
-                            <th class="text-center">Waktu</th>
-                            <th class="text-center">Aksi</th>
+                            <th>Email</th>
+                            <th>Waktu</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($users as $key => $user)
                             <tr>
-                                <td class="text-center text-muted">#{{ $key + 1 }}</td>
+                                <td>{{ $loop->iteration }}.</td>
                                 <td>
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
@@ -121,10 +121,10 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-center">{{ $user->email }}</td>
-                                <td class="text-center">{{ $user->last_login_at }}</td>
-                                <td class="text-center">
-                                    <a class="btn btn-info btn-sm" href="{{ route('users.show', $user->id) }}">
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->last_login_at }}</td>
+                                <td>
+                                    <a class="btn btn-info btn-sm" data-toggle="tooltip" title="Lihat profil" href="{{ route('users.show', $user->id) }}">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>
@@ -151,10 +151,10 @@
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="datatable">
                         <thead>
                             <tr>
-                                <th class="text-center">#</th>
+                                <th>No.</th>
                                 <th>Nama Karyawan</th>
-                                <th class="text-center">Ranking</th>
-                                <th class="text-center">Action</th>
+                                <th>Ranking</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -191,7 +191,8 @@
             let table = $('#datatable').DataTable({
                 dom: 'Bfrtip',
                 lengthChange: false,
-                buttons: buttons
+                buttons: buttons,
+                language: {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json"}
             });
 
             table.buttons().container().appendTo('#datatable_wrapper .col-sm-6:eq(0)');

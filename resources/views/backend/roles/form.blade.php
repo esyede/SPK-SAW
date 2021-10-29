@@ -29,7 +29,7 @@
             <div class="main-card mb-3 card">
                 <!-- form start -->
                 <form id="roleFrom" role="form" method="POST"
-                      action="{{ isset($role) ? route('roles.update',$role->id) : route('roles.store') }}">
+                      action="{{ isset($role) ? route('roles.update', $role->id) : route('roles.store') }}">
                     @csrf
                     @if (isset($role))
                         @method('PUT')

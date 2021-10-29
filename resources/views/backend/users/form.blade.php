@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','Users')
+@section('title','Pengawai')
 
 @section('content')
     <div class="app-page-title">

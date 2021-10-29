@@ -98,8 +98,18 @@
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Datatable
-            $("#datatable").DataTable();
+            let language = {
+                "lengthMenu": "_MENU_ data per halaman",
+                "zeroRecords": "Maaf, tidak ada data",
+                "info": "Halaman _PAGE_ dari _PAGES_",
+                "infoEmpty": "Tidak ada data",
+                "search": "Cari",
+                "infoFiltered": "(disaring dari _MAX_ total data)"
+            };
+
+            $("#datatable").DataTable({
+                "language": language
+            });
         });
     </script>
 @endpush

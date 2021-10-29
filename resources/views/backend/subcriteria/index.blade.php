@@ -36,31 +36,31 @@
                     <table id="datatable" class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                         <tr>
-                            <th class="text-center">#</th>
+                            <th>No.</th>
                             <th >Kriteria</th>
                             <th >Nama Sub Kriteria</th>
                             <th >Kode Sub Kriteria</th>
-                            <th >Standard nilai</th>
+                            <th >Standard Nilai</th>
                             <th >Factor</th>
                             <th >Dibuat</th>
-                            <th >Actions</th>
+                            <th >Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
                             @forelse ($subcriteria as $data)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$data->criteria->criteria_name}}</td>
-                                    <td>{{$data->name}}</td>
-                                    <td>{{$data->subcriteria_code}}</td>
-                                    <td>{{ucwords($data->factor)}}</td>
-                                    <td>{{$data->standard_value}}</td>
+                                    <td>{{ $loop->iteration }}.</td>
+                                    <td>{{ $data->criteria->criteria_name }}</td>
+                                    <td>{{ $data->name }}</td>
+                                    <td>{{ $data->subcriteria_code }}</td>
+                                    <td>{{ ucwords($data->factor) }}</td>
+                                    <td>{{ $data->standard_value }}</td>
                                     <td>{{ $data->created_at->diffForHumans() }}</td>
                                     <td>
-                                        <a class="btn btn-info btn-sm" href="{{ route('sub-criteria.edit', $data->id) }}">
+                                        <a class="btn btn-info btn-sm" data-toggle="tooltip" title="Edit" href="{{ route('sub-criteria.edit', $data->id) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{ $data->id }})">
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Hapus" onclick="deleteData({{ $data->id }})">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                         <form id="delete-form-{{ $data->id }}" action="{{ route('sub-criteria.destroy', $data->id) }}" method="POST" style="display: none;">
@@ -71,7 +71,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">Data tidak ditemukan</td>
+                                    <td colspan="7">Data tidak ditemukan</td>
                                 </tr>
                             @endforelse
 
@@ -106,7 +106,8 @@
             let table = $('#datatable').DataTable({
                 dom: 'Bfrtip',
                 lengthChange: false,
-                buttons: buttons
+                buttons: buttons,
+                language: {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json"}
             });
 
             table.buttons().container().appendTo('#datatable_wrapper .col-sm-6:eq(0)');

@@ -33,22 +33,24 @@
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="datatable">
                         <thead>
                             <tr>
-                                <th class="text-center">#</th>
+                                <th>No.</th>
                                 <th>NIP</th>
                                 <th>Karyawan</th>
-                                @can('evaluation.edit') <th>Action</th> @endcan
+                                <th>Terdaftar</th>
+                                @can('evaluation.edit') <th>Aksi</th> @endcan
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($users as $user)
                                 <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$user->registration_code}}</td>
-                                    <td>{{$user->name}}</td>
+                                    <td>{{ $loop->iteration }}.</td>
+                                    <td>{{ $user->registration_code }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->created_at->diffForHumans() }}</td>
                                     @can('evaluation.edit')
                                         <td>
                                             @if (count($user->performance_assesment) > 0)
-                                                <a class="btn btn-info btn-sm"  data-toggle="tooltip" title="Lihat nilai" href="{{ url('evaluation/detail', $user->id) }}">
+                                                <a class="btn btn-info btn-sm" data-toggle="tooltip" title="Lihat nilai" href="{{ url('evaluation/detail', $user->id) }}">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                             @else
@@ -59,7 +61,7 @@
                                             </span>
                                             @endif
 
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteData({{$user->id}})">
+                                            <button type="button" data-toggle="tooltip" title="Hapus" class="btn btn-danger btn-sm" onclick="deleteData({{$user->id}})">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                             <form id="delete-form-" action="" method="POST" style="display: none;">
@@ -71,7 +73,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="text-center" colspan="7">Data tidak ditemukan</td>
+                                    <td colspan="7">Data tidak ditemukan</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -105,7 +107,8 @@
             let table = $('#datatable').DataTable({
                 dom: 'Bfrtip',
                 lengthChange: false,
-                buttons: buttons
+                buttons: buttons,
+                language: {"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json"}
             });
 
             table.buttons().container().appendTo('#datatable_wrapper .col-sm-6:eq(0)');

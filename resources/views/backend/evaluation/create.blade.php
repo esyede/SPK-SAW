@@ -14,7 +14,7 @@
                     <i class="pe-7s-note icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>{{ __('Tambah Penilaian') }}</div>
+                <div>Tambah Penilaian</div>
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
@@ -41,7 +41,7 @@
                         <section class="users mt-4 mb-5">
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <img src="{{ Auth::user()->getFirstMediaUrl('avatar','thumb') ?? '' }}" alt="employee-profile" width="160px" height="160px">
+                                    <img src="{{ Auth::user()->getFirstMediaUrl('avatar', 'thumb') ?? '' }}" alt="employee-profile" width="160px" height="160px">
                                 </div>
                                 <div class="col-lg-4 ml-4">
                                     <div class="form-group">
@@ -81,7 +81,7 @@
                                      <div class="form-group row">
                                         <label for="sub_criteria" class="col-sm-2 col-form-label">{{ $subcriteria->name }}</label>
                                         <div class="col-sm-10">
-                                        <select class="form-control required fetch-info" name="segment_{{$subcriteria->subcriteria_code}}">
+                                        <select class="form-control required fetch-info" name="segment_{{ $subcriteria->subcriteria_code }}">
                                             @foreach(range(1, 5) as $v)
                                             <option value="{{ $v }}">{{ $v }}</option>
                                             @endforeach
