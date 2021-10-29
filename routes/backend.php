@@ -23,6 +23,8 @@ use App\Http\Controllers\Backend\EvaluationController;
 |
 */
 
+Route::get('tes-cf', [EvaluationController::class, 'calculateCoreFactor']);
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // Roles and Users

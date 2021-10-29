@@ -54,14 +54,14 @@ class EvaluationController extends Controller
             'employee_number' => 'required|integer',
         ]);
 
-        if (! $validate) {
+        if (!$validate) {
             notify()->error($validate->errors()->first());
             return back();
         }
 
         $user = User::where('registration_code', $request->employee_number)->first();
 
-        if (! $user) {
+        if (!$user) {
             notify()->error('User / Pegawai tidak ditemukan');
             return back();
         }
@@ -88,7 +88,7 @@ class EvaluationController extends Controller
 
                 $evaluate->update([
                     'convertion_value' => $integrity->integrity,
-                    'integrity_id' => $integrity->integrity_id
+                    'integrity_id' => $integrity->id
                 ]);
             }
 
@@ -117,7 +117,7 @@ class EvaluationController extends Controller
 
         $evaluate = PerformanceAssessment::find($request->performace_assessment_id);
 
-        if (! $evaluate) {
+        if (!$evaluate) {
             notify()->error('Data nilai tidak ditemukan');
             return back();
         }
@@ -146,7 +146,7 @@ class EvaluationController extends Controller
 
         $evaluate = PerformanceAssessment::find($id);
 
-        if (! $evaluate) {
+        if (!$evaluate) {
             notify()->error('Data Penilaian tidak ditemukan');
             return back();
         }
@@ -155,5 +155,11 @@ class EvaluationController extends Controller
 
         notify()->success('Berhasil menghapus data penilaian');
         return back();
+    }
+
+    public function calculateCoreFactor()
+    {
+        $performanceAssessment = PerformanceAssessment::with('subcriteria')->where('subcriteria_code', 'SK1')->first();
+        dd($performanceAssessment->subcriteria->factor);
     }
 }
