@@ -18,10 +18,10 @@ class UserController extends Controller
     {
         Gate::authorize('users.index');
 
-        $users = User::with('role')->whereHas('role', function ($q) {
-            $q->where('slug', 'employee');
-        })->with('performanceAssesment')
-          ->get();
+        $users = User::with(['role', 'performance_assesment'])
+            ->whereHas('role', function ($q) {
+                $q->where('slug', 'employee');
+            })->get();
 
         return view('backend.users.index', compact('users'));
     }

@@ -22,7 +22,10 @@ class EvaluationController extends Controller
 
     public function index()
     {
-        $users = User::where('role_id', 2)->with('performanceAssesment')->get();
+        $users = User::with(['role', 'performance_assesment'])
+            ->whereHas('role', function ($q) {
+                $q->where('slug', 'employee');
+            })->get();
 
         return view('backend.evaluation.index', compact('users'));
     }
