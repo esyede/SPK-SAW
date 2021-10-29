@@ -98,7 +98,6 @@ class EvaluationController extends Controller
             $factor_values = $this->calculateFactor($user->id);
 
             foreach ($factor_values as $factor_value) {
-
                 $core_factor_value = $factor_value->core_value / $factor_value->total_core_value;
                 $secondary_factor_value = $factor_value->secondary_value / $factor_value->total_secondary_value;
 
@@ -198,7 +197,8 @@ class EvaluationController extends Controller
 
     protected function calculateFactor($user_id)
     {
-        $factor_value = DB::select("SELECT id, criteria_name,
+        $factor_value = DB::select(
+            "SELECT id, criteria_name,
         (
             SELECT SUM(performance_assessments.convertion_value)
             FROM performance_assessments
@@ -239,7 +239,7 @@ class EvaluationController extends Controller
                 AND sub_criterias.criteria_id=criterias.id
         ) AS `total_value`
     FROM criterias;"
-    );
+        );
 
         return $factor_value;
     }
