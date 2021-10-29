@@ -39,12 +39,14 @@
                         <input type="text" class="form-control" name="name" value="{{ $role->name ?? '' }}" placeholder="Masukkan nama role" required autofocus>
 
                         <div class="text-center">
-                            <strong>Kelola permission untuk role</strong>
+                            <br>
+                            <br>
+                            <h4>Kelola Perizinan</h4>
                             @error('permissions')
                             <p class="p-2">
-                        <span class="text-danger" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                                <span class="text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             </p>
                             @enderror
                         </div>
