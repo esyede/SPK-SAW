@@ -9,7 +9,6 @@ use App\Models\Criteria;
 use App\Models\PerformanceAssessment;
 use App\Models\SubCriteria;
 use App\Models\Integrity;
-use App\Repository\EvaluationRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -93,6 +92,8 @@ class EvaluationController extends Controller
                     'convertion_value' => $integrity->integrity,
                     'integrity_id' => $integrity->id
                 ]);
+
+                $coreFactor = $this->calculateCoreFactor($evaluate->subcriteria_code);
             }
 
             DB::commit();
@@ -111,9 +112,9 @@ class EvaluationController extends Controller
     public function edit(Request $request, $id)
     {
         $evaluate = PerformanceAssessment::with('criteria', 'subcriteria', 'users')
-                                            ->where('subcriteria_code', $id)
-                                            ->first();
-     
+            ->where('subcriteria_code', $id)
+            ->first();
+
         return view('backend.evaluation.form', compact('evaluate'));
     }
 
@@ -137,7 +138,7 @@ class EvaluationController extends Controller
         DB::beginTransaction();
 
         try {
-            
+
             $evaluate->attribute_value = $request->attribute_value;
             $evaluate->gap = intval($request->attribute_value) - intval($evaluate->subcriteria_standard_value);
             $evaluate->save();
@@ -154,7 +155,7 @@ class EvaluationController extends Controller
             return back();
         } catch (\Exception $e) {
 
-            \Log::error($e);
+            Log::error($e);
             DB::rollback();
 
             notify()->error('Terjadi kesalahan saat memperbarui data evaluasi nilai');
@@ -179,9 +180,9 @@ class EvaluationController extends Controller
         return back();
     }
 
-    public function calculateCoreFactor()
+    public function calculateCoreFactor($subcriteria_code)
     {
-        $performanceAssessment = PerformanceAssessment::with('subcriteria')->where('subcriteria_code', 'SK1')->first();
-        dd($performanceAssessment->subcriteria->factor);
+        $performanceAssessment = PerformanceAssessment::with('subcriteria')->where('subcriteria_code', $subcriteria_code)->where('factor', 'core')->first();
+        dd($performanceAssessment);
     }
 }
