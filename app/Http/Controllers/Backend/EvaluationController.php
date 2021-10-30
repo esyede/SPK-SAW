@@ -35,8 +35,9 @@ class EvaluationController extends Controller
         Gate::authorize('evaluation.index');
 
         $evaluates = PerformanceAssessment::with('criteria', 'subcriteria', 'users')->where('user_id', $id)->get();
+        $factors = Factor::with(['criteria', 'user'])->where('user_id', $id)->get();
 
-        return view('backend.evaluation.detail-evaluation', compact('evaluates'));
+        return view('backend.evaluation.detail-evaluation', compact('evaluates', 'factors'));
     }
 
     public function evaluate($id)
@@ -101,7 +102,7 @@ class EvaluationController extends Controller
                 $core_factor_value = $factor_value->core_value / $factor_value->total_core_value;
                 $secondary_factor_value = $factor_value->secondary_value / $factor_value->total_secondary_value;
 
-                $total_value = ((60/100) * $core_factor_value) + ((40/100) * $secondary_factor_value);
+                $total_value = ((60 / 100) * $core_factor_value) + ((40 / 100) * $secondary_factor_value);
 
                 $factor = Factor::create([
                     'criteria_id' => $factor_value->id,

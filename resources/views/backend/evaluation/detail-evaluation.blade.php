@@ -92,12 +92,26 @@
                                 <th>No.</th>
                                 <th>Karyawan</th>
                                 <th>Kriteria</th>
-                                <th>Faktor</th>
+                                <th>Core Faktor</th>
+                                <th>Secondary Factor</th>
                                 <th>Rata - Rata</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            @forelse ($factors as $factor)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $factor->user->name }}</td>
+                                    <td>{{ $factor->criteria->criteria_name }}</td>
+                                    <td>{{ $factor->core_factor_value }}</td>
+                                    <td>{{ $factor->secondary_factor_value }}</td>
+                                    <td>{{ $factor->total_value }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7">Data tidak ditemukan</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
