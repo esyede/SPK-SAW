@@ -98,24 +98,8 @@ class EvaluationController extends Controller
 
             $factor_values = $this->calculateFactor($user->id);
 
-            foreach ($factor_values as $factor_value) {
-                $core_factor_value = $factor_value->core_value / $factor_value->total_core_value;
-                $secondary_factor_value = $factor_value->secondary_value / $factor_value->total_secondary_value;
-
-                $total_value = ((60 / 100) * $core_factor_value) + ((40 / 100) * $secondary_factor_value);
-
-                $factor = Factor::create([
-                    'criteria_id' => $factor_value->id,
-                    'user_id'     => $user->id,
-                    'core_factor_value' => $core_factor_value,
-                    'secondary_factor_value' => $secondary_factor_value,
-                    'total_value' => $total_value,
-                ]);
-            }
-
-
             DB::commit();
-            notify()->success('Gap sukses di hitung!');
+            notify()->success('Penilaian sukses di hitung!');
 
             return redirect('/users');
         } catch (\Exception $e) {
@@ -166,6 +150,11 @@ class EvaluationController extends Controller
                 'convertion_value' => $integrity->integrity,
             ]);
 
+            $lastSegmentUrl = request()->segment(count(request()->segments()));
+
+            $factors = Factor::where('user_id', $lastSegmentUrl)->get();
+            dd($factors);
+
             DB::commit();
 
             notify()->success('Berhasil mengubah data penilaian');
@@ -198,7 +187,7 @@ class EvaluationController extends Controller
 
     protected function calculateFactor($user_id)
     {
-        $factor_value = DB::select(
+        $factor_values = DB::select(
             "SELECT id, criteria_name,
         (
             SELECT SUM(performance_assessments.convertion_value)
@@ -242,6 +231,19 @@ class EvaluationController extends Controller
     FROM criterias;"
         );
 
-        return $factor_value;
+        foreach ($factor_values as $factor_value) {
+            $core_factor_value = $factor_value->core_value / $factor_value->total_core_value;
+            $secondary_factor_value = $factor_value->secondary_value / $factor_value->total_secondary_value;
+
+            $total_value = ((60 / 100) * $core_factor_value) + ((40 / 100) * $secondary_factor_value);
+
+            $factor = Factor::create([
+                'criteria_id' => $factor_value->id,
+                'user_id'     => $user_id,
+                'core_factor_value' => $core_factor_value,
+                'secondary_factor_value' => $secondary_factor_value,
+                'total_value' => $total_value,
+            ]);
+        }
     }
 }
