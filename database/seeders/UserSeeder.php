@@ -13,13 +13,12 @@ class UserSeeder extends Seeder
     {
         $faker = Factory::create('id_ID');
         $password = bcrypt('password');
-        $users = [];
 
         // Create employee
         $role = Role::where('slug', 'employee')->first();
         $genders = ['Male', 'Female'];
 
-        $users[] = [
+        $users = [
             // Admin/Director
             [
                 'role_id' => 1,
@@ -45,7 +44,7 @@ class UserSeeder extends Seeder
                 'date_of_birth' => null,
                 'phone' => null,
                 'gender' => 'Male',
-                'email' => null,
+                'email' => $faker->unique()->email,
                 'password' => $password,
                 'status' => true,
                 'email_verified_at' => now(),
@@ -60,7 +59,7 @@ class UserSeeder extends Seeder
                 'date_of_birth' => null,
                 'phone' => null,
                 'gender' => 'Male',
-                'email' => null,
+                'email' => $faker->unique()->email,
                 'password' => $password,
                 'status' => true,
                 'email_verified_at' => now(),
@@ -75,7 +74,7 @@ class UserSeeder extends Seeder
                 'date_of_birth' => null,
                 'phone' => null,
                 'gender' => 'Male',
-                'email' => null,
+                'email' => $faker->unique()->email,
                 'password' => $password,
                 'status' => true,
                 'email_verified_at' => now(),
@@ -90,7 +89,7 @@ class UserSeeder extends Seeder
                 'date_of_birth' => null,
                 'phone' => null,
                 'gender' => 'Male',
-                'email' => null,
+                'email' => $faker->unique()->email,
                 'password' => $password,
                 'status' => true,
                 'email_verified_at' => now(),
@@ -105,7 +104,7 @@ class UserSeeder extends Seeder
                 'date_of_birth' => null,
                 'phone' => null,
                 'gender' => 'Female',
-                'email' => null,
+                'email' => $faker->unique()->email,
                 'password' => $password,
                 'status' => true,
                 'email_verified_at' => now(),
@@ -120,7 +119,7 @@ class UserSeeder extends Seeder
                 'date_of_birth' => null,
                 'phone' => null,
                 'gender' => 'Female',
-                'email' => null,
+                'email' => $faker->unique()->email,
                 'password' => $password,
                 'status' => true,
                 'email_verified_at' => now(),
