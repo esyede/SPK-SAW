@@ -10,6 +10,7 @@ use App\Models\PerformanceAssessment;
 use App\Models\SubCriteria;
 use App\Models\Integrity;
 use App\Models\Factor;
+use App\Models\Grade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -98,8 +99,26 @@ class EvaluationController extends Controller
 
             $factor_values = $this->calculateFactor($user->id);
 
+            foreach ($factor_values as $factor_value) {
+                $core_factor_value = $factor_value->core_value / $factor_value->total_core_value;
+                $secondary_factor_value = $factor_value->secondary_value / $factor_value->total_secondary_value;
+
+                $total_value = ((60/100) * $core_factor_value) + ((40/100) * $secondary_factor_value);
+
+                $factor = Factor::create([
+                    'criteria_id' => $factor_value->id,
+                    'user_id'     => $user->id,
+                    'core_factor_value' => $core_factor_value,
+                    'secondary_factor_value' => $secondary_factor_value,
+                    'total_value' => $total_value,
+                    'total_weight'=>$factor_value->criteria_weight,
+                ]);
+            }
+
+            $grades = $this->calculateGrade($user->id);
+
             DB::commit();
-            notify()->success('Penilaian sukses di hitung!');
+            notify()->success('Gap sukses di hitung!');
 
             return redirect('/users');
         } catch (\Exception $e) {
@@ -148,9 +167,29 @@ class EvaluationController extends Controller
 
             $evaluate->update([
                 'convertion_value' => $integrity->integrity,
+                'integrity_id' => $integrity->id,
             ]);
 
-            $factors = $this->calculateFactor($request->user_id, $request->criteria_id);
+            $factors = $this->UpdatecalculateFactor($evaluate->user_id, $evaluate->criteria_id);
+
+            $core_factor_value = $factors[0]->core_value / $factors[0]->total_core_value;
+            $secondary_factor_value = $factors[0]->secondary_value / $factors[0]->total_secondary_value;
+            $total_value = ((60/100) * $core_factor_value) + ((40/100) * $secondary_factor_value);
+
+            $factor = Factor::updateOrCreate(
+                [
+                'user_id'=> $evaluate->user_id,
+                'criteria_id'=>$evaluate->criteria_id
+            ],
+                [
+                'criteria_id' => $factors[0]->criteria_id,
+                'user_id'     => $evaluate->user_id,
+                'core_factor_value' => $core_factor_value,
+                'secondary_factor_value' => $secondary_factor_value,
+                'total_value' => $total_value,
+                'total_weight'=>$factors[0]->criteria_weight,
+            ]
+            );
 
             DB::commit();
 
@@ -182,12 +221,11 @@ class EvaluationController extends Controller
         return back();
     }
 
-    protected function calculateFactor($user_id, $criteria_id = null)
+    protected function calculateFactor($user_id)
     {
-        $factor_values = DB::select(
-            "SELECT id, criteria_name,
+        $factor_value = DB::select("SELECT id, criteria_name,
         (
-            SELECT SUM(performance_assessments.convertion_value)
+        SELECT SUM(performance_assessments.convertion_value)
             FROM performance_assessments
                 INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
             WHERE performance_assessments.user_id = $user_id
@@ -219,38 +257,96 @@ class EvaluationController extends Controller
                 AND sub_criterias.criteria_id=criterias.id
         ) AS `total_secondary_value`,
         (
+            SELECT SUM(sub_criterias.weight)
+            FROM sub_criterias
+                WHERE sub_criterias.criteria_id=criterias.id
+        ) AS `criteria_weight`,
+        (
+            SELECT SUM(performance_assessments.convertion_value)
+            FROM performance_assessments
+                INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
+            WHERE performance_assessments.user_id = 1
+                AND sub_criterias.criteria_id=criterias.id
+        ) AS `total_value`
+        FROM criterias;");
+
+        return $factor_value;
+    }
+
+    protected function UpdatecalculateFactor($user_id, $criteria_id)
+    {
+        $factor_value = DB::select("SELECT id, criteria_name,
+        (
+        SELECT SUM(performance_assessments.convertion_value)
+            FROM performance_assessments
+                INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
+            WHERE performance_assessments.user_id = $user_id
+                AND sub_criterias.factor = 'core'
+                AND sub_criterias.criteria_id=criterias.id
+        ) AS `core_value`,
+        (
+            SELECT COUNT(performance_assessments.subcriteria_code)
+            FROM performance_assessments
+                INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
+            WHERE performance_assessments.user_id = $user_id
+                AND sub_criterias.factor = 'core'
+                AND sub_criterias.criteria_id=criterias.id
+        ) AS `total_core_value`,
+        (
             SELECT SUM(performance_assessments.convertion_value)
             FROM performance_assessments
                 INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
             WHERE performance_assessments.user_id = $user_id
+                AND sub_criterias.factor = 'secondary'
+                AND sub_criterias.criteria_id=criterias.id
+        ) AS `secondary_value`,
+        (
+            SELECT COUNT(performance_assessments.subcriteria_code)
+            FROM performance_assessments
+                INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
+            WHERE performance_assessments.user_id = $user_id
+                AND sub_criterias.factor = 'secondary'
+                AND sub_criterias.criteria_id=criterias.id
+        ) AS `total_secondary_value`,
+        (
+            SELECT SUM(sub_criterias.weight)
+            FROM sub_criterias
+                WHERE sub_criterias.criteria_id=criterias.id
+        ) AS `criteria_weight`,
+        (
+            SELECT SUM(performance_assessments.convertion_value)
+            FROM performance_assessments
+                INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
+            WHERE performance_assessments.user_id = 1
                 AND sub_criterias.criteria_id=criterias.id
         ) AS `total_value`
-    FROM criterias;"
+        FROM criterias WHERE criterias.id = $criteria_id ;");
+
+        return $factor_value;
+    }
+
+    protected function calculateGrade($user_id)
+    {
+        $factors = Factor::all();
+
+        $total_grade_value = [];
+
+        foreach ($factors as $factor) {
+            $total_grade = ($factor->total_weight / 100) * $factor->total_value;
+
+            array_push($total_grade_value, $total_grade);
+        }
+
+        $grade_value = array_sum($total_grade_value);
+
+        $grades = Grade::updateOrCreate(
+            ['user_id' => $user_id ],
+            [
+            'user_id' => $user_id,
+            'total_grade_value' => $grade_value,
+        ]
         );
 
-        foreach ($factor_values as $factor_value) {
-            $core_factor_value = $factor_value->core_value / $factor_value->total_core_value;
-            $secondary_factor_value = $factor_value->secondary_value / $factor_value->total_secondary_value;
-
-            $total_value = ((60 / 100) * $core_factor_value) + ((40 / 100) * $secondary_factor_value);
-
-            $factorUpdate = Factor::where('criteria_id', $criteria_id)->where('user_id', $user_id)->first();
-
-            if ($factorUpdate->user_id != $user_id || $factorUpdate->criteria_id != $criteria_id) {
-                $factor = Factor::create([
-                    'criteria_id' => $factor_value->id,
-                    'user_id'     => $user_id,
-                    'core_factor_value' => $core_factor_value,
-                    'secondary_factor_value' => $secondary_factor_value,
-                    'total_value' => $total_value,
-                ]);
-            }
-
-            $factorUpdate->update([
-                'core_factor_value' => $core_factor_value,
-                'secondary_factor_value' => $secondary_factor_value,
-                'total_value' => $total_value,
-            ]);
-        }
+        return $grades;
     }
 }
