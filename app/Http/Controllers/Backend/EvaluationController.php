@@ -74,7 +74,6 @@ class EvaluationController extends Controller
         DB::beginTransaction();
 
         try {
-
             foreach ($request->except('employee_number', '_token') as $name => $val) {
                 $name = explode('_', $name);
                 $subcriteria = SubCriteria::with('criteria')->where('subcriteria_code', $name[1])->first();
@@ -178,18 +177,19 @@ class EvaluationController extends Controller
             $total_value = ((60/100) * $core_factor_value) + ((40/100) * $secondary_factor_value);
 
             $factor = Factor::updateOrCreate(
-            [
+                [
                 'user_id'=> $evaluate->user_id,
                 'criteria_id'=>$evaluate->criteria_id
             ],
-            [
+                [
                 'criteria_id' => $factors[0]->criteria_id,
                 'user_id'     => $evaluate->user_id,
                 'core_factor_value' => $core_factor_value,
                 'secondary_factor_value' => $secondary_factor_value,
                 'total_value' => $total_value,
                 'total_weight'=>$factors[0]->criteria_weight,
-            ]);
+            ]
+            );
 
             DB::commit();
 
@@ -268,7 +268,7 @@ class EvaluationController extends Controller
             WHERE performance_assessments.user_id = 1
                 AND sub_criterias.criteria_id=criterias.id
         ) AS `total_value`
-        FROM criterias;" );
+        FROM criterias;");
 
         return $factor_value;
     }
@@ -320,7 +320,7 @@ class EvaluationController extends Controller
             WHERE performance_assessments.user_id = 1
                 AND sub_criterias.criteria_id=criterias.id
         ) AS `total_value`
-        FROM criterias WHERE criterias.id = $criteria_id ;" );
+        FROM criterias WHERE criterias.id = $criteria_id ;");
 
         return $factor_value;
     }
@@ -331,7 +331,7 @@ class EvaluationController extends Controller
 
         $total_grade_value = [];
 
-        foreach($factors as $factor){
+        foreach ($factors as $factor) {
             $total_grade = ($factor->total_weight / 100) * $factor->total_value;
 
             array_push($total_grade_value, $total_grade);
@@ -340,11 +340,12 @@ class EvaluationController extends Controller
         $grade_value = array_sum($total_grade_value);
 
         $grades = Grade::updateOrCreate(
-        ['user_id' => $user_id ],
-        [
+            ['user_id' => $user_id ],
+            [
             'user_id' => $user_id,
             'total_grade_value' => $grade_value,
-        ]);
+        ]
+        );
 
         return $grades;
     }
