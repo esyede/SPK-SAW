@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFactorsTable extends Migration
+class CreateGradesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,11 @@ class CreateFactorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('factors', function (Blueprint $table) {
+        Schema::create('grades', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBiginteger('criteria_id');
             $table->unsignedBigInteger('user_id');
-            $table->float('core_factor_value')->nullable();
-            $table->float('secondary_factor_value')->nullable();
-            $table->float('total_value')->nullable();
-            $table->integer('total_weight')->nullable();
+            $table->float('total_grade_value')->default(0.0)->nullable();
             $table->timestamps();
-
-            $table->foreign('criteria_id')
-                ->references('id')
-                ->on('criterias')
-                ->onDelete('cascade');
 
             $table->foreign('user_id')
                 ->references('id')
@@ -42,6 +33,6 @@ class CreateFactorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('factors');
+        Schema::dropIfExists('grades');
     }
 }

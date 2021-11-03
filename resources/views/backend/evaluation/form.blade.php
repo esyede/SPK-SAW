@@ -2,12 +2,14 @@
   @csrf
   <div class="form-group">
     <label for="formGroupExampleInput">Kriteria</label>
-    <input type="text" class="form-control" id="formGroupExampleInput" value="{{ $evaluate->criteria->criteria_name }}" disabled>
+    <input type="text" class="form-control" id="formGroupExampleInput" name="criteria_name" value="{{ $evaluate->criteria->criteria_name }}" readonly>
+    <input type="hidden" class="form-control" id="formGroupExampleInput" name="criteria_id" value="{{ $evaluate->criteria->id }}" readonly>
   </div>
   <div class="form-group">
     <label for="formGroupExampleInput2">Sub Kriteria</label>
-    <input type="text" class="form-control" id="formGroupExampleInput2" value="{{ $evaluate->subcriteria->name }}" disabled>
+    <input type="text" class="form-control" id="formGroupExampleInput2" value="{{ $evaluate->subcriteria->name }}" readonly>
   </div>
+  <input type="hidden" name="user_id" value="{{ $evaluate->user_id }}">
   <div class="form-group">
     <label for="formGroupExampleInput2">Nilai Atribut</label>
     <select class="form-control required fetch-info" name="attribute_value">
