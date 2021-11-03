@@ -150,10 +150,7 @@ class EvaluationController extends Controller
                 'convertion_value' => $integrity->integrity,
             ]);
 
-            $lastSegmentUrl = request()->segment(count(request()->segments()));
-
-            $factors = Factor::where('user_id', $lastSegmentUrl)->get();
-            dd($factors);
+            $factors = $this->calculateFactor($request->user_id, $request->criteria_id);
 
             DB::commit();
 
@@ -185,7 +182,7 @@ class EvaluationController extends Controller
         return back();
     }
 
-    protected function calculateFactor($user_id)
+    protected function calculateFactor($user_id, $criteria_id = null)
     {
         $factor_values = DB::select(
             "SELECT id, criteria_name,
@@ -225,7 +222,7 @@ class EvaluationController extends Controller
             SELECT SUM(performance_assessments.convertion_value)
             FROM performance_assessments
                 INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
-            WHERE performance_assessments.user_id = 1
+            WHERE performance_assessments.user_id = $user_id
                 AND sub_criterias.criteria_id=criterias.id
         ) AS `total_value`
     FROM criterias;"
@@ -237,9 +234,19 @@ class EvaluationController extends Controller
 
             $total_value = ((60 / 100) * $core_factor_value) + ((40 / 100) * $secondary_factor_value);
 
-            $factor = Factor::create([
-                'criteria_id' => $factor_value->id,
-                'user_id'     => $user_id,
+            $factorUpdate = Factor::where('criteria_id', $criteria_id)->where('user_id', $user_id)->first();
+
+            if ($factorUpdate->user_id != $user_id || $factorUpdate->criteria_id != $criteria_id) {
+                $factor = Factor::create([
+                    'criteria_id' => $factor_value->id,
+                    'user_id'     => $user_id,
+                    'core_factor_value' => $core_factor_value,
+                    'secondary_factor_value' => $secondary_factor_value,
+                    'total_value' => $total_value,
+                ]);
+            }
+
+            $factorUpdate->update([
                 'core_factor_value' => $core_factor_value,
                 'secondary_factor_value' => $secondary_factor_value,
                 'total_value' => $total_value,
