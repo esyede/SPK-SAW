@@ -115,7 +115,7 @@ class EvaluationController extends Controller
 
 
             DB::commit();
-            notify()->success('Gap sukses di hitung!');
+            notify()->success('Berhasil menambahkan data penilaian!');
 
             return redirect('/users');
         } catch (\Exception $e) {

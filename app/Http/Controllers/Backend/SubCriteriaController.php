@@ -40,6 +40,7 @@ class SubCriteriaController extends Controller
             'name'              => 'required|string|max:255',
             'standard_value'    => 'required|integer',
             'factor'            => 'required|string',
+            'weight'            => 'required|integer',
         ]);
 
         if ($validator->fails()) {
@@ -53,6 +54,7 @@ class SubCriteriaController extends Controller
             'name'              => $request->name,
             'standard_value'    => $request->standard_value,
             'factor'            => $request->factor,
+            'weight'            => $request->weight,
         ]);
 
         if ($subcriteria) {
@@ -89,6 +91,7 @@ class SubCriteriaController extends Controller
             'name'              => 'required|string|max:255',
             'standard_value'    => 'required|integer',
             'factor'            => 'required|string',
+            'weight'            => 'required|integer',
         ]);
 
         if ($validate->fails()) {
@@ -109,6 +112,7 @@ class SubCriteriaController extends Controller
             'name'              => $request->name,
             'standard_value'    => $request->standard_value,
             'factor'            => $request->factor,
+            'weight'            => $request->weight,
         ]);
 
         if ($subcriteria) {
