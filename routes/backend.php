@@ -57,6 +57,7 @@ Route::group(['as' => 'evaluation.', 'prefix' => 'evaluation'], function () {
     Route::get('/detail/{id}', [EvaluationController::class, 'detailEvaluation']);
     Route::get('/detail/edit/{id}', [EvaluationController::class, 'Edit']);
     Route::post('/evaluate/update/{id}', [EvaluationController::class, 'updateEvaluate'])->name('evaluate.update');
+    Route::delete('/detail/delete/{id}', [EvaluationController::class, 'destroy']);
 });
 
 

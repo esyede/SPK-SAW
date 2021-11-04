@@ -55,14 +55,6 @@
                                                 </button>
                                             </span>
                                             @endif
-
-                                            <button type="button" data-toggle="tooltip" title="Hapus" class="btn btn-danger btn-sm" onclick="deleteData({{$user->id}})">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                            <form id="delete-form-" action="" method="POST" style="display: none;">
-                                                @csrf()
-                                                @method('DELETE')
-                                            </form>
                                         </td>
                                     @endcan
                                 </tr>
