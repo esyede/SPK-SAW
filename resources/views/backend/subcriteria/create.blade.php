@@ -51,6 +51,10 @@
                             <input value="{{ old('name') }}" type="text" class="form-control" name="name" placeholder="Nama Sub Kriteria">
                         </div>
                         <div class="form-group">
+                            <label for="">Bobot</label>
+                            <input value="{{ old('weight') }}" type="text" class="form-control" name="weight" placeholder="Bobot">
+                        </div>
+                        <div class="form-group">
                             <label for="">Nilai Standard</label>
                             <select name="standard_value" id="standard_value" class="form-control">
                                 <option value="1">1</option>
