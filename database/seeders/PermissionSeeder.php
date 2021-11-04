@@ -204,51 +204,5 @@ class PermissionSeeder extends Seeder
             'name' => 'Hapus',
             'slug' => 'users.destroy',
         ]);
-
-        // Page management
-        $pages = Module::updateOrCreate(['name' => 'Halaman']);
-        Permission::updateOrCreate([
-            'module_id' => $pages->id,
-            'name' => 'Lihat',
-            'slug' => 'pages.index',
-        ]);
-        Permission::updateOrCreate([
-            'module_id' => $pages->id,
-            'name' => 'Buat',
-            'slug' => 'pages.create',
-        ]);
-        Permission::updateOrCreate([
-            'module_id' => $pages->id,
-            'name' => 'Edit',
-            'slug' => 'pages.edit',
-        ]);
-        Permission::updateOrCreate([
-            'module_id' => $pages->id,
-            'name' => 'Hapus',
-            'slug' => 'pages.destroy',
-        ]);
-
-        // Menu management
-        $menus = Module::updateOrCreate(['name' => 'Menu']);
-        Permission::updateOrCreate([
-            'module_id' => $menus->id,
-            'name' => 'Lihat',
-            'slug' => 'menus.index',
-        ]);
-        Permission::updateOrCreate([
-            'module_id' => $menus->id,
-            'name' => 'Buat',
-            'slug' => 'menus.create',
-        ]);
-        Permission::updateOrCreate([
-            'module_id' => $menus->id,
-            'name' => 'Edit',
-            'slug' => 'menus.edit',
-        ]);
-        Permission::updateOrCreate([
-            'module_id' => $menus->id,
-            'name' => 'Hapus',
-            'slug' => 'menus.destroy',
-        ]);
     }
 }
