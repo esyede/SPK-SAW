@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(CriteriaSeeder::class);
         $this->call(SubCriteriaSeeder::class);
-        $this->call(PerfomanceAssesmentSeeder::class);
         $this->call(IntegritiesSeeder::class);
     }
 }
