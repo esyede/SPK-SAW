@@ -48,13 +48,25 @@
                                                 <a class="btn btn-info btn-sm" data-toggle="tooltip" title="Lihat nilai" href="{{ url('evaluation/detail', $user->id) }}">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
+                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Hapus data penilaian" onclick="deleteData({{ $user->id }})">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
                                             @else
                                             <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Belum ada data">
                                                 <button class="btn btn-info btn-sm" style="pointer-events: none;" disabled>
                                                     <i class="fas fa-eye"></i>
                                                 </button>
                                             </span>
+                                            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Belum ada data">
+                                                <button type="button" class="btn btn-danger btn-sm" style="pointer-events: none;" disabled>
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            <span>
                                             @endif
+                                            <form id="delete-form-{{ $user->id }}" action="{{ url('evaluation/detail/delete', $user->id) }}" method="POST" style="display: none;">
+                                                @csrf()
+                                                @method('DELETE')
+                                            </form>
                                         </td>
                                     @endcan
                                 </tr>
