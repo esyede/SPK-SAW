@@ -48,16 +48,14 @@ class SubCriteriaController extends Controller
             return back();
         }
 
-        if($request->weight >= 100)
-        {
+        if ($request->weight >= 100) {
             notify()->error('Bobot tidak boleh lebih dari 100');
             return back();
         }
 
         $weight = SubCriteria::sum('weight');
         
-        if($weight >= 100)
-        {
+        if ($weight >= 100) {
             notify()->error('Bobot tidak boleh lebih dari 100');
             return back();
         }
@@ -113,16 +111,14 @@ class SubCriteriaController extends Controller
             return back();
         }
 
-        if($request->weight >= 100)
-        {
+        if ($request->weight >= 100) {
             notify()->error('Bobot tidak boleh lebih dari 100');
             return back();
         }
 
         $weight = SubCriteria::sum('weight');
         
-        if($weight >= 100)
-        {
+        if ($weight >= 100) {
             notify()->error('Bobot tidak boleh lebih dari 100');
             return back();
         }
