@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             // Employee
             [
                 'role_id' => 2,
-                'registration_code' => 196809222008011009,
+                'registration_code' => '196809222008011009',
                 'name' => 'Delta Pranowo, SE.',
                 'address' => null,
                 'date_of_birth' => null,
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'role_id' => 2,
-                'registration_code' => 197407302010011004,
+                'registration_code' => '197407302010011004',
                 'name' => 'Murtriyanto, S.p',
                 'address' => null,
                 'date_of_birth' => null,
@@ -68,7 +68,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'role_id' => 2,
-                'registration_code' => 196306271986031012,
+                'registration_code' => '196306271986031012',
                 'name' => 'Sujito, SH.',
                 'address' => null,
                 'date_of_birth' => null,
@@ -83,7 +83,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'role_id' => 2,
-                'registration_code' => 196707131988031011,
+                'registration_code' => '196707131988031011',
                 'name' => 'Hari Wahyudi, SH.',
                 'address' => null,
                 'date_of_birth' => null,
@@ -98,7 +98,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'role_id' => 2,
-                'registration_code' => 196404121989032012,
+                'registration_code' => '196404121989032012',
                 'name' => 'Sri Wahyuni, BA.',
                 'address' => null,
                 'date_of_birth' => null,
@@ -113,7 +113,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'role_id' => 2,
-                'registration_code' => 19710804206041016,
+                'registration_code' => '19710804206041016',
                 'name' => 'Suparno, SE.',
                 'address' => null,
                 'date_of_birth' => null,
