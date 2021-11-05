@@ -329,7 +329,8 @@ class EvaluationController extends Controller
         return $grades;
     }
 
-    protected function updateFactor($user_id, $factor) {
+    protected function updateFactor($user_id, $factor)
+    {
         $core_factor_value = $factor->core_value / $factor->total_core_value;
         $secondary_factor_value = $factor->secondary_value / $factor->total_secondary_value;
 
@@ -347,7 +348,8 @@ class EvaluationController extends Controller
                 'secondary_factor_value' => $secondary_factor_value,
                 'total_value' => $total_value,
                 'total_weight' => $factor->criteria_weight,
-            ]);
+            ]
+        );
 
         return $factor;
     }
