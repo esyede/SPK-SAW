@@ -153,12 +153,21 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Nama Karyawan</th>
-                                <th>Ranking</th>
-                                <th>Aksi</th>
+                                <th>Total Nilai Akhir</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- Isi data disini --}}
+                        @forelse ($grades as $grade)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $grade->user->name }}</td>
+                                <td>{{ $grade->total_grade_value }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7">Data tidak ditemukan</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                 </div>

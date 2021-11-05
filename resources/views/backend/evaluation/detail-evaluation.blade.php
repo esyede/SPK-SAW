@@ -51,16 +51,9 @@
                                     <td>{{ $evaluate->gap }}</td>
                                     <td>{{ $evaluate->convertion_value }}</td>
                                     <td>
-                                        <a href="" class="btn btn-info btn-sm" id="editEvaluate" data-toggle="modal" data-target="#evaluateModal" data-attr="{{ url('evaluation/detail/edit', $evaluate->subcriteria_code) }}">
+                                        <a href="" class="btn btn-info btn-sm" id="editEvaluate" title="Edit Data" data-toggle="modal" data-target="#evaluateModal" data-attr="{{ url('evaluation/detail/edit', $evaluate->subcriteria_code) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm mt-2" onclick="deleteData({{ $evaluate->id }})">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                        <form id="delete-form-{{ $evaluate->id }}" action="{{ url('evaluation/detail/delete', $evaluate->id) }}" method="POST" style="display: none;">
-                                            @csrf()
-                                            @method('DELETE')
-                                        </form>
                                     </td>
                                 </tr>
                             @empty

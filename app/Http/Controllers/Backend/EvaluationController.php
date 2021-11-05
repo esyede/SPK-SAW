@@ -103,25 +103,13 @@ class EvaluationController extends Controller
             $factor_values = $this->calculateFactor($user->id);
 
             foreach ($factor_values as $factor_value) {
-                $core_factor_value = $factor_value->core_value / $factor_value->total_core_value;
-                $secondary_factor_value = $factor_value->secondary_value / $factor_value->total_secondary_value;
-
-                $total_value = ((60 / 100) * $core_factor_value) + ((40 / 100) * $secondary_factor_value);
-
-                $factor = Factor::create([
-                    'criteria_id' => $factor_value->id,
-                    'user_id'     => $user->id,
-                    'core_factor_value' => $core_factor_value,
-                    'secondary_factor_value' => $secondary_factor_value,
-                    'total_value' => $total_value,
-                    'total_weight' => $factor_value->criteria_weight,
-                ]);
+                $factor = $this->updateFactor($user->id, $factor_value);
             }
 
             $grades = $this->calculateGrade($user->id);
 
             DB::commit();
-            notify()->success('Gap sukses di hitung!');
+            notify()->success('Berhasil menambahkan data penilaian karyawan!');
 
             return redirect('/users');
         } catch (\Exception $e) {
@@ -147,8 +135,7 @@ class EvaluationController extends Controller
         Gate::authorize('evaluation.edit');
 
         $validate = Validator::make($request->all(), [
-            'performance_assessment_id' => 'required|integer',
-            'employee_number' => 'required|integer',
+            'user_id' => 'required|integer',
             'attribute_value' => 'required|integer|min:1,max:5'
         ]);
 
@@ -156,6 +143,13 @@ class EvaluationController extends Controller
 
         if (!$evaluate) {
             notify()->error('Data nilai tidak ditemukan');
+            return back();
+        }
+
+        $user = User::where('id', $request->user_id)->first();
+
+        if (!$user) {
+            notify()->error('Data karyawan tidak ditemukan');
             return back();
         }
 
@@ -173,26 +167,11 @@ class EvaluationController extends Controller
                 'integrity_id' => $integrity->id,
             ]);
 
-            $factors = $this->UpdatecalculateFactor($evaluate->user_id, $evaluate->criteria_id);
+            $factor_value = $this->updatecalculateFactor($evaluate->user_id, $evaluate->criteria_id);
 
-            $core_factor_value = $factors[0]->core_value / $factors[0]->total_core_value;
-            $secondary_factor_value = $factors[0]->secondary_value / $factors[0]->total_secondary_value;
-            $total_value = ((60 / 100) * $core_factor_value) + ((40 / 100) * $secondary_factor_value);
+            $factor = $this->updateFactor($user->id, $factor_value[0]);
 
-            $factor = Factor::updateOrCreate(
-                [
-                    'user_id' => $evaluate->user_id,
-                    'criteria_id' => $evaluate->criteria_id
-                ],
-                [
-                    'criteria_id' => $factors[0]->criteria_id,
-                    'user_id'     => $evaluate->user_id,
-                    'core_factor_value' => $core_factor_value,
-                    'secondary_factor_value' => $secondary_factor_value,
-                    'total_value' => $total_value,
-                    'total_weight' => $factors[0]->criteria_weight,
-                ]
-            );
+            $grades = $this->calculateGrade($user->id);
 
             DB::commit();
 
@@ -211,14 +190,11 @@ class EvaluationController extends Controller
     {
         Gate::authorize('evaluation.destroy');
 
-        $evaluate = PerformanceAssessment::find($id);
-
-        if (!$evaluate) {
-            notify()->error('Data Penilaian tidak ditemukan');
-            return back();
-        }
-
-        $evaluate->delete();
+        $evaluate = PerformanceAssessment::where('user_id', $id)->delete();
+        $factor   = Factor::where('user_id', $id)->delete();
+        $grade    = Grade::where('user_id', $id)->update([
+            'total_grade_value' => 0,
+        ]);
 
         notify()->success('Berhasil menghapus data penilaian');
         return back();
@@ -276,7 +252,7 @@ class EvaluationController extends Controller
         return $factor_value;
     }
 
-    protected function UpdatecalculateFactor($user_id, $criteria_id)
+    protected function updatecalculateFactor($user_id, $criteria_id)
     {
         $factor_value = DB::select("SELECT id, criteria_name,
         (
@@ -330,7 +306,7 @@ class EvaluationController extends Controller
 
     protected function calculateGrade($user_id)
     {
-        $factors = Factor::all();
+        $factors = Factor::where('user_id', $user_id)->get();
 
         $total_grade_value = [];
 
@@ -351,5 +327,30 @@ class EvaluationController extends Controller
         );
 
         return $grades;
+    }
+
+    protected function updateFactor($user_id, $factor)
+    {
+        $core_factor_value = $factor->core_value / $factor->total_core_value;
+        $secondary_factor_value = $factor->secondary_value / $factor->total_secondary_value;
+
+        $total_value = ((60 / 100) * $core_factor_value) + ((40 / 100) * $secondary_factor_value);
+
+        $factor = Factor::updateOrCreate(
+            [
+                'user_id' => $user_id,
+                'criteria_id' => $factor->id,
+            ],
+            [
+                'criteria_id' => $factor->id,
+                'user_id'     => $user_id,
+                'core_factor_value' => $core_factor_value,
+                'secondary_factor_value' => $secondary_factor_value,
+                'total_value' => $total_value,
+                'total_weight' => $factor->criteria_weight,
+            ]
+        );
+
+        return $factor;
     }
 }
