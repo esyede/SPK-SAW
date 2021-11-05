@@ -52,6 +52,10 @@
                             <input type="text" class="form-control" name="name" placeholder="Nama sub kriteria" value="{{ $subcriteria->name }}">
                         </div>
                         <div class="form-group">
+                            <label for="">Bobot</label>
+                            <input value="{{ $subcriteria->weight }}" type="number" class="form-control" name="weight" placeholder="Bobot">
+                        </div>
+                        <div class="form-group">
                             <label for="">Nilai Standard</label>
                             <select name="standard_value" id="standard_value" class="form-control">
                                 <option value="1" {{ $subcriteria->standard_value == 1 ? 'selected' : '' }}>1</option>
