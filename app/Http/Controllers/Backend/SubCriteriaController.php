@@ -48,6 +48,18 @@ class SubCriteriaController extends Controller
             return back();
         }
 
+        if ($request->weight >= 100) {
+            notify()->error('Bobot tidak boleh lebih dari 100');
+            return back();
+        }
+
+        $weight = SubCriteria::sum('weight');
+        
+        if ($weight >= 100) {
+            notify()->error('Bobot tidak boleh lebih dari 100');
+            return back();
+        }
+
         $subcriteria = SubCriteria::create([
             'criteria_id'       => $request->criteria_id,
             'subcriteria_code'  => Str::upper($request->subcriteria_code),
@@ -96,6 +108,18 @@ class SubCriteriaController extends Controller
 
         if ($validate->fails()) {
             notify()->error($validate->errors()->first());
+            return back();
+        }
+
+        if ($request->weight >= 100) {
+            notify()->error('Bobot tidak boleh lebih dari 100');
+            return back();
+        }
+
+        $weight = SubCriteria::sum('weight');
+        
+        if ($weight >= 100) {
+            notify()->error('Bobot tidak boleh lebih dari 100');
             return back();
         }
 

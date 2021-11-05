@@ -37,6 +37,7 @@
                             <th >Kode Sub Kriteria</th>
                             <th >Standard Nilai</th>
                             <th >Factor</th>
+                            <th >Bobot</th>
                             <th >Dibuat</th>
                             <th >Aksi</th>
                         </tr>
@@ -50,6 +51,7 @@
                                     <td>{{ $data->subcriteria_code }}</td>
                                     <td>{{ ucwords($data->factor) }}</td>
                                     <td>{{ $data->standard_value }}</td>
+                                    <td>{{ $data->weight }}%</td>
                                     <td>{{ $data->created_at->diffForHumans() }}</td>
                                     <td>
                                         <a class="btn btn-info btn-sm" data-toggle="tooltip" title="Edit" href="{{ route('sub-criteria.edit', $data->id) }}">

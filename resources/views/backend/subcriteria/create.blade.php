@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Bobot</label>
-                            <input value="{{ old('weight') }}" type="text" class="form-control" name="weight" placeholder="Bobot">
+                            <input value="{{ old('weight') }}" type="text" class="form-control" name="weight" placeholder="Bobot" max="100">
                         </div>
                         <div class="form-group">
                             <label for="">Nilai Standard</label>
