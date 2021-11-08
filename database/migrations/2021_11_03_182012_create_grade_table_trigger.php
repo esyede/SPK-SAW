@@ -14,7 +14,7 @@ class CreateGradeTableTrigger extends Migration
      */
     public function up()
     {
-        DB::unprepared("CREATE TRIGGER create_grade AFTER INSERT on users FOR EACH ROW BEGIN
+        DB::unprepared("CREATE TRIGGER create_grade AFTER INSERT on users FOR EACH ROW EXECUTE PROCEDURE BEGIN
         INSERT INTO grades (user_id, total_grade_value, created_at, updated_at)  VALUES(NEW.id, 0.0, now(), now()); END");
     }
 
