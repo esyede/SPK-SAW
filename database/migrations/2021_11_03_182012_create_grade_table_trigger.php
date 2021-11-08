@@ -16,7 +16,7 @@ class CreateGradeTableTrigger extends Migration
     {
         DB::unprepared(
             'CREATE FUNCTION generate_grades()
-            RETURNS triggers AS $$
+            RETURNS trigger AS $$
             BEGIN 
                 INSERT INTO grades (user_id, total_grade_value, created_at, updated_at)  VALUES(NEW.id, 0.0, now(), now());
                 RETURN NULL;
