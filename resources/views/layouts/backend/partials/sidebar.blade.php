@@ -92,7 +92,7 @@
 
                 @can('evaluation.index')
                 <li>
-                    <a href="/evaluation" class="{{ Request::is('evaluation*') ? 'mm-active' : '' }}">
+                    <a href="{{ (Auth::user()->role_id == 2) ? url('/evaluation/detail', Auth::id()) : '/evaluation' }}" class="{{ Request::is('evaluation*') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-note"></i>
                         Penilaian
                     </a>

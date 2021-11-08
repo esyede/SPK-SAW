@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','Pengawai')
+@section('title','Pegawai')
 
 @section('content')
     <div class="app-page-title">
@@ -45,8 +45,8 @@
                                     <input type="text" class="form-control" name="name" value="{{ $user->name ?? '' }}" placeholder="Nama user" required autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" name="email" value="{{ $user->email ?? '' }}" placeholder="Email" required>
+                                    <label class="form-label">Username</label>
+                                    <input type="username" class="form-control" name="username" value="{{ $user->username ?? '' }}" placeholder="Username" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Password</label>

@@ -33,7 +33,7 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama</th>
-                            <th>Email</th>
+                            <th>Username</th>
                             <th>Status</th>
                             <th>Terdaftar</th>
                             <th>Aksi</th>
@@ -65,7 +65,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->username }}</td>
                                     <td>
                                         @if ($user->status)
                                             <div class="badge badge-success">Aktif</div>

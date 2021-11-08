@@ -40,7 +40,7 @@ class UserController extends Controller
         $user = User::create([
             'role_id' => $request->role,
             'name' => $request->name,
-            'email' => $request->email,
+            'username' => $request->username,
             'password' => Hash::make($request->password),
             'status' => $request->status,
             'registration_code' => random_int(100000, 999999)
@@ -72,7 +72,7 @@ class UserController extends Controller
         $user->update([
             'role_id' => $request->role,
             'name' => $request->name,
-            'email' => $request->email,
+            'username' => $request->username,
             'password' => isset($request->password) ? Hash::make($request->password) : $user->password,
             'status' => $request->status,
         ]);

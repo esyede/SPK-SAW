@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','Detail Aggota')
+@section('title','Detail Karyawan')
 
 @section('content')
     <div class="app-page-title">
@@ -52,8 +52,8 @@
                         </tr>
 
                         <tr>
-                            <th scope="row">Email:</th>
-                            <td>{{ $user->email }}</td>
+                            <th scope="row">Username:</th>
+                            <td>{{ $user->username }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Role:</th>

@@ -55,8 +55,8 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label class="form-label">Email</label>
-                                        <input class="form-control" value="{{ $employee->email }}" disabled>
+                                        <label class="form-label">Username</label>
+                                        <input class="form-control" value="{{ $employee->username }}" disabled>
                                     </div>
                                 </div>
                             </div>

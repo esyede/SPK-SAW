@@ -18,7 +18,7 @@ class UpdateUserRequest extends FormRequest
         $id = request()->route('user')->id;
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . request()->route('user')->id,
+            'username' => 'required|string|max:255|unique:users,username,' . request()->route('user')->id,
             'password' => 'nullable|string|min:8|confirmed',
             'role' => 'required',
             'avatar' => 'nullable|image',

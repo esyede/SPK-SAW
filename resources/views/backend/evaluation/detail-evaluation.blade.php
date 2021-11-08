@@ -36,7 +36,9 @@
                                 <th>Nilai Atribut</th>
                                 <th>Selisih</th>
                                 <th>Konversi Nilai GAP</th>
+                                @if (Auth::user()->role_id == 1)
                                 <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -50,11 +52,13 @@
                                     <td>{{ $evaluate->attribute_value }}</td>
                                     <td>{{ $evaluate->gap }}</td>
                                     <td>{{ $evaluate->convertion_value }}</td>
+                                    @if (Auth::user()->role_id == 1)
                                     <td>
                                         <a href="" class="btn btn-info btn-sm" id="editEvaluate" title="Edit Data" data-toggle="modal" data-target="#evaluateModal" data-attr="{{ url('evaluation/detail/edit', $evaluate->subcriteria_code) }}">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     </td>
+                                    @endif
                                 </tr>
                             @empty
                                 <tr>
