@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
-use DB, Exception, Log;
+use DB;
+use Exception;
+use Log;
 
 class SubCriteriaController extends Controller
 {
@@ -54,8 +56,7 @@ class SubCriteriaController extends Controller
             return back();
         }
 
-        try{
-
+        try {
             DB::beginTransaction();
 
             $subcriteria = SubCriteria::create([
@@ -77,13 +78,12 @@ class SubCriteriaController extends Controller
 
             if ($subcriteria) {
                 notify()->success('Berhasil mengubah data Sub Kriteria');
-            }else{
+            } else {
                 throw new Exception('Gagal menambahkan Sub Kriteria');
             }
 
             return redirect()->route('sub-criteria.index');
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollback();
             Log::error($e);
 
@@ -130,8 +130,7 @@ class SubCriteriaController extends Controller
             return back();
         }
 
-        try{
-
+        try {
             DB::beginTransaction();
 
             $subcriteria = SubCriteria::find($id);
@@ -160,14 +159,12 @@ class SubCriteriaController extends Controller
 
             if ($subcriteria) {
                 notify()->success('Berhasil mengubah data Sub Kriteria');
-            }else{
+            } else {
                 throw new exception('Gagal mengubah data Sub Kriteria');
             }
 
             return redirect()->route('sub-criteria.index');
-
-        }catch(Exception $e){
-
+        } catch (Exception $e) {
             DB::rollback();
             Log::error($e);
 
