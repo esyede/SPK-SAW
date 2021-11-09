@@ -296,7 +296,7 @@ class EvaluationController extends Controller
             SELECT SUM(performance_assessments.convertion_value)
             FROM performance_assessments
                 INNER JOIN sub_criterias ON sub_criterias.subcriteria_code=performance_assessments.subcriteria_code
-            WHERE performance_assessments.user_id = 1
+            WHERE performance_assessments.user_id = $user_id
                 AND sub_criterias.criteria_id=criterias.id
         ) AS total_value
         FROM criterias WHERE criterias.id = $criteria_id ;");
