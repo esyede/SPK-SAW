@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
+use DB, Exception, Log;
 
 class SubCriteriaController extends Controller
 {
@@ -49,33 +50,46 @@ class SubCriteriaController extends Controller
         }
 
         if ($request->weight >= 100) {
-            notify()->error('Bobot tidak boleh lebih dari 100');
+            notify()->error('Total nilai bobot sudah melebihi 100, Silahkan atur ulang');
             return back();
         }
 
-        $weight = SubCriteria::sum('weight');
+        try{
+
+            DB::beginTransaction();
+
+            $subcriteria = SubCriteria::create([
+                'criteria_id'       => $request->criteria_id,
+                'subcriteria_code'  => Str::upper($request->subcriteria_code),
+                'name'              => $request->name,
+                'standard_value'    => $request->standard_value,
+                'factor'            => $request->factor,
+                'weight'            => $request->weight,
+            ]);
+
+            $weight = SubCriteria::sum('weight');
         
-        if ($weight >= 100) {
-            notify()->error('Bobot tidak boleh lebih dari 100');
+            if ($weight > 100) {
+                throw new Exception('Total nilai bobot sudah melebihi 100, Silahkan atur ulang');
+            }
+
+            DB::commit();
+
+            if ($subcriteria) {
+                notify()->success('Berhasil mengubah data Sub Kriteria');
+            }else{
+                throw new Exception('Gagal menambahkan Sub Kriteria');
+            }
+
+            return redirect()->route('sub-criteria.index');
+
+        }catch(Exception $e){
+            DB::rollback();
+            Log::error($e);
+
+            notify()->error($e->getMessage());
             return back();
         }
-
-        $subcriteria = SubCriteria::create([
-            'criteria_id'       => $request->criteria_id,
-            'subcriteria_code'  => Str::upper($request->subcriteria_code),
-            'name'              => $request->name,
-            'standard_value'    => $request->standard_value,
-            'factor'            => $request->factor,
-            'weight'            => $request->weight,
-        ]);
-
-        if ($subcriteria) {
-            notify()->success('Sub Kriteria berhasil ditambahkan');
-        } else {
-            notify()->error('Gagal menambahkan Sub Kriteria');
-        }
-
-        return redirect()->route('sub-criteria.index');
     }
 
     public function edit($id)
@@ -112,40 +126,54 @@ class SubCriteriaController extends Controller
         }
 
         if ($request->weight >= 100) {
-            notify()->error('Bobot tidak boleh lebih dari 100');
+            notify()->error('Total nilai bobot sudah melebihi 100, Silahkan atur ulang');
             return back();
         }
 
-        $weight = SubCriteria::sum('weight');
+        try{
+
+            DB::beginTransaction();
+
+            $subcriteria = SubCriteria::find($id);
+
+            if (! $subcriteria) {
+                notify()->error('Sub Kriteria tidak ditemukan');
+                return back();
+            }
+
+            $subcriteria->update([
+                'criteria_id'       => $request->criteria_id,
+                'subcriteria_code'  => $request->subcriteria_code,
+                'name'              => $request->name,
+                'standard_value'    => $request->standard_value,
+                'factor'            => $request->factor,
+                'weight'            => $request->weight,
+            ]);
+
+            $weight = SubCriteria::sum('weight');
         
-        if ($weight >= 100) {
-            notify()->error('Bobot tidak boleh lebih dari 100');
+            if ($weight > 100) {
+                throw new exception('Total nilai bobot sudah melebihi 100, Silahkan atur ulang');
+            }
+
+            DB::commit();
+
+            if ($subcriteria) {
+                notify()->success('Berhasil mengubah data Sub Kriteria');
+            }else{
+                throw new exception('Gagal mengubah data Sub Kriteria');
+            }
+
+            return redirect()->route('sub-criteria.index');
+
+        }catch(Exception $e){
+
+            DB::rollback();
+            Log::error($e);
+
+            notify()->error($e->getMessage());
             return back();
         }
-
-        $subcriteria = SubCriteria::find($id);
-
-        if (! $subcriteria) {
-            notify()->error('Sub Kriteria tidak ditemukan');
-            return back();
-        }
-
-        $subcriteria->update([
-            'criteria_id'       => $request->criteria_id,
-            'subcriteria_code'  => $request->subcriteria_code,
-            'name'              => $request->name,
-            'standard_value'    => $request->standard_value,
-            'factor'            => $request->factor,
-            'weight'            => $request->weight,
-        ]);
-
-        if ($subcriteria) {
-            notify()->success('Berhasil mengubah data Sub Kriteria');
-        } else {
-            notify()->error('Gagal mengubah data Sub Kriteria');
-        }
-
-        return redirect()->route('sub-criteria.index');
     }
 
     public function destroy($id)
