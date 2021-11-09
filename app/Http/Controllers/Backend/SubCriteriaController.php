@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
-use DB;
 use Exception;
-use Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SubCriteriaController extends Controller
 {
@@ -69,7 +69,7 @@ class SubCriteriaController extends Controller
             ]);
 
             $weight = SubCriteria::sum('weight');
-        
+
             if ($weight > 100) {
                 throw new Exception('Total nilai bobot sudah melebihi 100, Silahkan atur ulang');
             }
@@ -135,7 +135,7 @@ class SubCriteriaController extends Controller
 
             $subcriteria = SubCriteria::find($id);
 
-            if (! $subcriteria) {
+            if (!$subcriteria) {
                 notify()->error('Sub Kriteria tidak ditemukan');
                 return back();
             }
@@ -150,7 +150,7 @@ class SubCriteriaController extends Controller
             ]);
 
             $weight = SubCriteria::sum('weight');
-        
+
             if ($weight > 100) {
                 throw new exception('Total nilai bobot sudah melebihi 100, Silahkan atur ulang');
             }
