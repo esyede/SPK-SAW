@@ -54,7 +54,7 @@ class SubCriteriaController extends Controller
         }
 
         $weight = SubCriteria::sum('weight');
-        
+
         if ($weight >= 100) {
             notify()->error('Bobot tidak boleh lebih dari 100');
             return back();
@@ -85,7 +85,7 @@ class SubCriteriaController extends Controller
         $criteria = Criteria::all();
         $subcriteria = SubCriteria::find($id);
 
-        if (! $subcriteria) {
+        if (!$subcriteria) {
             notify()->error('Sub Kriteria tidak ditemukan');
             return back();
         }
@@ -117,7 +117,7 @@ class SubCriteriaController extends Controller
         }
 
         $weight = SubCriteria::sum('weight');
-        
+
         if ($weight >= 100) {
             notify()->error('Bobot tidak boleh lebih dari 100');
             return back();
@@ -125,7 +125,7 @@ class SubCriteriaController extends Controller
 
         $subcriteria = SubCriteria::find($id);
 
-        if (! $subcriteria) {
+        if (!$subcriteria) {
             notify()->error('Sub Kriteria tidak ditemukan');
             return back();
         }
@@ -154,7 +154,7 @@ class SubCriteriaController extends Controller
 
         $subcriteria = SubCriteria::find($id);
 
-        if (! $subcriteria) {
+        if (!$subcriteria) {
             notify()->error('Sub Kriteria gagal dihapus');
             return back();
         }

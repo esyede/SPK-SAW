@@ -14,8 +14,22 @@ class CreateGradeTableTrigger extends Migration
      */
     public function up()
     {
-        DB::unprepared('CREATE TRIGGER create_grade AFTER INSERT on `users` FOR EACH ROW BEGIN
-        INSERT INTO grades (`user_id`, `total_grade_value`, `created_at`, `updated_at`)  VALUES(NEW.id, 0.0, now(), now()); END');
+        DB::unprepared(
+            'CREATE FUNCTION generate_grades()
+            RETURNS trigger AS $$
+            BEGIN 
+                INSERT INTO grades (user_id, total_grade_value, created_at, updated_at)  VALUES(NEW.id, 0.0, now(), now());
+                RETURN NULL;
+            END
+            $$ LANGUAGE plpgsql;
+            
+            CREATE TRIGGER create_grade 
+            AFTER INSERT ON users
+            FOR EACH ROW
+            EXECUTE PROCEDURE generate_grades()'
+        );
+        // DB::unprepared("CREATE TRIGGER create_grade AFTER INSERT ON users FOR EACH ROW EXECUTE
+        // INSERT INTO grades (user_id, total_grade_value, created_at, updated_at)  VALUES(NEW.id, 0.0, now(), now()); END");
     }
 
     /**
@@ -25,6 +39,7 @@ class CreateGradeTableTrigger extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER `create_grade`');
+        DB::unprepared('DROP TRIGGER `create_grade`;
+        DROP FUNCTION generate_grades;');
     }
 }
