@@ -55,10 +55,10 @@ class SubCriteriaController extends Controller
 
         $weight = SubCriteria::sum('weight');
 
-        // if ($weight >= 100) {
-        //     notify()->error('Bobot tidak boleh lebih dari 100');
-        //     return back();
-        // }
+        if ($weight >= 100) {
+            notify()->error('Bobot tidak boleh lebih dari 100');
+            return back();
+        }
 
         $subcriteria = SubCriteria::create([
             'criteria_id'       => $request->criteria_id,
