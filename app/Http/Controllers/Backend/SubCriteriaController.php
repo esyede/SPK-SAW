@@ -157,10 +157,10 @@ class SubCriteriaController extends Controller
 
             DB::commit();
 
-        if (!$subcriteria) {
-            notify()->error('Sub Kriteria tidak ditemukan');
-            return back();
-        }
+            if (!$subcriteria) {
+                notify()->error('Sub Kriteria tidak ditemukan');
+                return back();
+            }
             if ($subcriteria) {
                 notify()->success('Berhasil mengubah data Sub Kriteria');
             } else {
