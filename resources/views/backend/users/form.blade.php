@@ -41,8 +41,12 @@
                             <div class="card-body">
                                 <h5 class="card-title">Info Anggota</h5>
                                 <div class="form-group">
+                                    <label class="form-label">NIP Pegawai</label>
+                                    <input type="text" class="form-control" name="registration_code" value="{{ $user->registration_code ?? '' }}" placeholder="NIP Pegawai" required autofocus>
+                                </div>
+                                <div class="form-group">
                                     <label class="form-label">Nama</label>
-                                    <input type="text" class="form-control" name="name" value="{{ $user->name ?? '' }}" placeholder="Nama user" required autofocus>
+                                    <input type="text" class="form-control" name="name" value="{{ $user->name ?? '' }}" placeholder="Nama user" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Username</label>
@@ -50,11 +54,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Password</label>
-                                    <input type="password" class="form-control" name="password" placeholder="******" required>
+                                    <input type="password" class="form-control" name="password" placeholder="******">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Ulangi Password</label>
-                                    <input type="password" class="form-control" name="password_confirmation" placeholder="******" required>
+                                    <input type="password" class="form-control" name="password_confirmation" placeholder="******">
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -76,12 +80,8 @@
                                 <div class="form-group">
                                     <label class="form-label">Status</label>
                                     <select class="form-control required fetch-info" name="status">
-                                        <option value="{{ isset($user->status) }}" selected="{{ isset($user->status) }}">{{ isset($user->status) == 1 ? 'Aktif' : 'Nonaktif' }}</option>
-                                        @if( isset($user->status) == 0)
-                                            <option value="1">Aktif</option>
-                                        @else
-                                            <option value="0">Nonaktif</option>
-                                        @endif
+                                        <option value="0" {{ (isset($user->status) && (int) $user->status === 0) ? 'selected' : '' }}>Nonaktif</option>
+                                        <option value="1" {{ (isset($user->status) && (int) $user->status === 1) ? 'selected' : '' }}>Nonaktif</option>
                                     </select>
                                 </div>
                             </div>
