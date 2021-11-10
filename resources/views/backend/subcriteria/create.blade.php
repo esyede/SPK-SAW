@@ -53,6 +53,7 @@
                         <div class="form-group">
                             <label for="">Bobot</label>
                             <input value="{{ old('weight') }}" type="text" class="form-control" name="weight" placeholder="Bobot">
+                            <small class="text-danger">Maksimal nilai bobot yang dapat dimasukkan {{ $totalWeight }}</small>
                         </div>
                         <div class="form-group">
                             <label for="">Nilai Standard</label>

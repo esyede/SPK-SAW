@@ -14,12 +14,23 @@
             </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
+                    @if($subcriteria->sum('weight') >= 100)
+                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Total nilai bobot sudah 100, silahkan edit dan kurangi nilai bobot lain untuk menambahkan sub kriteria baru">
+                        <button class="btn btn-info" style="pointer-events: none;" type="button" disabled>
+                            <span class="btn-icon-wrapper pr-2 opacity-7">
+                                <i class="fas fa-plus-circle fa-w-20"></i>
+                            </span>
+                            Tambah
+                        </button>
+                    </span>
+                    @else 
                     <a href="{{route('sub-criteria.create')}}" class="btn-shadow btn btn-info">
                         <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fas fa-plus-circle fa-w-20"></i>
                         </span>
                         Tambah
                     </a>
+                    @endif
                 </div>
             </div>
         </div>

@@ -30,7 +30,10 @@ class SubCriteriaController extends Controller
 
         $criteria = Criteria::all();
 
-        return view('backend.subcriteria.create', compact('criteria'));
+        $weight = SubCriteria::sum('weight');
+        $totalWeight = 100 - $weight;
+
+        return view('backend.subcriteria.create', compact('criteria', 'totalWeight'));
     }
 
     public function store(Request $request)
@@ -99,12 +102,15 @@ class SubCriteriaController extends Controller
         $criteria = Criteria::all();
         $subcriteria = SubCriteria::find($id);
 
+        $weight = SubCriteria::sum('weight');
+        $totalWeight = 100 - $weight;
+
         if (!$subcriteria) {
             notify()->error('Sub Kriteria tidak ditemukan');
             return back();
         }
 
-        return view('backend.subcriteria.edit', compact('criteria', 'subcriteria'));
+        return view('backend.subcriteria.edit', compact('criteria', 'subcriteria', 'totalWeight'));
     }
 
     public function update(Request $request, $id)
