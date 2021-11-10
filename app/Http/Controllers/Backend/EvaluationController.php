@@ -346,7 +346,6 @@ class EvaluationController extends Controller
 
     protected function updateFactor($user_id, $factor)
     {
-       
         $core_factor_value = $factor->core_value / $factor->total_core_value;
 
         $secondary_factor_value = $factor->secondary_value / $factor->total_secondary_value;
