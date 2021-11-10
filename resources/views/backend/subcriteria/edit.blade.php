@@ -54,7 +54,7 @@
                         <div class="form-group">
                             <label for="">Bobot</label>
                             <input value="{{ $subcriteria->weight }}" type="number" class="form-control" name="weight" placeholder="Bobot">
-                            <small class="text-danger">Maksimal nilai bobot yang dapat dimasukkan {{ $totalWeight }}</small>
+                            <small class="text-danger">Nilai yang dapat dimasukkan ke kolom ini maks. {{ $totalWeight + $subcriteria->weight }}</small>
                         </div>
                         <div class="form-group">
                             <label for="">Nilai Standard</label>

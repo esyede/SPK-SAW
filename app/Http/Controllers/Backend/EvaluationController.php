@@ -101,8 +101,23 @@ class EvaluationController extends Controller
             }
 
             $factor_values = $this->calculateFactor($user->id);
+            
+            if (SubCriteria::sum('weight') < 100) {
+                notify()->error('Bobot subkriteria masih kurang dari 100%, silahkan ditambah agar menjadi 100%');
+                return back();
+            }
 
             foreach ($factor_values as $factor_value) {
+                if (is_null($factor_value->secondary_value)) {
+                    notify()->error(sprintf("Secondary factor pada kriteria '%s' belum ditentukan", $factor_value->criteria_name));
+                    return back();
+                }
+
+                if (is_null($factor_value->core_value)) {
+                    notify()->error(sprintf("Core factor pada kriteria '%s' belum ditentukan", $factor_value->criteria_name));
+                    return back();
+                }
+
                 $factor = $this->updateFactor($user->id, $factor_value);
             }
 
@@ -332,7 +347,10 @@ class EvaluationController extends Controller
     protected function updateFactor($user_id, $factor)
     {
         $core_factor_value = $factor->core_value / $factor->total_core_value;
+
         $secondary_factor_value = $factor->secondary_value / $factor->total_secondary_value;
+
+         
 
         $total_value = ((60 / 100) * $core_factor_value) + ((40 / 100) * $secondary_factor_value);
 
