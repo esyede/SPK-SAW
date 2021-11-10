@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -37,13 +38,27 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        $validation = Validator::make($request->all(), [
+            'registration_code' => 'required|integer|unique:App\Models\User,registration_code',
+            'name' => 'required|string|min:3|max:100',
+            'username' => 'required|string|min:3|max:100|unique:users,username',
+            'password' => 'required|string|min:6|confirmed',
+            'role' => 'required',
+            'avatar' => 'required|image',
+        ]);
+
+        if ($validation->fails()) {
+            notify()->error($validation->errors()->first());
+            return back();
+        }
+
         $user = User::create([
             'role_id' => $request->role,
             'name' => $request->name,
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'status' => $request->status,
-            'registration_code' => random_int(100000, 999999)
+            'registration_code' => $request->registration_code,
         ]);
 
         if ($request->hasFile('avatar')) {
@@ -67,15 +82,33 @@ class UserController extends Controller
         return view('backend.users.form', compact('roles', 'user'));
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(Request $request, User $user)
     {
-        $user->update([
+        $validation = Validator::make($request->all(), [
+            'registration_code' => 'required|integer',
+            'name' => 'required|string|min:3|max:100',
+            'username' => 'nullable|string|min:3|max:100',
+            'password' => 'nullable|string|min:6|confirmed',
+            'role' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            notify()->error($validation->errors()->first());
+            return back();
+        }
+
+        $data = [
             'role_id' => $request->role,
             'name' => $request->name,
             'username' => $request->username,
-            'password' => isset($request->password) ? Hash::make($request->password) : $user->password,
             'status' => $request->status,
-        ]);
+        ];
+
+        if (isset($request->password) && $request->password) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user->update($data);
 
         if ($request->hasFile('avatar')) {
             $user->addMedia($request->avatar)->toMediaCollection('avatar');

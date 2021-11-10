@@ -21,7 +21,8 @@ class SubCriteriaController extends Controller
         Gate::authorize('sub-criteria.index');
 
         $subcriteria = SubCriteria::latest()->get();
-        return view('backend.subcriteria.index', compact('subcriteria'));
+        $currentWeight = SubCriteria::sum('weight');
+        return view('backend.subcriteria.index', compact('subcriteria', 'currentWeight'));
     }
 
     public function create()

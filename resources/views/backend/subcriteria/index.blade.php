@@ -38,6 +38,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
+                    <div class="alert alert-info">
+                        Total bobot saat ini adalah: {{ $currentWeight }} dari 100 (maksimal)
+                    </div>
                 <div class="table-responsive">
                     <table id="datatable" class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>

@@ -40,17 +40,31 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 <h5 class="card-title">Info Anggota</h5>
+                                @isset($user)
                                 <div class="form-group">
                                     <label class="form-label">NIP Pegawai</label>
-                                    <input type="text" class="form-control" name="registration_code" value="{{ $user->registration_code ?? '' }}" placeholder="NIP Pegawai" required autofocus>
+                                    <input type="text" class="form-control" name="registration_code" value="{{ $user->registration_code ?? '' }}" placeholder="NIP Pegawai" required readonly>
                                 </div>
+                                @else
                                 <div class="form-group">
-                                    <label class="form-label">Nama</label>
-                                    <input type="text" class="form-control" name="name" value="{{ $user->name ?? '' }}" placeholder="Nama user" required>
+                                    <label class="form-label">NIP Pegawai</label>
+                                    <input type="text" class="form-control" name="registration_code" placeholder="NIP Pegawai" required autofocus>
                                 </div>
+                                @endisset
+                                @isset($user)
                                 <div class="form-group">
                                     <label class="form-label">Username</label>
-                                    <input type="username" class="form-control" name="username" value="{{ $user->username ?? '' }}" placeholder="Username" required>
+                                    <input type="text" class="form-control" name="username" value="{{ $user->username ?? '' }}" placeholder="Nama user" required readonly>
+                                </div>
+                                @else
+                                <div class="form-group">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" class="form-control" name="username" placeholder="Nama user" required>
+                                </div>
+                                @endisset
+                                <div class="form-group">
+                                    <label class="form-label">Nama</label>
+                                    <input type="username" class="form-control" name="name" value="{{ $user->name ?? '' }}" placeholder="Nama" required>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Password</label>
