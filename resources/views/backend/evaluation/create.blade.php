@@ -65,7 +65,7 @@
                         <h5 class="card-title mb-5">Tambah Penilaian</h5>
                         <section class="wizard">
                             <aside class="wizard-nav">
-                                @foreach($criteria as $item)
+                                @foreach($criterias as $item)
                                 <div class="wizard-step" data-type="form">
                                     <span class="dot"></span>
                                     <span>{{ $item->criteria_name }}</span>
@@ -75,7 +75,7 @@
                             <aside class="wizard-content container">
                                 {{-- @csrf --}}
                                 <input name="employee_number" type="hidden" class="form-control" value="{{ $employee->registration_code }}">
-                                @foreach($criteria as $item)
+                                @foreach($criterias as $item)
                                 <div class="wizard-step">
                                     @foreach($item->sub_criteria as $subcriteria)
                                      <div class="form-group row">

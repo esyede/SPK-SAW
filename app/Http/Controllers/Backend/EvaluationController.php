@@ -49,9 +49,16 @@ class EvaluationController extends Controller
         Gate::authorize('evaluation.create');
 
         $employee = User::findOrFail($id);
-        $criteria = Criteria::with('sub_criteria')->get();
+        $criterias = Criteria::with('sub_criteria')->get();
 
-        return view('backend.evaluation.create', compact('employee', 'criteria'));
+        foreach ($criterias as $criteria) {
+            if (!$criteria->sub_criteria || empty($criteria->sub_criteria) || is_null($criteria->sub_criteria) || count($criteria->sub_criteria) <= 0) {
+                notify()->error(sprintf("Harap isi sub_kriteria terlebih dahulu pada kriteria '%s'", $criteria->criteria_name));
+                return redirect('/users');
+            }
+        }
+
+        return view('backend.evaluation.create', compact('employee', 'criterias'));
     }
 
     public function storeEvaluate(Request $request)
@@ -101,7 +108,7 @@ class EvaluationController extends Controller
             }
 
             $factor_values = $this->calculateFactor($user->id);
-            
+
             if (SubCriteria::sum('weight') < 100) {
                 notify()->error('Bobot subkriteria masih kurang dari 100%, silahkan ditambah agar menjadi 100%');
                 return back();
@@ -350,7 +357,7 @@ class EvaluationController extends Controller
 
         $secondary_factor_value = $factor->secondary_value / $factor->total_secondary_value;
 
-         
+
 
         $total_value = ((60 / 100) * $core_factor_value) + ((40 / 100) * $secondary_factor_value);
 
