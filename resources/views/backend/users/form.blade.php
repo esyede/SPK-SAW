@@ -95,7 +95,7 @@
                                     <label class="form-label">Status</label>
                                     <select class="form-control required fetch-info" name="status">
                                         <option value="0" {{ (isset($user->status) && (int) $user->status === 0) ? 'selected' : '' }}>Nonaktif</option>
-                                        <option value="1" {{ (isset($user->status) && (int) $user->status === 1) ? 'selected' : '' }}>Nonaktif</option>
+                                        <option value="1" {{ (isset($user->status) && (int) $user->status === 1) ? 'selected' : '' }}>Aktif</option>
                                     </select>
                                 </div>
                             </div>

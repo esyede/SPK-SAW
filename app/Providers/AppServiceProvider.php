@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Custom blade directive for role check
         Blade::if('role', function ($role) {
-            return Auth::user()->role->slug == $role;
+            return Auth::user()->role->slug === $role;
         });
     }
 }

@@ -47,13 +47,14 @@
                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true"
-                                     class="dropdown-menu dropdown-menu-right">
+                                    class="dropdown-menu dropdown-menu-right">
+                                    @role('director')
                                     <a tabindex="0" class="dropdown-item" href="{{ route('profile.index') }}">Profil</a>
                                     <a tabindex="0" class="dropdown-item" href="{{ route('profile.password.change') }}">Ganti password</a>
                                     <a tabindex="0" class="dropdown-item" href="{{ route('settings.index') }}">Pengaturan</a>
+                                    @endrole
                                     <div tabindex="-1" class="dropdown-divider"></div>
-                                    <button type="button" tabindex="0" class="dropdown-item" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">{{ __('Logout') }}</button>
+                                    <button type="button" tabindex="0" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</button>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
