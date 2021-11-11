@@ -28,6 +28,9 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
                 <div class="table-responsive">
+                    <div class="alert alert-info">
+                        Harap hapus data penilaian terlebih dahulu sebelum menambahkan kriteria baru
+                    </div>
                     <table id="datatable" class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                         <tr>

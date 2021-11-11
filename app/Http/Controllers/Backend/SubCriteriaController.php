@@ -22,6 +22,7 @@ class SubCriteriaController extends Controller
 
         $subcriteria = SubCriteria::latest()->get();
         $currentWeight = SubCriteria::sum('weight');
+
         return view('backend.subcriteria.index', compact('subcriteria', 'currentWeight'));
     }
 

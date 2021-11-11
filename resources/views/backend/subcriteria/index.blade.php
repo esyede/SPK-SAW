@@ -41,19 +41,22 @@
                     <div class="alert alert-info">
                         Total bobot saat ini adalah: {{ $currentWeight }} dari 100 (maksimal)
                     </div>
+                    <div class="alert alert-info">
+                        Harap hapus data penilaian terlebih dahulu sebelum menambahkan sub_kriteria baru
+                    </div>
                 <div class="table-responsive">
                     <table id="datatable" class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                         <tr>
                             <th>No.</th>
-                            <th >Kriteria</th>
-                            <th >Nama Sub Kriteria</th>
-                            <th >Kode Sub Kriteria</th>
-                            <th >Standard Nilai</th>
-                            <th >Factor</th>
-                            <th >Bobot</th>
-                            <th >Dibuat</th>
-                            <th >Aksi</th>
+                            <th>Kriteria</th>
+                            <th>Nama Sub Kriteria</th>
+                            <th>Kode Sub Kriteria</th>
+                            <th>Standard Nilai</th>
+                            <th>Factor</th>
+                            <th>Bobot</th>
+                            <th>Dibuat</th>
+                            <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>

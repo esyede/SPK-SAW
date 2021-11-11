@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\Criteria\StoreCriteriaRequest;
 
 class CriteriaController extends Controller
 {
@@ -61,7 +60,7 @@ class CriteriaController extends Controller
 
         $criteria = Criteria::find($id);
 
-        if (! $criteria) {
+        if (!$criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }
@@ -85,7 +84,7 @@ class CriteriaController extends Controller
 
         $criteria = Criteria::find($id);
 
-        if (! $criteria) {
+        if (!$criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }
@@ -105,7 +104,7 @@ class CriteriaController extends Controller
 
         $criteria = Criteria::find($id);
 
-        if (! $criteria) {
+        if (!$criteria) {
             notify()->error('Kriteria tidak ditemukan');
             return back();
         }
